@@ -1,0 +1,25 @@
+@import "variable";
+.header-nav-link {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
+  justify-content: space-around;
+  align-items: center;
+  // background-color: red;
+}
+
+.header-nav-link li a {
+  text-decoration: none;
+  // padding: 0px $header-bg-text_padding;
+  color: white;
+  font-size: 16px;
+  // background-color: green;
+}
+
+.header-nav-link li a:hover {
+  text-decoration: none;
+  // padding: 0px $header-bg-text_padding;
+  color: red;
+  // background-color: green;
+}
