@@ -4,12 +4,12 @@ import React from "react";
 import Header from "./components/header/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Footer from "./components/header/Footer";
-import About from "./components/views/About";
+import Main from "./components/views/Main";
 
 function App() {
   return (
     <Router>
-      <Route path="/" component={About} />
+      <Route path="/" component={Main} />
     </Router>
   );
 }
