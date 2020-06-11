@@ -9,7 +9,6 @@ class Navbar extends Component {
     super(props);
 
     this.handleClick = this.handleClick.bind();
-    this.blah = this.blah.bind();
   }
 
   handleClick() {
@@ -28,7 +27,6 @@ class Navbar extends Component {
         "position: absolute; width: 100%; height: 100%; z-index: 100;"
       );
   }
-  blah() {}
 
   render() {
     return (
@@ -45,19 +43,34 @@ class Navbar extends Component {
               <i class="fa fa-bars"></i>
             </button>
           </div>
+
+          <div id="header-navbar-logo">
+            <a href="">
+              <div>
+                <ExampleComponent
+                  image={MyPhoto}
+                  imageWidth="45"
+                  imageHeight="45"
+                  roundedSize="2"
+                />
+              </div>
+              <div>Tech Finder</div>
+            </a>
+          </div>
+
           <div class="collapse navbar-collapse" id="navbar-menu">
             <ul
               class="nav navbar-nav"
               data-in="fadeInDown"
               data-out="fadeOutUp"
             >
-              <li class="active">
+              <li>
                 <a href="#" data-hover="Home">
                   Home <span></span>
                 </a>
               </li>
 
-              <li>
+              <li class="active">
                 <a href="#" data-hover="About">
                   About <span></span>
                 </a>
@@ -339,19 +352,21 @@ class Navbar extends Component {
                   href="#"
                   class="dropdown-toggle"
                   data-toggle="dropdown"
-                  data-hover="Shortcodes"
+                  data-hover="Pages"
+                  id="header-profile-sidebar"
                 >
                   <ExampleComponent
                     image={MyPhoto}
                     imageWidth="20"
                     imageHeight="20"
                     roundedSize="2"
-                  />{" "}
+                  />
+                  <span></span>
                 </a>
 
                 <ul class="dropdown-menu animated" id="header-profile-dropdown">
                   <li>
-                    <a href="#">Logout</a>
+                    <a href="#">Custom Menu</a>
                   </li>
                   <li>
                     <a href="#">Custom Menu</a>

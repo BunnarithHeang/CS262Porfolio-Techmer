@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import Header from "./components/header/Header";
 import "./scss/main.scss";
 import "./scss/header.scss";
-import Navbar from "./components/header/Navbar";
+import Header from "./components/header/Header";
+import Footer from "./components/header/Footer";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +21,9 @@ ReactDOM.render(
   document.getElementById("content")
 );
 ReactDOM.render(
-  <React.StrictMode></React.StrictMode>,
+  <React.StrictMode>
+    <Footer />
+  </React.StrictMode>,
   document.getElementById("footer")
 );
 
