@@ -1,5 +1,5 @@
 import React from "react";
-import ItemPic from "./../../../../images/item1Pic.jpg";
+import ItemPic from "./../../../images/item1Pic.jpg";
 
 export default function ProductItem() {
   return (

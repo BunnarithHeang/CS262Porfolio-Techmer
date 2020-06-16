@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import BreadCrumb from './page_components/BreadCrumb';
-import StoreSideFilter from './filters/StoreSideFilter';
-import StoreTopBottomFilter from './filters/StoreTopBottomFilter';
-import ProductItem from './page_components/ProductItem';
+import BreadCrumb from './../universal_components/BreadCrumb';
+import ProductItem from './../universal_components/ProductItem';
+import StoreSideFilter from './sort/StoreSideFilter';
+import StoreTopBottomFilter from './sort/StoreTopBottomFilter';
 
 export default class ProductSearch extends Component {
 
@@ -24,8 +24,8 @@ export default class ProductSearch extends Component {
                                 <div id="main" className="col-md-9">
                                     <StoreTopBottomFilter />
 
-                                    <div id="store"> {/* <!-- STORE --> */}
-                                        <div className="row"> {/* <!-- row --> */}
+                                    <div id="store"> 
+                                        <div className="row">
                                             {products}
                                         </div>
                                     </div>
@@ -36,12 +36,12 @@ export default class ProductSearch extends Component {
                         </div>
                     </div>           
                 </div>
-                {/* <script src="./../../../js/jquery.min.js"></script>
-                <script src="./../../../js/bootstrap.min.js"></script>
-                <script src="./../../../js/slick.min.js"></script>
-                <script src="./../../../js/nouislider.min.js"></script>
-                <script src="./../../../js/jquery.zoom.min.js"></script>
-                <script src="./../../../js/main.js"></script> */}
+                {/* <script src="./../../../js/jquery.min.js" />
+                <script src="./../../../js/bootstrap.min.js" />
+                <script src="./../../../js/slick.min.js" />
+                <script src="./../../../js/nouislider.min.js" />
+                <script src="./../../../js/jquery.zoom.min.js" />
+                <script src="./../../../js/main.js" /> */}
             </body>
         )
     }
