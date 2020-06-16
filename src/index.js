@@ -5,8 +5,11 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./scss/main.scss";
 import "./scss/header.scss";
-import Header from "./components/header/Header";
-import Footer from "./components/header/Footer";
+import Header from "./components/header/Header"
+import Footer from "./components/header/Footer"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,6 +23,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("content")
 );
+
 ReactDOM.render(
   <React.StrictMode>
     <Footer />
