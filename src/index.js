@@ -5,8 +5,6 @@ import "./index.css";
 import App from "./App";
 import "./scss/main.scss";
 import "./scss/header.scss";
-import Header from "./components/header/Header";
-import Footer from "./components/header/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
