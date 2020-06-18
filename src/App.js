@@ -1,16 +1,24 @@
 import React from "react";
-// import "./App.css";
-// import "./css/Main.css";
-import Header from "./components/header/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Footer from "./components/header/Footer";
-import Main from "./components/views/Main";
-import Home from "./components/views/Home"
+import Home from "./components/views/Home";
+import Login from "./components/authentications/Login";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
     <Router>
-      <Route path="/" component={Home} />
+      <Route
+        exact
+        path="/"
+        render={(props) => (
+          <React.Fragment>
+            <Layout>
+              <Home />
+            </Layout>
+          </React.Fragment>
+        )}
+      />
+      <Route path="/login" component={Login} />
     </Router>
   );
 }
