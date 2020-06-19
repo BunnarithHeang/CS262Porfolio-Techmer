@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import "../../scss/navbar.scss";
 import ExampleComponent from "react-rounded-image";
+
 import MyPhoto from "../../images/header_bg.jpg";
 import CartIcon from "./CartIcon";
+import "../../scss/bootsnav.scss";
+import "../../scss/navbar.scss";
 
 class Navbar extends Component {
   constructor(props) {

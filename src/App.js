@@ -4,6 +4,8 @@ import Home from "./components/views/Home";
 import Login from "./components/authentications/Login";
 import Layout from "./components/layout/Layout";
 
+import "./scss/main.scss";
+
 function App() {
   return (
     <Router>
