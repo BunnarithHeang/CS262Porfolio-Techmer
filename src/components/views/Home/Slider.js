@@ -4,6 +4,28 @@ import img1 from "../../../images/img-products/1.jpg"
 import React, { Component } from "react";
 import Slider from "react-slick";
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block",backgroundColor:"black", borderRadius:"5px" , paddingTop:"2px"}}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", backgroundColor: "black", borderRadius:"5px" , paddingTop:"2px"}}
+      onClick={onClick}
+    />
+  );
+}
+
 export default class SimpleSlider extends Component {
   render() {
     const settings = {
@@ -11,7 +33,11 @@ export default class SimpleSlider extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      autoplay: true,
+      prevArrow: <SamplePrevArrow />,
+      nextArrow: <SampleNextArrow />
+      
     };
     return (
       <div>
