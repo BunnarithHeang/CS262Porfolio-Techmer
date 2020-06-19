@@ -45,7 +45,6 @@
     ]
   },
   "devDependencies": {
-    "css-loader": "^3.6.0",
-    "webpack": "^4.43.0"
+    "css-loader": "^3.6.0"
   }
 }
