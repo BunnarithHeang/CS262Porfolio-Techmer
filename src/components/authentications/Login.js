@@ -9,7 +9,7 @@ import {
   FormText,
 } from "reactstrap";
 import "../../scss/login.scss";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class Login extends Component {
   render() {
