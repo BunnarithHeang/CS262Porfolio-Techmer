@@ -5,6 +5,7 @@ import Login from "./components/authentications/Login";
 import Layout from "./components/layout/Layout";
 
 import "./scss/main.scss";
+import Main from "./components/views/Main";
 
 function App() {
   return (
@@ -16,6 +17,17 @@ function App() {
           <React.Fragment>
             <Layout>
               <Home />
+            </Layout>
+          </React.Fragment>
+        )}
+      />
+      <Route
+        exact
+        path="/products"
+        render={(props) => (
+          <React.Fragment>
+            <Layout>
+              <Main />
             </Layout>
           </React.Fragment>
         )}

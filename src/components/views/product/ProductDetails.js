@@ -4,6 +4,7 @@ import ProductPicView from "./components/ProductPicView";
 import ProductBodyDes from "./components/ProductBodyDes";
 import ProductReview from "./components/review_views/ProductReview";
 import ProductItem from "../universal_components/ProductItem";
+import img from './../../../images/item1Pic.jpg';
 
 export default class ProductDetails extends Component {
   render() {
@@ -16,7 +17,7 @@ export default class ProductDetails extends Component {
             <div className="container">
               <div className="row">
                 <div className="product product-details clearfix">
-                  <ProductPicView />
+                  <ProductPicView img={img}/>
                   <ProductBodyDes />
                   <ProductReview />
                 </div>
