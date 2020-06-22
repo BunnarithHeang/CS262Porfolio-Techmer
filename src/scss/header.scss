@@ -1,36 +1,33 @@
 @import "variable";
-
-#header {
-  height: 400px;
-}
-
+// #header {
+//   height: 400px;
+// }
 .header-bg-image {
-  /* The image used */
-  background-image: url("../images/header_bg.jpg");
-  /* background-color: rebeccapurple; */
-
-  /* Add the blur effect */
-  filter: blur(2px);
-  /* -webkit-filter: blur(8px); */
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    /* The image used */
+    background-image: url("../images/header_bg.jpg");
+    /* background-color: rebeccapurple; */
+    /* Add the blur effect */
+    filter: blur(2px);
+    /* -webkit-filter: blur(8px); */
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
 
 /* Position text in the middle of the page/image */
+
 .header-bg-text {
-  color: white;
-  font-weight: bold;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  width: 100%;
-  padding: $header-bg-text_padding;
-  // background-color: blue;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100%;
+    padding: $header-bg-text_padding;
+    // background-color: blue;
 }
