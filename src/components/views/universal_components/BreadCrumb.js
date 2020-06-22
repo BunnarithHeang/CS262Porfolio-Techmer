@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function BreadCrumb() {
+export default function BreadCrumb(props) {
   return (
     <div id="breadcrumb">
       <div class="container">
@@ -8,7 +8,7 @@ export default function BreadCrumb() {
           <li>
             <a href="#">Home</a>
           </li>
-          <li class="active">Products</li>
+          <li class="active">{props.pageName}</li>
         </ul>
       </div>
     </div>

@@ -41,19 +41,19 @@ export default class ProductBodyDes extends Component {
           <div className="product-options">
             <ul className="size-option">
               <li>
-                <span className="text-uppercase">Size:</span>
+                <span className="text-uppercase">Options:</span>
               </li>
               <li className="active">
                 <a href="#">S</a>
               </li>
-              <li>
+              <li className="active">
                 <a href="#">XL</a>
               </li>
               <li>
                 <a href="#">SL</a>
               </li>
             </ul>
-            <ul className="color-option">
+            {/* <ul className="color-option">
               <li>
                 <span className="text-uppercase">Color:</span>
               </li>
@@ -68,14 +68,14 @@ export default class ProductBodyDes extends Component {
               </li>
               <li>
                 <a href="#" style={{ "backgroundColor": "#9A54D8" }}></a>
-              </li>
-            </ul>
+              </li> 
+            </ul> */}
           </div>
 
           <div className="product-btns">
             <div className="qty-input">
               <span className="text-uppercase">QTY: </span>
-              <input type="number" className="input"/>
+              <input type="number" className="input"   defaultValue="1" min="1"/>
             </div>
             <button className="primary-btn add-to-cart">
               <i className="fa fa-shopping-cart"></i> Add to Cart

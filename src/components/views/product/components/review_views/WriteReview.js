@@ -5,14 +5,8 @@ export default class WriteReview extends Component {
     return (
       <div className="col-md-6">
         <h4 className="text-uppercase">Write Your Review</h4>
-        <p>Your email address will not be published.</p>
+        <p>Your profile information will not be published.</p>
         <form className="review-form">
-          <div className="form-group">
-            <input className="input" type="text" placeholder="Your Name" />
-          </div>
-          <div className="form-group">
-            <input className="input" type="email" placeholder="Email Address" />
-          </div>
           <div className="form-group">
             <textarea className="input" placeholder="Your review"></textarea>
           </div>

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import BreadCrumb from './../universal_components/BreadCrumb';
-import ProductItem from './../universal_components/ProductItem';
-import StoreSideFilter from './sort/StoreSideFilter';
-import StoreTopBottomFilter from './sort/StoreTopBottomFilter';
+import ProductItem from './FullWidthProductItem';
 
-export default class ProductSearch extends Component {
+export default class FavoritePage extends Component {
 
     render() {
         var products = [];
@@ -14,23 +12,21 @@ export default class ProductSearch extends Component {
         return (
             <body>
                 <div>
-                    <BreadCrumb pageName={"Product Name Here"}/>
+                    <BreadCrumb pageName={"Favorite Products"}/>
 
                     <div className="section">
                         <div className="container">
                             <div className="row">
-                                <StoreSideFilter />
-
-                                <div id="main" className="col-md-9">
-                                    <StoreTopBottomFilter />
-
+                                <h4>Products that you might find interesting</h4>
+                                <h5>Based on you browsing history</h5>
+                                <div id="main" className="col-md-12">
+                                    
                                     <div id="store"> 
                                         <div className="row">
                                             {products}
                                         </div>
                                     </div>
 
-                                    <StoreTopBottomFilter />
                                 </div>
                             </div>
                         </div>

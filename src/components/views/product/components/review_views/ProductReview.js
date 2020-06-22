@@ -27,7 +27,7 @@ export default class ProductReview extends Component {
             </div>
             <div id="tab3" className="tab-pane fade in">
               <div className="row">
-                <div className="col-md-6">
+                <div className={this.props.allowReviewInput ? "col-md-6" : "col-md-12"}>
                   <div className="product-reviews">
                     <SingleReview />
 
@@ -35,16 +35,16 @@ export default class ProductReview extends Component {
 
                     <SingleReview />
 
-                    {/* <ul className="reviews-pages">
-                      <li className="active">1</li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#"><i className="fa fa-caret-right"></i></a></li>
-                    </ul> */}
+                    <a href="#" target="_blank" rel="noopener noreferrer">
+                      <label>Show more reviews</label>
+                    </a>
+
                   </div>
                 </div>
-
-                <WriteReview />
+                {this.props.allowReviewInput 
+                  ? <WriteReview /> 
+                  : <div></div>
+                }
               </div>
             </div>
           </div>

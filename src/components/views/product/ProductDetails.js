@@ -11,7 +11,7 @@ export default class ProductDetails extends Component {
     return (
       <body>
         <div>
-          <BreadCrumb />
+          <BreadCrumb pageName={"Product Name Here"}/>
 
           <div className="section">
             <div className="container">
@@ -19,7 +19,7 @@ export default class ProductDetails extends Component {
                 <div className="product product-details clearfix">
                   <ProductPicView img={img}/>
                   <ProductBodyDes />
-                  <ProductReview />
+                  <ProductReview allowReviewInput={true}/>
                 </div>
               </div>
             </div>
@@ -42,13 +42,6 @@ export default class ProductDetails extends Component {
             </div>
           </div>
         </div>
-
-        {/* <script src="./../../../js/jquery.min.js" />
-                <script src="./../../../js/bootstrap.min.js" />
-                <script src="./../../../js/slick.min.js" />
-                <script src="./../../../js/nouislider.min.js" />
-                <script src="./../../../js/jquery.zoom.min.js" />
-                <script src="./../../../js/main.js" /> */}
       </body>
     );
   }
