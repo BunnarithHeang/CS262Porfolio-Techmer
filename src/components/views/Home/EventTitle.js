@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EventTitle = props => {
+export default function EventTitle(props) {
     return (
         <div className="section-title">
             <h2 className="title">{props.title}</h2>
@@ -10,4 +10,3 @@ const EventTitle = props => {
         </div>
     );
 }
-export default EventTitle

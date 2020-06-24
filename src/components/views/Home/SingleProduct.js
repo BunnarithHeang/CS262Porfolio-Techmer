@@ -1,6 +1,6 @@
 import React from 'react'
 
-const productSingle = props => {
+export default function productSingle(props) {
     return (
         <React.Fragment>
             <div class="product product-single col-md-4">
@@ -32,4 +32,3 @@ const productSingle = props => {
         </React.Fragment>
     );
 }
-export default productSingle

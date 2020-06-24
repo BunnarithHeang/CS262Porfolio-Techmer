@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout";
 import Product from "./components/views/product/ProductDetails"
 import "./scss/main.scss";
 import Main from "./components/views/Main";
+import ShippingInfo from "./components/authentications/ShippingInfo"
 
 function App() {
   return (
@@ -24,25 +25,19 @@ function App() {
       />
       <Route
         exact
-<<<<<<< HEAD
         path="/products"
         render={(props) => (
           <React.Fragment>
             <Layout>
               <Main />
-=======
-        path="/product"
-        render={(props) => (
-          <React.Fragment>
-            <Layout>
-              <Product />
->>>>>>> ad9b7eabf20f568869df12ed440990c5062d1ec6
             </Layout>
           </React.Fragment>
         )}
       />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/product" component={Product} />
+      <Route path="/shippinginfo" component={ShippingInfo} />
     </Router>
   );
 }
