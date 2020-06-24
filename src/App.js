@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./components/authentications/Login";
+import Login from "./components/authentications/Login1";
 import Register from "./components/authentications/Register";
 import Home from "./components/views/Home";
 import Layout from "./components/layout/Layout";
-import Product from "./components/views/product/ProductDetails"
+import Product from "./components/views/product/ProductDetails";
 import "./scss/main.scss";
 import Main from "./components/views/Main";
 import ShippingInfo from "./components/authentications/ShippingInfo"
