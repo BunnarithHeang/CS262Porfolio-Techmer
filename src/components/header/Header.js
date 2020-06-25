@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 // import "../../scss/header.scss";
 
 class Header extends Component {
@@ -25,7 +26,11 @@ class Header extends Component {
                 {/* <!-- Search --> */}
                 <div class="header-search">
                   <form>
-                    <input class="input search-input" type="text" placeholder="Enter your keyword" />
+                    <input
+                      class="input search-input"
+                      type="text"
+                      placeholder="Enter your keyword"
+                    />
                     <select class="input search-categories">
                       <option value="0">All Categories</option>
                       <option value="1">Category 01</option>
@@ -38,12 +43,17 @@ class Header extends Component {
                 </div>
                 {/* <!-- /Search --> */}
               </div>
-              
+
               <div class="pull-right">
                 <ul class="header-btns">
                   {/* <!-- Account --> */}
                   <li class="header-account dropdown default-dropdown">
-                    <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                    <div
+                      class="dropdown-toggle"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-expanded="true"
+                    >
                       <div class="header-btns-icon">
                         <i class="fa fa-user-o"></i>
                       </div>
@@ -55,21 +65,51 @@ class Header extends Component {
                       Login
                     </a>{" "}
                     /{" "}
-                    <a href="#" class="text-uppercase">Join</a>
+                    <a href="#" class="text-uppercase">
+                      Join
+                    </a>
                     <ul class="custom-menu">
-                      <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                      <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                      <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                      <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                      <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                      <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                      <li>
+                        <Link to="/product">
+                          <i class="fa fa-user-o"></i> My Account
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="#">
+                          <i class="fa fa-heart-o"></i> My Wishlist
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="#">
+                          <i class="fa fa-exchange"></i> Compare
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="#">
+                          <i class="fa fa-check"></i> Checkout
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/logout">
+                          <i class="fa fa-unlock-alt"></i> Logout
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="#">
+                          <i class="fa fa-user-plus"></i> Create An Account
+                        </Link>
+                      </li>
                     </ul>
                   </li>
                   {/* <!-- /Account --> */}
 
                   {/* <!-- Cart --> */}
                   <li class="header-cart dropdown default-dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <a
+                      class="dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-expanded="true"
+                    >
                       <div class="header-btns-icon">
                         <i class="fa fa-shopping-cart"></i>
                         <span class="qty">3</span>
@@ -77,7 +117,7 @@ class Header extends Component {
                       <strong class="text-uppercase">My Cart:</strong>
                     </a>
                   </li>
-                    {/* <!-- /Cart --> */}
+                  {/* <!-- /Cart --> */}
 
                   {/* <!-- Mobile nav toggle--> */}
                   <li class="nav-toggle">
@@ -90,9 +130,8 @@ class Header extends Component {
               </div>
             </div>
             {/* <!-- header --> */}
-          <Navbar />
+            <Navbar />
           </div>
-
         </div>
       </React.Fragment>
     );
