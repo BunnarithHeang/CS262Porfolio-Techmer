@@ -1,23 +1,27 @@
-import React, { Fragment, useState } from "react";
-import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
+import "date-fns";
+import React from "react";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 
-function InlineDatePickerDemo(props) {
-  const [selectedDate, handleDateChange] = useState(new Date());
-
+export default function DatePicker(props) {
   return (
-    <Fragment>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
-        autoOk
-        variant="inline"
+        variant="outlined"
         inputVariant="outlined"
-        label="With keyboard"
-        format="MM/dd/yyyy"
-        value={selectedDate}
+        label="Birthday"
+        format="yyyy-MM-dd"
+        value={props.data.date_of_birth}
         InputAdornmentProps={{ position: "start" }}
-        onChange={(date) => handleDateChange(date)}
+        onChange={(date) =>
+          props.setData({ ...props.data, date_of_birth: date })
+        }
+        error={props.error}
+        helperText={props.helperText}
       />
-    </Fragment>
+    </MuiPickersUtilsProvider>
   );
 }
-
-export default InlineDatePickerDemo;
