@@ -1,7 +1,23 @@
 import React, { Component } from "react";
+import RatedStar from "./review_views/RatedStar";
 
-export default class ProductBodyDes extends Component {
+class ProductBodyDes extends Component {
+  
+  constructor() {
+    super();
+    this.state = {
+      // price: this.props.product.price,
+      price: 23,
+    }
+    this.changePrice = this.changePrice.bind(this);
+  }
+
+  changePrice = () => {
+    this.setState({ price: this.state.price + 1 });
+  }
+
   render() {
+    const product = this.props.product;
     return (
       <div className="col-md-6">
         <div className="product-body">
@@ -9,35 +25,27 @@ export default class ProductBodyDes extends Component {
             <span>New</span>
             <span className="sale">-20%</span>
           </div>
-          <h2 className="product-name">Product Name Goes Here</h2>
+          <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            $32.50 <del className="product-old-price">$45.00</del>
+            {/* Change here to dynamic price {product.price} */}
+            $32.50  <del className="product-old-price">$45.00</del>
           </h3>
           <div>
-            <div className="product-rating">
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i>
-              <i className="fa fa-star-o empty"></i>
-            </div>
+            <RatedStar rated={product.rated} />
+  
             <a href="#">3 Review(s) / Add Review</a>
           </div>
           <p>
             <strong>Availability:</strong> In Stock
           </p>
           <p>
-            <strong>Brand:</strong> E-SHOP
+            <strong>Brand:</strong> {product.brand}
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            <strong>Category:</strong> {product.category}
           </p>
+          <button onClick={this.changePrice}>CLick here </button>
+          <p>{product.content}</p>
           <div className="product-options">
             <ul className="size-option">
               <li>
@@ -54,28 +62,28 @@ export default class ProductBodyDes extends Component {
               </li>
             </ul>
             {/* <ul className="color-option">
-              <li>
-                <span className="text-uppercase">Color:</span>
-              </li>
-              <li className="active">
-                <a href="#" style={{ "backgroundColor": "#475984" }}></a>
-              </li>
-              <li>
-                <a href="#" style={{ "backgroundColor": "#8A2454" }}></a>
-              </li>
-              <li>
-                <a href="#" style={{ "backgroundColor": "#BF6989" }}></a>
-              </li>
-              <li>
-                <a href="#" style={{ "backgroundColor": "#9A54D8" }}></a>
-              </li> 
-            </ul> */}
+                <li>
+                  <span className="text-uppercase">Color:</span>
+                </li>
+                <li className="active">
+                  <a href="#" style={{ "backgroundColor": "#475984" }}></a>
+                </li>
+                <li>
+                  <a href="#" style={{ "backgroundColor": "#8A2454" }}></a>
+                </li>
+                <li>
+                  <a href="#" style={{ "backgroundColor": "#BF6989" }}></a>
+                </li>
+                <li>
+                  <a href="#" style={{ "backgroundColor": "#9A54D8" }}></a>
+                </li> 
+              </ul> */}
           </div>
-
+  
           <div className="product-btns">
             <div className="qty-input">
               <span className="text-uppercase">QTY: </span>
-              <input type="number" className="input"   defaultValue="1" min="1"/>
+              <input type="number" className="input" defaultValue="1" min="1" />
             </div>
             <button className="primary-btn add-to-cart">
               <i className="fa fa-shopping-cart"></i> Add to Cart
@@ -97,3 +105,5 @@ export default class ProductBodyDes extends Component {
     );
   }
 }
+
+export default ProductBodyDes;

@@ -1,30 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import "./index.css";
 import App from "./App";
-import "./scss/main.scss";
-import "./scss/header.scss";
-import Header from "./components/header/Header";
-import Footer from "./components/header/Footer";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Header />
-  </React.StrictMode>,
-  document.getElementById("header")
-);
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById("content")
-);
-ReactDOM.render(
-  <React.StrictMode>
-    <Footer />
-  </React.StrictMode>,
-  document.getElementById("footer")
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
