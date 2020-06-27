@@ -14,7 +14,6 @@ export default function ProductDetails(props) {
     Axios.get("/product/" + props.params.product_id)
       .then((res) => {
         setProduct(res.data);
-        console.log(res.data);
       })
       .catch((error) => console.log(error.response));
   }, []);
