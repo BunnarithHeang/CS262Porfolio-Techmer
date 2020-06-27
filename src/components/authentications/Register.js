@@ -23,7 +23,7 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import DatePicker from "./DatePicker";
-import axios from "axios";
+import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -92,7 +92,7 @@ export default function SignUp() {
   const [country, setCountry] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get("/country").then((res) => {
+    Axios.get("/country").then((res) => {
       setCountry(res.data);
     });
   }, []);
@@ -111,8 +111,7 @@ export default function SignUp() {
 
     setData(all_data);
 
-    axios
-      .post("/register", data)
+    Axios.post("/register", data)
       .then((res) => {
         let user_data = {
           token: res.data.success.accessToken,

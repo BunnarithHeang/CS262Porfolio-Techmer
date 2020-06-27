@@ -9,11 +9,11 @@ export const AuthLayoutRoute = ({ toRender: ToRender, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() =>
+      render={(props) =>
         user.isAuth ? (
           <React.Fragment>
             <Layout>
-              <ToRender />
+              <ToRender params={props.match.params} />
             </Layout>
           </React.Fragment>
         ) : (
@@ -29,7 +29,13 @@ export const AuthRoute = ({ toRender: ToRender, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => (user.isAuth ? <ToRender /> : <Redirect to="/login" />)}
+      render={(props) =>
+        user.isAuth ? (
+          <ToRender params={props.match.params} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
     />
   );
 };
@@ -40,7 +46,13 @@ export const NoAuthRoute = ({ toRender: ToRender, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => (!user.isAuth ? <ToRender /> : <Redirect to="/" />)}
+      render={(props) =>
+        !user.isAuth ? (
+          <ToRender params={props.match.params} />
+        ) : (
+          <Redirect to="/" />
+        )
+      }
     />
   );
 };

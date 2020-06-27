@@ -17,7 +17,7 @@ import {
   TextField,
   FormControlLabel,
 } from "@material-ui/core";
-import axios from "axios";
+import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
@@ -69,8 +69,7 @@ export default function SignIn() {
   });
 
   function login() {
-    axios
-      .post("/login", data)
+    Axios.post("/login", data)
       .then((res) => {
         let user_data = {
           token: res.data.accessToken,

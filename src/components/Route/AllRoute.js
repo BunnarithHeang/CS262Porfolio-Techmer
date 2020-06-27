@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthLayoutRoute, AuthRoute, NoAuthRoute } from "./RouterType";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Logout from "../authentications/Logout";
 import Login from "../authentications/Login";
 import Register from "../authentications/Register";
@@ -18,7 +18,7 @@ export default function AllRoute() {
         <AuthRoute path="/logout" toRender={Logout} />
 
         <AuthLayoutRoute path="/products" toRender={Main} />
-        <AuthLayoutRoute path="/product" toRender={Product} />
+        <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
         <AuthLayoutRoute path="/" toRender={Home} />
       </Switch>
