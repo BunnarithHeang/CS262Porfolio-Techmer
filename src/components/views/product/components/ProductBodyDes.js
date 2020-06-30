@@ -2,22 +2,35 @@ import React, { Component } from "react";
 import RatedStar from "./review_views/RatedStar";
 
 class ProductBodyDes extends Component {
-  
   constructor() {
     super();
     this.state = {
-      // price: this.props.product.price,
-      price: 23,
+      prices: [23, 36, 88],
+      options: ['A', 'B', 'C'],
+      selectedPrice: 23,
+      selectedIndex: 0,
     }
     this.changePrice = this.changePrice.bind(this);
   }
 
-  changePrice = () => {
-    this.setState({ price: this.state.price + 1 });
+  changePrice = (index) => {
+    this.setState({ 
+      shownPrice: this.state.prices[index],
+      selectedIndex: index,
+    });
   }
 
   render() {
+    const stateObj = this.state;
     const product = this.props.product;
+    console.log(product);
+    // Generate option tags
+    const mainOptionsTags = stateObj.prices.map((price, index) => 
+      <li className={stateObj.selectedIndex==index ? "active" : ""} key={index}>
+        <a href="#" onClick={(() => this.changePrice(index))}>{index}: {index+1}</a>
+      </li>
+    );
+
     return (
       <div className="col-md-6">
         <div className="product-body">
@@ -27,8 +40,7 @@ class ProductBodyDes extends Component {
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            {/* Change here to dynamic price {product.price} */}
-            $32.50  <del className="product-old-price">$45.00</del>
+            ${stateObj.selectedPrice} <del className="product-old-price">$45.00</del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
@@ -44,22 +56,13 @@ class ProductBodyDes extends Component {
           <p>
             <strong>Category:</strong> {product.category}
           </p>
-          <button onClick={this.changePrice}>CLick here </button>
           <p>{product.content}</p>
           <div className="product-options">
             <ul className="size-option">
               <li>
                 <span className="text-uppercase">Options:</span>
               </li>
-              <li className="active">
-                <a href="#">S</a>
-              </li>
-              <li className="active">
-                <a href="#">XL</a>
-              </li>
-              <li>
-                <a href="#">SL</a>
-              </li>
+              {mainOptionsTags}
             </ul>
             {/* <ul className="color-option">
                 <li>
