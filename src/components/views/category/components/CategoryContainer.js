@@ -1,19 +1,18 @@
 import React from "react";
-import ItemPic from "./../../../images/item1Pic.jpg";
+import ItemPic from "./../../../../images/item1Pic.jpg";
 
-export default function ProductItem(props) {
+export default function CategoryContainer(props) {
   return (
     <div className="col-md-4 col-sm-6 col-xs-6">
       <div className="product product-single">
         <div className="product-thumb">
           <div className="product-label">
-            {/* Just pass these 2 props */}
             {props.isNew 
-              ? <span>New</span> 
-              : ""}
+              ? <span>New</span> : ""
+            }
             {props.hasDiscount 
-              ? <span className="sale">-20%</span> 
-              : ""}
+              ? <span className="sale">-20%</span> : ""
+            }
           </div>
           <button className="main-btn quick-view">
             <i className="fa fa-search-plus"></i> Quick view
@@ -21,18 +20,8 @@ export default function ProductItem(props) {
           <img src={ItemPic} alt="Picture Here" />
         </div>
         <div className="product-body">
-          <h3 className="product-price">
-            $32.50 <del className="product-old-price">$45.00</del>
-          </h3>
-          <div className="product-rating">
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star-o empty"></i>
-          </div>
           <h2 className="product-name">
-            <a href="#">Product Name Goes Here</a>
+            <a href="#">{props.title}</a>
           </h2>
           <div className="product-btns">
             <button className="main-btn icon-btn">

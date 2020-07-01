@@ -9,6 +9,7 @@ import About from "../views/About";
 import Product from "../views/product/ProductDetails";
 import Main from "../views/Main";
 import ShippingInfo from "../authentications/ShippingInfo";
+import CategoryPage from "../views/category/CategoryPage";
 
 export default function AllRoute() {
   return (
@@ -18,6 +19,7 @@ export default function AllRoute() {
         <NoAuthRoute path="/register" toRender={Register} />
         <AuthRoute path="/logout" toRender={Logout} />
 
+        <AuthLayoutRoute path="/categories" toRender={CategoryPage} />
         <AuthLayoutRoute path="/products" toRender={Main} />
         <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />

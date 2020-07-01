@@ -22,7 +22,7 @@ export default function ProductDetails(props) {
   return (
     <body>
       <div>
-        <BreadCrumb pageName={"Product Name Here"} />
+        <BreadCrumb pageName={product.title} />
 
         <div className="section">
           <div className="container">

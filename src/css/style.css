@@ -1835,3 +1835,13 @@ textarea.input {
     border: none;
     width: auto;
 }
+
+.categorySidebarA a {
+    color: black !important;
+} 
+
+.categorySidebarA a:hover {
+    color: #F8694A !important;
+    font-weight: 600;
+    transform: translateX(10px);
+}

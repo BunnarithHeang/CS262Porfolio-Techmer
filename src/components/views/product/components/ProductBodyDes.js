@@ -51,12 +51,13 @@ class ProductBodyDes extends Component {
       <div className="col-md-6">
         <div className="product-body">
           <div className="product-label">
+            {/* CHANGE HERE ALSO */}
             <span>New</span>
             <span className="sale">-20%</span>
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            ${stateObj.selectedPrice} <del className="product-old-price">$45.00</del>
+            ${stateObj.selectedPrice}.00 <del className="product-old-price">${stateObj.selectedPrice * 2}.00</del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
