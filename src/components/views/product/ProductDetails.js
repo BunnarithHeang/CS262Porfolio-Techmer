@@ -6,15 +6,15 @@ import ProductReview from "./components/review_views/ProductReview";
 import ProductItem from "../universal_components/ProductItem";
 import img from "./../../../images/item1Pic.jpg";
 import Axios from "axios";
+import { getHeader } from "../../../AuthUser";
 
 export default function ProductDetails(props) {
   const [product, setProduct] = React.useState(0);
 
   React.useEffect(() => {
-    Axios.get("/product/" + props.params.product_id)
+    Axios.get("/product/" + props.params.product_id, getHeader())
       .then((res) => {
         setProduct(res.data);
-        console.log(res.data);
       })
       .catch((error) => console.log(error.response));
   }, []);

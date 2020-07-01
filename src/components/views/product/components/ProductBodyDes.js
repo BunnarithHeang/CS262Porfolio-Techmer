@@ -5,29 +5,45 @@ class ProductBodyDes extends Component {
   constructor() {
     super();
     this.state = {
-      prices: [23, 36, 88],
-      options: ['A', 'B', 'C'],
-      selectedPrice: 23,
+      selectedPrice: 0,
       selectedIndex: 0,
+      selectedProduct: {}, // Maybe when add to cart just retrieve id from here
+      productOptions: [],
     }
     this.changePrice = this.changePrice.bind(this);
   }
 
-  changePrice = (index) => {
+  // Initializes the state with given props
+  componentWillReceiveProps(props) {
+    const product = props.product;
+    const resProductOps = product.product_option.map((data) => data);
+
+    this.setState({
+      selectedIndex: 0,
+      selectedPrice: resProductOps[0].price,
+      selectedProduct: resProductOps[0],
+      productOptions: resProductOps,
+    });
+  }
+
+  // Update the current selected
+  changePrice = (option, index) => {
     this.setState({ 
-      shownPrice: this.state.prices[index],
       selectedIndex: index,
+      selectedPrice: option.price,
+      selectedProduct: option,
     });
   }
 
   render() {
     const stateObj = this.state;
     const product = this.props.product;
-    console.log(product);
+    
     // Generate option tags
-    const mainOptionsTags = stateObj.prices.map((price, index) => 
+    // If want second option tags just create another 
+    const mainOptionsTags = stateObj.productOptions.map((option, index) => 
       <li className={stateObj.selectedIndex==index ? "active" : ""} key={index}>
-        <a href="#" onClick={(() => this.changePrice(index))}>{index}: {index+1}</a>
+        <a href="javascript:void(0)" onClick={(() => this.changePrice(option, index))}>{option.option}</a>
       </li>
     );
 

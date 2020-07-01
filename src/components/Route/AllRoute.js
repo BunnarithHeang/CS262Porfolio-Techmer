@@ -5,6 +5,7 @@ import Logout from "../authentications/Logout";
 import Login from "../authentications/Login";
 import Register from "../authentications/Register";
 import Home from "../views/Home";
+import About from "../views/About";
 import Product from "../views/product/ProductDetails";
 import Main from "../views/Main";
 import ShippingInfo from "../authentications/ShippingInfo";
@@ -20,6 +21,7 @@ export default function AllRoute() {
         <AuthLayoutRoute path="/products" toRender={Main} />
         <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
+        <AuthLayoutRoute path="/aboutus" toRender={About} />
         <AuthLayoutRoute path="/" toRender={Home} />
       </Switch>
     </React.Fragment>

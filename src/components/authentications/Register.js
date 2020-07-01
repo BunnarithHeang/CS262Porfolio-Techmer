@@ -26,6 +26,7 @@ import DatePicker from "./DatePicker";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
+import { getHeader } from "../../AuthUser";
 
 function Copyright() {
   return (
@@ -92,7 +93,7 @@ export default function SignUp() {
   const [country, setCountry] = React.useState([]);
 
   React.useEffect(() => {
-    Axios.get("/country").then((res) => {
+    Axios.get("/country", getHeader()).then((res) => {
       setCountry(res.data);
     });
   }, []);

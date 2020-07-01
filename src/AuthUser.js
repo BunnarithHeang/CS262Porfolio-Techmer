@@ -13,3 +13,13 @@ export function getUser() {
 export function setUser(user_data) {
   Cookies.set("user_data", user_data, { expires: 1 });
 }
+
+export function getHeader() {
+  const token = getUser().token;
+
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+}

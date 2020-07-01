@@ -14,7 +14,6 @@ class Layout extends Component {
         </div>
 
         <div id="content">{this.props.children}</div>
-
         <div id="footer">
           <Footer></Footer>
         </div>
@@ -23,4 +22,4 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+export default Layout ;
