@@ -28,7 +28,7 @@ export default function ProductDetails(props) {
           <div className="container">
             <div className="row">
               <div className="product product-details clearfix">
-                <ProductPicView img={img} />
+                <ProductPicView images={product.gallery} />
                 <ProductBodyDes product={product} />
                 <ProductReview allowReviewInput={true} />
               </div>

@@ -1,7 +1,18 @@
 import React from "react";
 import 'font-awesome/css/font-awesome.min.css';
+import './../../../../css/bootstrap.min.css';
 
 export default function ProductPicView(props) {
+  var images = [];
+  if (props.images != null) {
+    for (var i = 0; i < props.images.length; ++i) {
+      images.push(
+        <div className={i == 0 ? "item active" : "item"}>
+          <img src={props.images[i]} alt="Image Not Found" />
+        </div>
+      );
+    }
+  }
   return (
     <div className="col-md-6">
       <div id="product-main-view">
@@ -15,25 +26,15 @@ export default function ProductPicView(props) {
 
           {/* <!-- Wrapper for slides --> */}
           <div className="carousel-inner">
-            <div className="item active">
-              <img src={props.img} alt="Image Not Found" />
-            </div>
-
-            <div className="item">
-              <img src={props.img} alt="Image Not Found" />
-            </div>
-
-            <div className="item">
-              <img src={props.img} alt="Image Not Found York" />
-            </div>
+            {images}
           </div>
 
           {/* <!-- Left and right controls --> */}
-          <a className="left carousel-control" href="#myCarousel" data-slide="prev">
+          <a className="left carousel-control" href="javascript:void(0)" data-slide="prev">
             <span className="glyphicon-chevron-left fa fa-arrow-left"></span>
             <span className="sr-only">Previous</span>
           </a>
-          <a className="right carousel-control" href="#myCarousel" data-slide="next">
+          <a className="right carousel-control" href="javascript:void(0)" data-slide="next">
             <span className="glyphicon-chevron-right fa fa-arrow-right"></span>
             <span className="sr-only">Next</span>
           </a>

@@ -12,7 +12,7 @@ export default class CartPage extends Component {
     return (
       <body>
         <React.Fragment>
-          <BreadCrumb pageName={"Favorite Products"} />
+          <BreadCrumb pageName={"My Cart"} />
 
           {/* <!-- ****** Cart Area Start ****** --> */}
           <div className="cart_area section_padding_100 clearfix">
