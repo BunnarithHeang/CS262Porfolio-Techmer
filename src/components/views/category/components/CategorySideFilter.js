@@ -2,9 +2,14 @@ import React from "react";
 
 export default function CategorySideFilter(props) {
   const categoryList = props.categoryList.map(
-    category => 
+    (category, index) => 
     <li>
-      <a href={category.id}>{category.category}</a>
+      <div onClick={() => props.getCategoryProduct(category.id)}>
+        <a href="javascript:void(0)" 
+          style={props.selectedIndex == index ? selectedLabel : {}}>
+          {(category.category).charAt(0).toUpperCase() + category.category.slice(1)}
+        </a>
+      </div>
     </li>
   );
 
@@ -18,4 +23,11 @@ export default function CategorySideFilter(props) {
       </div>
     </div>
   );
+}
+
+const selectedLabel = {
+  "color": "#F8694A !important",
+  "-webkitTransform": "translateX(10px)",
+  "-msTransform": "translateX(10px)",
+  "transform": "translateX(10px)",
 }

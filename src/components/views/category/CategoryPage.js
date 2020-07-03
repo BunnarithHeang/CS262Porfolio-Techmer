@@ -10,50 +10,89 @@ class CategoryPage extends Component {
   constructor() {
     super();
     this.state = {
+      canLoad: false,
       categoryList: [],
-      selectId: null,
+      categoryProduct: [],
+      selectId: 1,
+      showingProducts: [],
     }
+    this.getCategoryProduct = this.getCategoryProduct.bind(this);
   }
 
+  // PAss props to class
+
   async componentDidMount() {
-    Axios.get('/product-category', getHeader())
+    await Axios.get('/product-category', getHeader())
+    .then(res => {
+      this.setState({
+        categoryList: res.data.map(category => category)
+      });
+    })
+    .catch((error) => console.log(error.response));
+    await this.getCategoryProduct(1);
+  }
+
+  // Get products of new category, update the products
+  getCategoryProduct = async(index) => {
+    await Axios.get('/product/byCategory/' + index, getHeader())
       .then(res => {
+        console.log('herer');
+        console.log(res.data);
         this.setState({
-          categoryList: res.data.map(category => category)
-        });
+          categoryProduct: res.data.map(product => product),
+        }); // Somehow if include in one setstate, component dont update
+        this.setState({
+          showingProducts: this.state.categoryProduct.map((product, index) => {
+            return <CategoryContainer
+              key={index}
+              isNew={index % 2 == 0} // Modify promo here
+              hasDiscount={index % 2 != 0 || index % 3 == 0}
+              product={product}
+              />
+          })
+        })
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => {
+        console.log(error.response);
+          this.setState({
+            showingProducts: [],
+          })
+      });
+    this.setState({selectId: index});
   }
   
   render() {
-    var categories = [];
-    for (var i = 0; i < 9; ++i) {
-      categories.push(
-        <CategoryContainer
-          isNew={i % 2 == 0}
-          hasDiscount={i % 2 != 0 || i % 3 == 0}
-          title={"Category: " + i}
-        />
-      ); // Modify here with props
-    }
     return (
       <body>
         <div>
-          <BreadCrumb pageName={"Categories Page"} />
+          <BreadCrumb 
+            pageName={`Category / ${this.state.categoryList.length > 0 ? this.state.categoryList[this.state.selectId - 1]?.category ?? '' : ''}`}  
+            selectedIndex={this.state.selectId}
+          />
 
           <div className="section">
             <div className="container">
               <div className="row">
-                <CategorySideFilter categoryList={this.state.categoryList}/>
+                <CategorySideFilter 
+                  categoryList={this.state.categoryList}
+                  getCategoryProduct={(id) => this.getCategoryProduct(id)}
+                />
 
                 <div id="main" className="col-md-9">
-                  <CategoryTopBottomFilter />
+                  {/* <CategoryTopBottomFilter /> */}
 
                   <div id="store">
-                    <div className="row">{categories}</div>
+                    <div className="row">
+                      { 
+                        this.state.showingProducts.length == 0 
+                        ? <h3 style={{ textAlign: 'center' }}>Products Not Found</h3>
+                        : this.state.showingProducts
+                      }
+
+                    </div>
                   </div>
 
-                  <CategoryTopBottomFilter />
+                  {/* <CategoryTopBottomFilter /> */}
                 </div>
               </div>
             </div>
