@@ -32,7 +32,14 @@ export default function AllRoute() {
         <NoAuthLayoutRoute path="/products/:name" toRender={Main} />
         <NoAuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
+<<<<<<< HEAD
         <NoAuthLayoutRoute path="/category/:category_id" toRender={CategoryPage} />
+=======
+        <NoAuthLayoutRoute
+          path="/category/:category_id"
+          toRender={CategoryPage}
+        />
+>>>>>>> 2d0ff1269e26d067e899a334a26562f24e811739
         <NoAuthLayoutRoute path="/" toRender={Home} />
 
         <AuthLayoutRoute path="/profile" toRender={Profile} />

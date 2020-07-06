@@ -1,33 +1,29 @@
 import React from "react";
+import "../../../../scss/category_side_filter.scss";
+import { Link, useHistory } from "react-router-dom";
 
 export default function CategorySideFilter(props) {
-  const categoryList = props.categoryList.map(
-    (category, index) => 
+  const history = useHistory();
+  const categoryList = props.categoryList.map((category, index) => (
     <li key={category.id}>
-      <div onClick={() => props.getCategoryProduct(category.id)}>
-        <a href="#" onClick={e => e.preventDefault()}
-          style={props.selectedIndex == index ? selectedLabel : {}}>
-          {(category.category).charAt(0).toUpperCase() + category.category.slice(1)}
-        </a>
-      </div>
+      <Link to={"/category/" + category.id}>{category.category}</Link>
     </li>
-  );
+  ));
 
   return (
     <div id="aside" className="col-md-3">
       <div className="aside">
         <h3 className="aside-title">Category</h3>
-        <ul className="list-links categorySidebarA">
-          {categoryList}
-        </ul>
+        <ul className="list-links categorySidebarA">{categoryList}</ul>
       </div>
     </div>
   );
 }
 
 const selectedLabel = {
-  "color": "#F8694A !important",
-  "-webkitTransform": "translateX(10px)",
-  "-msTransform": "translateX(10px)",
-  "transform": "translateX(10px)",
-}
+  color: "#007bff !important",
+  fontSize: "20pt",
+  // "-webkitTransform": "translateX(10px)",
+  // "-msTransform": "translateX(10px)",
+  // transform: "translateX(10px)",
+};
