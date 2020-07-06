@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StoreSideFilter() {
+export default function StoreSideFilter(props) {
   return (
     <div id="aside" className="col-md-3">
       <div className="aside">
