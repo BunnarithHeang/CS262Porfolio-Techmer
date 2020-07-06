@@ -30,7 +30,6 @@ class CategoryPage extends Component {
       .catch((error) => console.log(error.response));
     console.log(this.props.params.category_id);
     await this.getCategoryProduct(this.props.params.category_id);
-
   }
 
   // Get products of new category, update the products
@@ -84,7 +83,7 @@ class CategoryPage extends Component {
                 <CategorySideFilter
                   selectedIndex={this.state.selectId - 1}
                   categoryList={this.state.categoryList}
-                  getCategoryProduct={(id) => this.getCategoryProduct(id)}
+                  linkOnClick={() => window.location.reload()}
                 />
 
                 <div id="main" className="col-md-9">
