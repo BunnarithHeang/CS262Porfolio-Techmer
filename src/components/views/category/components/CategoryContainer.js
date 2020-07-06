@@ -1,6 +1,6 @@
 import React from "react";
-import ItemPic from "./../../../../images/item1Pic.jpg";
 import RatedStar from "../../product/components/review_views/RatedStar";
+import { Redirect } from "react-router-dom";
 
 export default function CategoryContainer(props) {
   const product = props.product;
@@ -23,7 +23,7 @@ export default function CategoryContainer(props) {
           <button className="main-btn quick-view">
             <i className="fa fa-search-plus"></i> Quick view
           </button>
-          <img src={product.gallery[0]} alt="Picture Here" />
+          <img src={product.gallery[0]} style={imageStyle} alt="Picture Here" />
         </div>
         <div className="product-body">
           <h3 className="product-price">
@@ -33,7 +33,11 @@ export default function CategoryContainer(props) {
           <RatedStar rated={product.rated} />
           
           <h2 className="product-name">
-          <a href="#">{product.title}</a>
+          <a href="" className="categoryItemTitle"
+            onClick={() => <Redirect to="/product/1" />}
+          > 
+            {product.title}
+          </a>
           </h2>
           <div className="product-btns">
             <button className="main-btn icon-btn">
@@ -50,4 +54,9 @@ export default function CategoryContainer(props) {
       </div>
     </div>
   );
+}
+
+const imageStyle = {
+  objectFit: 'contain',
+  height: '200px',
 }

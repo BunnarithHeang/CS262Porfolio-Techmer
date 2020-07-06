@@ -20,7 +20,6 @@ class CategoryPage extends Component {
   }
 
   // PAss props to class
-
   async componentDidMount() {
     await Axios.get('/product-category', getHeader())
     .then(res => {
@@ -36,8 +35,6 @@ class CategoryPage extends Component {
   getCategoryProduct = async(index) => {
     await Axios.get('/product/byCategory/' + index, getHeader())
       .then(res => {
-        console.log('herer');
-        console.log(res.data);
         this.setState({
           categoryProduct: res.data.map(product => product),
         }); // Somehow if include in one setstate, component dont update
@@ -85,7 +82,7 @@ class CategoryPage extends Component {
                     <div className="row">
                       { 
                         this.state.showingProducts.length == 0 
-                        ? <h3 style={{ textAlign: 'center' }}>Products Not Found</h3>
+                        ? <h3 style={{ textAlign: 'center' }}>Products Unavailable</h3>
                         : this.state.showingProducts
                       }
 
