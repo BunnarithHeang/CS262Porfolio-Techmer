@@ -20,16 +20,11 @@ export default function CategoryContainer(props) {
         </div>
         <div className="product-body">
           <RatedStar rated={product.rated} />
-          <div>
-            <div style={{float: 'left'}}>
-              <h3 className="product-price">
-                ${(product.product_option[0].price).toFixed(2)} 
-                <br/>
-                <del className="product-old-price">${(product.product_option[0].price * 2.3).toFixed(2)}</del>
-              </h3> 
-            </div>
-          </div>
-
+          <h3 className="product-price">
+            ${(product.product_option[0].price).toFixed(2)} 
+            <br/>
+            <del className="product-old-price">${(product.product_option[0].price * 2.3).toFixed(2)}</del>
+          </h3> 
           <h2 className="product-name">
           <Link to="/product/1">
             <label className="categoryItemTitle">
