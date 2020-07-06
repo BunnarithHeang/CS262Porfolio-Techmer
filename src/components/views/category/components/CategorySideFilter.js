@@ -5,8 +5,16 @@ import { Link, useHistory } from "react-router-dom";
 export default function CategorySideFilter(props) {
   const history = useHistory();
   const categoryList = props.categoryList.map((category, index) => (
+    // <li key={category.id}>
+    //   <Link to={"/category/" + category.id}>{category.category}</Link>
+    // </li>
     <li key={category.id}>
-      <Link to={"/category/" + category.id}>{category.category}</Link>
+      <div onClick={() => props.getCategoryProduct(category.id)}>
+        <a href="#" onClick={e => e.preventDefault()}
+          style={props.selectedIndex == index ? selectedLabel : {}}>
+          {(category.category).charAt(0).toUpperCase() + category.category.slice(1)}
+        </a>
+      </div>
     </li>
   ));
 
