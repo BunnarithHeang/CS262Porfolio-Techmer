@@ -71,7 +71,6 @@ export default function SignUp() {
     date_of_birth: null,
     phone_number: "",
     phone_code: "",
-    number: "",
     email: null,
     password: null,
     password_confirmation: null,
@@ -100,15 +99,18 @@ export default function SignUp() {
 
   function onSignUp() {
     let all_data = data;
-    all_data.phone_number = data.phone_code + data.number;
+
+    // all_data.phone_number = data.phone_code + data.number;
     all_data.password = password.password.value;
     all_data.password_confirmation = password.password_confirmation.value;
-    all_data.date_of_birth =
-      data.date_of_birth.getFullYear() +
-      "-" +
-      (data.date_of_birth.getMonth() + 1) +
-      "-" +
-      data.date_of_birth.getDate();
+    if (all_data.date_of_birth != null) {
+      all_data.date_of_birth =
+        data.date_of_birth.getFullYear() +
+        "-" +
+        (data.date_of_birth.getMonth() + 1) +
+        "-" +
+        data.date_of_birth.getDate();
+    }
 
     setData(all_data);
 
@@ -225,7 +227,10 @@ export default function SignUp() {
                 <OutlinedInput
                   id="outlined-adornment-amount"
                   label="Phone Number  "
-                  onChange={(e) => setData({ ...data, number: e.target.value })}
+                  type="number"
+                  onChange={(e) =>
+                    setData({ ...data, phone_number: e.target.value })
+                  }
                   startAdornment={
                     <InputAdornment position="start">
                       <TextField
@@ -236,7 +241,7 @@ export default function SignUp() {
                         }
                       >
                         {country.map((option) => (
-                          <MenuItem key={option.id} value={option.phone_code}>
+                          <MenuItem key={option.id} value={option.id}>
                             {"+" + option.phone_code + " " + option.country}
                           </MenuItem>
                         ))}
