@@ -22,6 +22,7 @@ import Profile from "../views/Profile";
 export default function AllRoute() {
   return (
     <React.Fragment>
+      {/*  */}
       <Switch>
         <NoAuthRoute path="/login" toRender={Login} />
         <NoAuthRoute path="/register" toRender={Register} />
