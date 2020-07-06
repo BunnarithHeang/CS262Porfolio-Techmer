@@ -973,7 +973,7 @@ textarea.input {
 }
 
 .product.product-single:hover .product-thumb:after {
-    opacity: 0.7;
+    opacity: 0.1;
     visibility: visible;
 }
 
@@ -1849,6 +1849,7 @@ textarea.input {
 .categoryItemTitle {
     color: #F8694A !important;
     font-size: 20px !important;
+    font-weight: 500 !important;
 }
 
 .categoryItemTitle:hover {

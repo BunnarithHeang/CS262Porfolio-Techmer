@@ -7,7 +7,7 @@ export default function ProductPicView(props) {
   if (props.images != null) {
     for (var i = 0; i < props.images.length; ++i) {
       images.push(
-        <div className={i == 0 ? "item active" : "item"}>
+        <div className={i == 0 ? "item active" : "item"} key={i}>
           <img src={props.images[i]} alt="Image Not Found" />
         </div>
       );
@@ -30,11 +30,11 @@ export default function ProductPicView(props) {
           </div>
 
           {/* <!-- Left and right controls --> */}
-          <a className="left carousel-control" href="javascript:void(0)" data-slide="prev">
+          <a className="left carousel-control" href="javascript:;" data-slide="prev">
             <span className="glyphicon-chevron-left fa fa-arrow-left"></span>
             <span className="sr-only">Previous</span>
           </a>
-          <a className="right carousel-control" href="javascript:void(0)" data-slide="next">
+          <a className="right carousel-control" href="javascript:;" data-slide="next">
             <span className="glyphicon-chevron-right fa fa-arrow-right"></span>
             <span className="sr-only">Next</span>
           </a>
