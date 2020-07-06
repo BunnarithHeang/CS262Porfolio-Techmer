@@ -70,7 +70,7 @@ class Header extends Component {
                     </a>
                     <ul class="custom-menu">
                       <li>
-                        <Link to="/product">
+                        <Link to="/profile">
                           <i class="fa fa-user-o"></i> My Account
                         </Link>
                       </li>
@@ -85,7 +85,7 @@ class Header extends Component {
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
+                        <Link to="/checkout">
                           <i class="fa fa-check"></i> Checkout
                         </Link>
                       </li>
