@@ -3,9 +3,9 @@ import React from "react";
 export default function CategorySideFilter(props) {
   const categoryList = props.categoryList.map(
     (category, index) => 
-    <li>
+    <li key={category.id}>
       <div onClick={() => props.getCategoryProduct(category.id)}>
-        <a href="javascript:void(0)" 
+        <a href="#" onClick={e => e.preventDefault()}
           style={props.selectedIndex == index ? selectedLabel : {}}>
           {(category.category).charAt(0).toUpperCase() + category.category.slice(1)}
         </a>

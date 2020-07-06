@@ -43,7 +43,7 @@ class ProductBodyDes extends Component {
     // If want second option tags just create another 
     const mainOptionsTags = stateObj.productOptions.map((option, index) => 
       <li className={stateObj.selectedIndex==index ? "active" : ""} key={index}>
-        <a href="javascript:void(0)" onClick={(() => this.changePrice(option, index))}>{option.option}</a>
+        <a href="#" onClick={(() => this.changePrice(option, index))}>{option.option}</a>
       </li>
     );
 
