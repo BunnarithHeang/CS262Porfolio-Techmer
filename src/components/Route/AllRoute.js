@@ -12,6 +12,7 @@ import ShippingInfo from "../authentications/ShippingInfo";
 import CategoryPage from "../views/category/CategoryPage";
 import CartPage from "../views/cart/CartPage";
 import Checkout from "../views/CheckOut";
+import Profile from "../views/Profile"
 
 export default function AllRoute() {
   return (
@@ -24,6 +25,7 @@ export default function AllRoute() {
 
 
         <AuthLayoutRoute path="/products" toRender={Main} />
+        <AuthLayoutRoute path="/profile" toRender={Profile} />
         <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
         <AuthLayoutRoute path="/aboutus" toRender={About} />
