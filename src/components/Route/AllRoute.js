@@ -1,5 +1,10 @@
 import React from "react";
-import { AuthLayoutRoute, AuthRoute, NoAuthRoute } from "./RouterType";
+import {
+  AuthLayoutRoute,
+  NoAuthLayoutRoute,
+  AuthRoute,
+  NoAuthRoute,
+} from "./RouterType";
 import { Switch, Route } from "react-router-dom";
 import Logout from "../authentications/Logout";
 import Login from "../authentications/Login";
@@ -12,7 +17,7 @@ import ShippingInfo from "../authentications/ShippingInfo";
 import CategoryPage from "../views/category/CategoryPage";
 import CartPage from "../views/cart/CartPage";
 import Checkout from "../views/CheckOut";
-import Profile from "../views/Profile"
+import Profile from "../views/Profile";
 
 export default function AllRoute() {
   return (
@@ -23,15 +28,15 @@ export default function AllRoute() {
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
 
+        <NoAuthLayoutRoute path="/products" toRender={Main} />
+        <NoAuthLayoutRoute path="/product/:product_id" toRender={Product} />
+        <NoAuthLayoutRoute path="/aboutus" toRender={About} />
+        <NoAuthLayoutRoute path="/categories" toRender={CategoryPage} />
+        <NoAuthLayoutRoute path="/" toRender={Home} />
 
-        <AuthLayoutRoute path="/products" toRender={Main} />
         <AuthLayoutRoute path="/profile" toRender={Profile} />
-        <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
-        <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
-        <AuthLayoutRoute path="/aboutus" toRender={About} />
-        <AuthLayoutRoute path="/categories" toRender={CategoryPage} />
         <AuthLayoutRoute path="/cart" toRender={CartPage} />
-        <AuthLayoutRoute path="/" toRender={Home} />
+        <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
       </Switch>
     </React.Fragment>
   );
