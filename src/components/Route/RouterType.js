@@ -30,17 +30,13 @@ export const NoAuthLayoutRoute = ({ toRender: ToRender, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) =>
-        !user.isAuth ? (
-          <React.Fragment>
-            <Layout>
-              <ToRender params={props.match.params} />
-            </Layout>
-          </React.Fragment>
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
+      render={(props) => (
+        <React.Fragment>
+          <Layout>
+            <ToRender params={props.match.params} />
+          </Layout>
+        </React.Fragment>
+      )}
     />
   );
 };

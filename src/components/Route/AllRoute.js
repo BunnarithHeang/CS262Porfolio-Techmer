@@ -29,7 +29,7 @@ export default function AllRoute() {
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
 
-        <NoAuthLayoutRoute path="/products" toRender={Main} />
+        <NoAuthLayoutRoute path="/products/:name" toRender={Main} />
         <NoAuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/categories" toRender={CategoryPage} />

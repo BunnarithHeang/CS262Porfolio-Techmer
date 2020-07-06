@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
   render() {
@@ -15,7 +16,11 @@ export default class Navbar extends Component {
               </span>
               <ul className="category-list">
                 <li className="dropdown side-dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Women’s Clothing <i className="fa fa-angle-right"></i>
                   </a>
                   <div className="custom-menu">
@@ -107,7 +112,11 @@ export default class Navbar extends Component {
                   <a href="#">Men’s Clothing</a>
                 </li>
                 <li className="dropdown side-dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Phones & Accessories <i className="fa fa-angle-right"></i>
                   </a>
                   <div className="custom-menu">
@@ -221,7 +230,11 @@ export default class Navbar extends Component {
                   <a href="#">Consumer Electronics</a>
                 </li>
                 <li className="dropdown side-dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Jewelry & Watches <i className="fa fa-angle-right"></i>
                   </a>
                   <div className="custom-menu">
@@ -376,10 +389,18 @@ export default class Navbar extends Component {
                 Menu <i className="fa fa-bars"></i>
               </span>
               <ul className="menu-list">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Shop</a></li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/products">Product</Link>
+                </li>
                 <li className="dropdown mega-dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Women <i className="fa fa-caret-down"></i>
                   </a>
                   <div className="custom-menu">
@@ -468,7 +489,11 @@ export default class Navbar extends Component {
                   </div>
                 </li>
                 <li className="dropdown mega-dropdown full-width">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Men <i className="fa fa-caret-down"></i>
                   </a>
                   <div className="custom-menu">
@@ -612,7 +637,11 @@ export default class Navbar extends Component {
                   <a href="#">Sales</a>
                 </li>
                 <li className="dropdown default-dropdown">
-                  <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <a
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="true"
+                  >
                     Pages <i className="fa fa-caret-down"></i>
                   </a>
                   <ul className="custom-menu">
