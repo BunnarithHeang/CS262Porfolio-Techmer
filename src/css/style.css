@@ -1790,11 +1790,11 @@ textarea.input {
 }
 
 .categorySidebarA a {
-  color: black !important;
+  color: #f8694a;
 }
 
 .categorySidebarA a:hover {
-  color: #f8694a !important;
+  color: #007bff;
   font-weight: 600;
   transform: translateX(10px);
 }
