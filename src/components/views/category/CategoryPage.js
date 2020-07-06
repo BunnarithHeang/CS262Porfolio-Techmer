@@ -83,7 +83,10 @@ class CategoryPage extends Component {
                 <CategorySideFilter
                   selectedIndex={this.state.selectId - 1}
                   categoryList={this.state.categoryList}
-                  linkOnClick={() => window.location.reload()}
+                  linkOnClick={(id) => { 
+                    // window.location.reload() 
+                    this.getCategoryProduct(id)
+                  }}
                 />
 
                 <div id="main" className="col-md-9">
