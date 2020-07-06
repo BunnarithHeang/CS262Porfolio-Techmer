@@ -2,33 +2,62 @@ import React, { Component } from "react";
 import RatedStar from "./review_views/RatedStar";
 
 class ProductBodyDes extends Component {
-  
   constructor() {
     super();
     this.state = {
-      // price: this.props.product.price,
-      price: 23,
+      selectedPrice: 0,
+      selectedIndex: 0,
+      selectedProduct: {}, // Maybe when add to cart just retrieve id from here
+      productOptions: [],
     }
     this.changePrice = this.changePrice.bind(this);
   }
 
-  changePrice = () => {
-    this.setState({ price: this.state.price + 1 });
+  // Initializes the state with given props
+  componentWillReceiveProps(props) {
+    const product = props.product;
+    const resProductOps = product.product_option.map((data) => data);
+
+    this.setState({
+      selectedIndex: 0,
+      selectedPrice: resProductOps[0].price,
+      selectedProduct: resProductOps[0],
+      productOptions: resProductOps,
+    });
+  }
+
+  // Update the current selected
+  changePrice = (option, index) => {
+    this.setState({ 
+      selectedIndex: index,
+      selectedPrice: option.price,
+      selectedProduct: option,
+    });
   }
 
   render() {
+    const stateObj = this.state;
     const product = this.props.product;
+    
+    // Generate option tags
+    // If want second option tags just create another 
+    const mainOptionsTags = stateObj.productOptions.map((option, index) => 
+      <li className={stateObj.selectedIndex==index ? "active" : ""} key={index}>
+        <a href="javascript:void(0)" onClick={(() => this.changePrice(option, index))}>{option.option}</a>
+      </li>
+    );
+
     return (
       <div className="col-md-6">
         <div className="product-body">
           <div className="product-label">
+            {/* CHANGE HERE ALSO */}
             <span>New</span>
             <span className="sale">-20%</span>
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            {/* Change here to dynamic price {product.price} */}
-            $32.50  <del className="product-old-price">$45.00</del>
+            ${(stateObj.selectedPrice).toFixed(2)} <del className="product-old-price">${(stateObj.selectedPrice * 2).toFixed(2)}</del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
@@ -44,22 +73,13 @@ class ProductBodyDes extends Component {
           <p>
             <strong>Category:</strong> {product.category}
           </p>
-          <button onClick={this.changePrice}>CLick here </button>
           <p>{product.content}</p>
           <div className="product-options">
             <ul className="size-option">
               <li>
                 <span className="text-uppercase">Options:</span>
               </li>
-              <li className="active">
-                <a href="#">S</a>
-              </li>
-              <li className="active">
-                <a href="#">XL</a>
-              </li>
-              <li>
-                <a href="#">SL</a>
-              </li>
+              {mainOptionsTags}
             </ul>
             {/* <ul className="color-option">
                 <li>

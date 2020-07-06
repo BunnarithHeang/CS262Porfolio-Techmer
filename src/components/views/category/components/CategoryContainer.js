@@ -1,38 +1,39 @@
 import React from "react";
-import ItemPic from "./../../../images/item1Pic.jpg";
+import ItemPic from "./../../../../images/item1Pic.jpg";
+import RatedStar from "../../product/components/review_views/RatedStar";
 
-export default function ProductItem(props) {
+export default function CategoryContainer(props) {
+  const product = props.product;
+
   return (
     <div className="col-md-4 col-sm-6 col-xs-6">
       <div className="product product-single">
         <div className="product-thumb">
           <div className="product-label">
             {/* Just pass these 2 props */}
-            {props.isNew 
-              ? <span>New</span> 
-              : ""}
-            {props.hasDiscount 
-              ? <span className="sale">-20%</span> 
-              : ""}
+            {props.product.product_option[0].discount > 25 
+              ? <span>New</span> : ""
+            }
+            {
+              props.product.product_option[0].discount != 0
+                ? <span className="sale">{props.product.product_option[0].discount}%</span>
+                : ''
+            }
           </div>
           <button className="main-btn quick-view">
             <i className="fa fa-search-plus"></i> Quick view
           </button>
-          <img src={ItemPic} alt="Picture Here" />
+          <img src={product.gallery[0]} alt="Picture Here" />
         </div>
         <div className="product-body">
           <h3 className="product-price">
-            $32.50 <del className="product-old-price">$45.00</del>
-          </h3>
-          <div className="product-rating">
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star-o empty"></i>
-          </div>
+            ${(product.product_option[0].price).toFixed(2)} <del className="product-old-price">${(product.product_option[0].price * 2.3).toFixed(2)}</del>
+          </h3> 
+
+          <RatedStar rated={product.rated} />
+          
           <h2 className="product-name">
-            <a href="#">Product Name Goes Here</a>
+          <a href="#">{product.title}</a>
           </h2>
           <div className="product-btns">
             <button className="main-btn icon-btn">

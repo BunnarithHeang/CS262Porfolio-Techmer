@@ -22,13 +22,13 @@ export default function ProductDetails(props) {
   return (
     <body>
       <div>
-        <BreadCrumb pageName={"Product Name Here"} />
+        <BreadCrumb pageName={product.title} />
 
         <div className="section">
           <div className="container">
             <div className="row">
               <div className="product product-details clearfix">
-                <ProductPicView img={img} />
+                <ProductPicView images={product.gallery} />
                 <ProductBodyDes product={product} />
                 <ProductReview allowReviewInput={true} />
               </div>
