@@ -11,6 +11,7 @@ import Main from "../views/Main";
 import ShippingInfo from "../authentications/ShippingInfo";
 import CategoryPage from "../views/category/CategoryPage";
 import CartPage from "../views/cart/CartPage";
+import Checkout from "../views/CheckOut";
 
 export default function AllRoute() {
   return (
@@ -18,8 +19,9 @@ export default function AllRoute() {
       <Switch>
         <NoAuthRoute path="/login" toRender={Login} />
         <NoAuthRoute path="/register" toRender={Register} />
-        <NoAuthRoute path="/checkout" toRender={Checkout} />
         <AuthRoute path="/logout" toRender={Logout} />
+        <AuthRoute path="/checkout" toRender={Checkout} />
+
 
         <AuthLayoutRoute path="/products" toRender={Main} />
         <AuthLayoutRoute path="/product/:product_id" toRender={Product} />
