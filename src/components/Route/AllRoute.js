@@ -9,6 +9,7 @@ import About from "../views/About";
 import Product from "../views/product/ProductDetails";
 import Main from "../views/Main";
 import ShippingInfo from "../authentications/ShippingInfo";
+import Checkout from "../views/CheckOut"
 
 export default function AllRoute() {
   return (
@@ -16,6 +17,7 @@ export default function AllRoute() {
       <Switch>
         <NoAuthRoute path="/login" toRender={Login} />
         <NoAuthRoute path="/register" toRender={Register} />
+        <NoAuthRoute path="/checkout" toRender={Checkout} />
         <AuthRoute path="/logout" toRender={Logout} />
 
         <AuthLayoutRoute path="/products" toRender={Main} />

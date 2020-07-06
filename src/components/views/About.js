@@ -28,16 +28,9 @@ export default class About extends Component {
                     <Container maxWidth="lg">
                         <main>
                             <MainFeaturedPost post={mainFeaturedPost} />
-                            <div className="row">
-                                <Section1 post={mainFeaturedPost}/>
-                            </div>
-                            <Grid spacing={4}>
-                                <Section2 />
-                            </Grid>
-                            
-                            <Grid spacing={4}>
-                                <Section3 />
-                            </Grid>
+                            <Section1 post={mainFeaturedPost}/>
+                            <Section2 />
+                            <Section3 />
                         </main>
                     </Container>
             </React.Fragment>
