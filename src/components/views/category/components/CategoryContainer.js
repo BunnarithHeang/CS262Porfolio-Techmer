@@ -10,28 +10,45 @@ export default function CategoryContainer(props) {
       <div className="product product-single">
         <div className="product-thumb">
           <div className="product-label">
-            {
-              props.product.product_option[0].discount != 0
-                ? <span className="sale">{props.product.product_option[0].discount}%</span>
-                : ''
-            }
+            {props.product.product_option[0].discount != 0 ? (
+              <span className="sale">
+                {props.product.product_option[0].discount}%
+              </span>
+            ) : (
+              ""
+            )}
           </div>
           <img src={product.gallery[0]} style={imageStyle} alt="Picture Here" />
         </div>
         <div className="product-body">
           <RatedStar rated={product.rated} />
           <h3 className="product-price">
-            ${(product.product_option[0].price).toFixed(2)} 
-            <br/>
-            <del className="product-old-price">${(product.product_option[0].price * 2.3).toFixed(2)}</del>
-          </h3> 
-          <h2 className="product-name">
-          <Link to="/product/1">
-            <label className="categoryItemTitle">
-              {product.title}
-            </label>
-          </Link>
-          </h2>
+            $
+            {(
+              (product.product_option[0].price *
+                (100 - props.product.product_option[0].discount)) /
+              100
+            ).toFixed(2)}
+            <br />
+            <del className="product-old-price">
+              {props.product.product_option[0].discount != 0 ? (
+                <span>${product.product_option[0].price.toFixed(2)}</span>
+              ) : (
+                <span>&nbsp;</span>
+              )}
+            </del>
+          </h3>
+          <div className="product-name-container">
+            <h4 className="product-name">
+              <Link to="/product/1">
+                <label className="categoryItemTitle">
+                  {product.title.length > 70
+                    ? product.title.substr(0, 70) + "..."
+                    : product.title}
+                </label>
+              </Link>
+            </h4>
+          </div>
           <div className="product-btns">
             <button className="primary-btn add-to-cart">
               <i className="fa fa-shopping-cart"></i> Add to Cart
@@ -44,6 +61,6 @@ export default function CategoryContainer(props) {
 }
 
 const imageStyle = {
-  objectFit: 'cover',
-  height: '200px',
-}
+  objectFit: "cover",
+  height: "200px",
+};

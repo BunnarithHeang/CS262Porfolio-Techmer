@@ -29,10 +29,3 @@ a {
   -ms-transform: translateX(10px);
   transform: translateX(10px);
 }
-
-a:hover:before,
-a:focus:before,
-a:before {
-  opacity: 1;
-  visibility: visible;
-}
