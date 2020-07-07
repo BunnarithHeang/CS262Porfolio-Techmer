@@ -67,7 +67,7 @@ class CategoryPage extends Component {
       <body>
         <div>
           <BreadCrumb
-            pageName={`Category / ${
+            pageName={` / Category / ${
               this.state.categoryList.length > 0
                 ? this.state.categoryList[this.state.selectId - 1]?.category ??
                   ""
