@@ -6,8 +6,11 @@ export default function CategorySideFilter(props) {
   const categoryList = props.categoryList.map((category, index) => (
     <li key={category.id}>
       <div onClick={() => props.linkOnClick(category.id)}>
-        <Link to={"/category/" + category.id} style={props.selectedIndex == index ? selectedLabel : {}}>
-          {category.category}
+        <Link
+          to={"/category/" + category.id}
+          style={props.selectedIndex == index ? selectedLabel : {}}
+        >
+          {category[props.option]}
         </Link>
       </div>
     </li>

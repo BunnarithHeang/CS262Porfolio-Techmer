@@ -25,12 +25,6 @@ export default function ProductSearch(props) {
       .catch((error) => console.log(error.response));
   }, []);
 
-  const btnhit = props => {
-    return (
-      console.log(props)
-    );
-  }
-
   return (
     <body>
       <div>
@@ -45,8 +39,7 @@ export default function ProductSearch(props) {
                 <StoreTopBottomFilter />
 
                 <div id="store">
-                  {/* <div className="row">{products}</div> */}
-                  <button onClick={() => btnhit("123123")}>Click</button>
+                  <div className="row">{products}</div>
                 </div>
 
                 <StoreTopBottomFilter />

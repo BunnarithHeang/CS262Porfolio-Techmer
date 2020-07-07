@@ -21,20 +21,20 @@ class CategoryPage extends Component {
 
   // PAss props to class
   async componentDidMount() {
-    await Axios.get("/product-category", getHeader())
+    await Axios.get("/product-brand", getHeader())
       .then((res) => {
         this.setState({
           categoryList: res.data.map((category) => category),
         });
       })
       .catch((error) => console.log(error.response));
-    console.log(this.props.params.category_id);
-    await this.getCategoryProduct(this.props.params.category_id);
+    console.log(this.props.params.brand_id);
+    await this.getCategoryProduct(this.props.params.brand_id);
   }
 
   // Get products of new category, update the products
   getCategoryProduct = async (index) => {
-    await Axios.get("/product/byCategory/" + index, getHeader())
+    await Axios.get("/product/byBrand/" + index, getHeader())
       .then((res) => {
         this.setState({
           categoryProduct: res.data.map((product) => product),
@@ -87,7 +87,7 @@ class CategoryPage extends Component {
                     // window.location.reload()
                     this.getCategoryProduct(id);
                   }}
-                  option={"category"}
+                  option={"brand"}
                 />
 
                 <div id="main" className="col-md-9">

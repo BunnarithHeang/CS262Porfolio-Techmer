@@ -28,7 +28,7 @@ export default class Navbar extends Component {
                   <Link to="/products">Product</Link>
                 </li>
                 <li>
-                  <Link to="/categories">Shop By Category</Link>
+                  <Link to="/category/1">Shop By Category</Link>
                 </li>
                 <li className="dropdown mega-dropdown">
                   <a
