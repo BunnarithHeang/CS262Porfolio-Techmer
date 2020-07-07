@@ -39,10 +39,6 @@ export default function AllRoute() {
         <NoAuthLayoutRoute path="/product/:product_id?" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/" toRender={Home} />
-
-        <AuthLayoutRoute path="/profile" toRender={Profile} />
-        <AuthLayoutRoute path="/cart" toRender={CartPage} />
-        <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
       </Switch>
     </React.Fragment>
   );
