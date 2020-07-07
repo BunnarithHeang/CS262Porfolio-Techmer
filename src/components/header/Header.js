@@ -20,87 +20,84 @@ function Header() {
 
         {/* <!-- header --> */}
         <div id="header">
-          <div class="container">
-            <div class="pull-left">
+          <div className="container">
+            <div className="pull-left">
               {/* <!-- Logo --> */}
-              <div class="header-logo">
-                <a class="logo" href="#">
-                  {/* <img src="./img/logo.png" alt="" /> */}
-                  techfinder
-                </a>
+              <div className="header-logo">
+                <Link to='/'>techfinder</Link>
               </div>
               {/* <!-- /Logo --> */}
 
               {/* <!-- Search --> */}
-              <div class="header-search">
+              <div className="header-search">
                 <form>
                   <input
-                    class="input search-input"
+                    className="input search-input"
                     type="text"
                     placeholder="Enter your keyword"
                     onChange={(e) => setData({ toSearch: e.target.value })}
                   />
-                  <button class="search-btn" onClick={() => clickHandler()}>
-                    <i class="fa fa-search"></i>
+                  <button className="search-btn" onClick={() => clickHandler()}>
+                    <i className="fa fa-search"></i>
                   </button>
                 </form>
               </div>
               {/* <!-- /Search --> */}
             </div>
 
-            <div class="pull-right">
-              <ul class="header-btns">
+            <div className="pull-right">
+              <ul className="header-btns">
                 {/* <!-- Account --> */}
-                <li class="header-account dropdown default-dropdown">
+                <li className="header-account dropdown default-dropdown">
                   <div
-                    class="dropdown-toggle"
+                    className="dropdown-toggle"
                     role="button"
                     data-toggle="dropdown"
                     aria-expanded="true"
                   >
-                    <div class="header-btns-icon">
-                      <i class="fa fa-user-o"></i>
+                    <div className="header-btns-icon">
+                      <i className="fa fa-user-o"></i>
                     </div>
-                    <strong class="text-uppercase">
-                      My Account <i class="fa fa-caret-down"></i>
+                    <strong className="text-capitalize">
+                      My Account <i className="fa fa-caret-down"></i>
                     </strong>
                   </div>
-                  <a href="#" class="text-uppercase">
-                    Login
-                  </a>{" "}
-                  /{" "}
-                  <a href="#" class="text-uppercase">
+                  <a href="#" className="text-uppercase">
+                    Login /
+                  </a>
+                  {" "}{" "}
+                  <a href="#" className="text-uppercase">
                     Join
                   </a>
-                  <ul class="custom-menu">
+                  <ul className="custom-menu">
                     <li>
                       <Link to="/profile">
-                        <i class="fa fa-user-o"></i> My Account
+                        <i className="fa fa-user-o"></i> My Account
                       </Link>
                     </li>
                     <li>
                       <Link to="#">
-                        <i class="fa fa-heart-o"></i> My Wishlist
+                        <i className="fa fa-heart-o"></i> My Wishlist
                       </Link>
                     </li>
                     <li>
                       <Link to="#">
-                        <i class="fa fa-exchange"></i> Compare
+                        <i className="fa fa-exchange"></i> Compare
                       </Link>
                     </li>
                     <li>
                       <Link to="/checkout">
-                        <i class="fa fa-check"></i> Checkout
+                        <i className="fa fa-check"></i> Checkout
                       </Link>
                     </li>
                     <li>
                       <Link to="/logout">
-                        <i class="fa fa-unlock-alt"></i> Logout
+                        <i className="fa fa-unlock-alt"></i> Logout
                       </Link>
                     </li>
                     <li>
                       <Link to="#">
-                        <i class="fa fa-user-plus"></i> Create An Account
+                        <i className="fa fa-user-plus"></i> Create An Account
                       </Link>
                     </li>
                   </ul>
@@ -108,25 +105,25 @@ function Header() {
                 {/* <!-- /Account --> */}
 
                 {/* <!-- Cart --> */}
-                <li class="header-cart dropdown default-dropdown">
+                <li className="header-cart dropdown default-dropdown">
                   <a
-                    class="dropdown-toggle"
+                    className="dropdown-toggle"
                     data-toggle="dropdown"
                     aria-expanded="true"
                   >
-                    <div class="header-btns-icon">
-                      <i class="fa fa-shopping-cart"></i>
-                      <span class="qty">3</span>
+                    <div className="header-btns-icon">
+                      <i className="fa fa-shopping-cart"></i>
+                      <span className="qty">3</span>
                     </div>
-                    <strong class="text-uppercase">My Cart:</strong>
+                    <strong className="text-capitalize">My Cart:</strong>
                   </a>
                 </li>
                 {/* <!-- /Cart --> */}
 
                 {/* <!-- Mobile nav toggle--> */}
-                <li class="nav-toggle">
-                  <button class="nav-toggle-btn main-btn icon-btn">
-                    <i class="fa fa-bars"></i>
+                <li className="nav-toggle">
+                  <button className="nav-toggle-btn main-btn icon-btn">
+                    <i className="fa fa-bars"></i>
                   </button>
                 </li>
                 {/* <!-- / Mobile nav toggle --> */}

@@ -8,10 +8,10 @@ import Axios from "axios";
 
 export default function ProductSearch(props) {
   const [products, setProducts] = React.useState([]);
+  const [brands, setBrands] = React.useState([]);
 
   React.useEffect(() => {
     let data = { toSearch: props.name };
-
     Axios.post("/product/search", data)
       .then((res) => {
         console.log(res.data);
@@ -25,10 +25,16 @@ export default function ProductSearch(props) {
       .catch((error) => console.log(error.response));
   }, []);
 
+  const btnhit = props => {
+    return (
+      console.log(props)
+    );
+  }
+
   return (
     <body>
       <div>
-        <BreadCrumb pageName={"Product Name Here"} />
+        <BreadCrumb pageName={"/ search / " + props.name} />
 
         <div className="section">
           <div className="container">
@@ -39,7 +45,8 @@ export default function ProductSearch(props) {
                 <StoreTopBottomFilter />
 
                 <div id="store">
-                  <div className="row">{products}</div>
+                  {/* <div className="row">{products}</div> */}
+                  <button onClick={() => btnhit("123123")}>Click</button>
                 </div>
 
                 <StoreTopBottomFilter />

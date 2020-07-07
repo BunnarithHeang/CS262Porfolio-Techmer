@@ -15,7 +15,7 @@ export default class Footer extends Component {
                   {/* <!-- footer logo --> */}
                   <div class="footer-logo">
                     <a class="logo" href="#">
-                      <img src="./img/logo.png" alt="" />
+                      {/* <img src="./img/logo.png" alt="" /> */}
                     </a>
                   </div>
                   {/* <!-- /footer logo --> */}

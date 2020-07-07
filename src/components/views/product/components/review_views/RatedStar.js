@@ -1,24 +1,26 @@
 import React from "react";
 
 export default function RatedStar(props) {
+  var keyId = 1;
+
   function showFunction(rated) {
     let show = [];
     let cnt = 0;
     for (let l = 0; l < Math.ceil(rated); l++) {
-      show.push(<i className="fa fa-star"></i>);
+      show.push(<i key={keyId++} className="fa fa-star"></i>);
     }
     show.push(() => {
       if (rated - Math.ceil(rated) > 0.5) {
-        return <i className="fa fa-star"></i>;
+        return <i key={keyId++} className="fa fa-star"></i>;
       } else if (rated - Math.ceil(rated) == 0) {
-        return <i className="fa fa-star-o"></i>;
+        return <i key={keyId++} className="fa fa-star-o"></i>;
       } else if (rated - Math.ceil(rated) > 0) {
-        return <i className="fa fa-star-half-o"></i>;
+        return <i key={keyId++} className="fa fa-star-half-o"></i>;
       }
       cnt++;
     });
     for (let l = 0; l < 5 - Math.ceil(rated) - cnt; l++) {
-      show.push(<i className="fa fa-star-o"></i>);
+      show.push(<i key={keyId++} className="fa fa-star-o"></i>);
     }
     return show;
   }
