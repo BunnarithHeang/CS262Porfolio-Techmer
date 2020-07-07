@@ -8,32 +8,19 @@ import Axios from "axios";
 
 export default function ProductSearch(props) {
   const [products, setProducts] = React.useState([]);
-  const [brands, setBrands] = React.useState([]);
 
   React.useEffect(() => {
-    if (props.name) {
-      Axios.post("/product/search", { toSearch: props.name })
-        .then((res) => {
-          console.log(res.data);
+    Axios.post("/product/search", { toSearch: props.name })
+      .then((res) => {
+        console.log(res.data);
 
-          setProducts(
-            res.data.map((data, index) => (
-              <CategoryContainer product={data} key={index} />
-            ))
-          );
-        })
-        .catch((error) => console.log(error.response));
-    } else {
-      Axios.get("/product/page/12")
-        .then((res) => {
-          setProducts(
-            res.data.data.map((data, index) => (
-              <CategoryContainer product={data} key={index} key_num={100} />
-            ))
-          );
-        })
-        .catch((error) => console.log(error.response));
-    }
+        setProducts(
+          res.data.map((data, index) => (
+            <CategoryContainer product={data} key={index} />
+          ))
+        );
+      })
+      .catch((error) => console.log(error.response));
   }, []);
 
   return (
