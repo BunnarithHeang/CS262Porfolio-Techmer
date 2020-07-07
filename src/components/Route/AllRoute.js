@@ -29,15 +29,15 @@ export default function AllRoute() {
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
 
+        <AuthLayoutRoute path="/profile" toRender={Profile} />
+        <AuthLayoutRoute path="/cart" toRender={CartPage} />
+        <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
+
         <NoAuthLayoutRoute path="/products/:name" toRender={Main} />
         <NoAuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/categories" toRender={CategoryPage} />
         <NoAuthLayoutRoute path="/" toRender={Home} />
-
-        <AuthLayoutRoute path="/profile" toRender={Profile} />
-        <AuthLayoutRoute path="/cart" toRender={CartPage} />
-        <AuthLayoutRoute path="/shipping-info" toRender={ShippingInfo} />
       </Switch>
     </React.Fragment>
   );

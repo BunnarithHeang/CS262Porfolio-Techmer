@@ -4,6 +4,24 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
+
+const top100Films = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Godfather', year: 1972 },
+  { title: 'The Godfather: Part II', year: 1974 },
+  { title: 'The Dark Knight', year: 2008 },
+  { title: '12 Angry Men', year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: 'Pulp Fiction', year: 1994 },
+  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+  { title: 'The Good, the Bad and the Ugly', year: 1966 },
+  { title: 'Fight Club', year: 1999 },
+  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+  { title: 'Forrest Gump', year: 1994 },
+];
 
 export default function AddressForm() {
   return (
@@ -13,76 +31,100 @@ export default function AddressForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField
+          {/* <TextField
             required
             id="firstName"
             name="firstName"
             label="First name"
             fullWidth
             autoComplete="given-name"
+          /> */}
+          <Autocomplete
+            required
+            id="firstName"
+            name="firstname"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
+            style={{ width: 250 }}
+            renderInput={(params) => <TextField {...params} label="FirstName" />}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-          />
+          <Autocomplete
+              required
+              id="firstName"
+              name="firstname"
+              options={top100Films}
+              getOptionLabel={(option) => option.title}
+              style={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="FirstName" />}
+            />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <Autocomplete
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
             fullWidth
-            autoComplete="shipping address-line1"
+            renderInput={(params) => <TextField {...params} label="Address line 1" />}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <Autocomplete
+            required
             id="address2"
             name="address2"
-            label="Address line 2"
+            options={top100Films}
+            getOptionLabel={(option) => option.title}
             fullWidth
-            autoComplete="shipping address-line2"
+            renderInput={(params) => <TextField {...params} label="Address line 2" />}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-          />
+            <Autocomplete
+              required
+              id="city"
+              name="city"
+              options={top100Films}
+              getOptionLabel={(option) => option.title}
+              style={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="City" />}
+            />  
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+          <Autocomplete
+                required
+                id="state"
+                name="state"
+                options={top100Films}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="State" />}
+              />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-          />
+          <Autocomplete
+              required
+              id="zip"
+              name="zip"
+              options={top100Films}
+              getOptionLabel={(option) => option.title}
+              style={{ width: 250 }}
+              renderInput={(params) => <TextField {...params} label="Zip" />}
+            />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-          />
+          <Autocomplete
+                required
+                id="county"
+                name="county"
+                options={top100Films}
+                getOptionLabel={(option) => option.title}
+                style={{ width: 250 }}
+                renderInput={(params) => <TextField {...params} label="Country" />}
+              />
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
