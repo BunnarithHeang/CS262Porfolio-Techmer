@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import RatedStar from "./review_views/RatedStar";
+import "../../../../scss/product_des.scss";
 
 class ProductBodyDes extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class ProductBodyDes extends Component {
       selectedIndex: 0,
       selectedProduct: {}, // Maybe when add to cart just retrieve id from here
       productOptions: [],
-    }
+    };
     this.changePrice = this.changePrice.bind(this);
   }
 
@@ -28,24 +29,29 @@ class ProductBodyDes extends Component {
 
   // Update the current selected
   changePrice = (option, index) => {
-    this.setState({ 
+    this.setState({
       selectedIndex: index,
       selectedPrice: option.price,
       selectedProduct: option,
     });
-  }
+  };
 
   render() {
     const stateObj = this.state;
     const product = this.props.product;
-    
+
     // Generate option tags
-    // If want second option tags just create another 
-    const mainOptionsTags = stateObj.productOptions.map((option, index) => 
-      <li className={stateObj.selectedIndex==index ? "active" : ""} key={index}>
-        <a href="javascript:;" onClick={(() => this.changePrice(option, index))}>{option.option}</a>
+    // If want second option tags just create another
+    const mainOptionsTags = stateObj.productOptions.map((option, index) => (
+      <li
+        className={stateObj.selectedIndex == index ? "active" : ""}
+        key={index}
+      >
+        <a href="javascript:;" onClick={() => this.changePrice(option, index)}>
+          {option.option}
+        </a>
       </li>
-    );
+    ));
 
     return (
       <div className="col-md-6">
@@ -57,11 +63,14 @@ class ProductBodyDes extends Component {
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            ${(stateObj.selectedPrice).toFixed(2)} <del className="product-old-price">${(stateObj.selectedPrice * 2).toFixed(2)}</del>
+            ${stateObj.selectedPrice.toFixed(2)}{" "}
+            <del className="product-old-price">
+              ${(stateObj.selectedPrice * 2).toFixed(2)}
+            </del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
-  
+
             <a href="#">3 Review(s) / Add Review</a>
           </div>
           <p>
@@ -99,7 +108,7 @@ class ProductBodyDes extends Component {
                 </li> 
               </ul> */}
           </div>
-  
+
           <div className="product-btns">
             <div className="qty-input">
               <span className="text-uppercase">QTY: </span>
@@ -120,6 +129,7 @@ class ProductBodyDes extends Component {
               </button>
             </div>
           </div>
+          <div className="product-description">{product.short_description}</div>
         </div>
       </div>
     );

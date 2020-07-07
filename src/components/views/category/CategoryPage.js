@@ -28,8 +28,7 @@ class CategoryPage extends Component {
         });
       })
       .catch((error) => console.log(error.response));
-    console.log(this.props.params.category_id);
-    await this.getCategoryProduct(this.props.params.category_id);
+    await this.getCategoryProduct(this.props.params.category_id ?? 1);
   }
 
   // Get products of new category, update the products
