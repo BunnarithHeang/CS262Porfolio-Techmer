@@ -28,8 +28,7 @@ class CategoryPage extends Component {
         });
       })
       .catch((error) => console.log(error.response));
-    console.log(this.props.params.category_id);
-    await this.getCategoryProduct(this.props.params.category_id);
+    await this.getCategoryProduct(this.props.params.category_id ?? 1);
   }
 
   // Get products of new category, update the products
@@ -68,7 +67,7 @@ class CategoryPage extends Component {
       <body>
         <div>
           <BreadCrumb
-            pageName={`Category / ${
+            pageName={` / Category / ${
               this.state.categoryList.length > 0
                 ? this.state.categoryList[this.state.selectId - 1]?.category ??
                   ""

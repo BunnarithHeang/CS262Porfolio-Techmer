@@ -11,7 +11,9 @@ export default class Navbar extends Component {
           <div id="responsive-nav">
             {/* <!-- category nav --> */}
             <div className="category-nav show-on-click">
-              <span className="category-header">Tech Finder</span>
+              <span className="category-header" style={{ textAlign: 'center' }}>
+                <Link to="/" style={{ color: 'white' }}>techfinder</Link>
+              </span>
             </div>
             {/* <!-- /category nav --> */}
 
@@ -22,13 +24,13 @@ export default class Navbar extends Component {
               </span>
               <ul className="menu-list">
                 <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
                   <Link to="/products">Product</Link>
                 </li>
                 <li>
-                  <Link to="/category/1">Shop By Category</Link>
+                  <Link to="/category">Shop By Category</Link>
+                </li>
+                <li>
+                  <Link to="/brand">Shop By Brand</Link>
                 </li>
                 <li className="dropdown mega-dropdown">
                   <a

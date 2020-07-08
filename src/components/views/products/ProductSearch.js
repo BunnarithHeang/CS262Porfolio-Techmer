@@ -8,11 +8,9 @@ import Axios from "axios";
 
 export default function ProductSearch(props) {
   const [products, setProducts] = React.useState([]);
-  const [brands, setBrands] = React.useState([]);
 
   React.useEffect(() => {
-    let data = { toSearch: props.name };
-    Axios.post("/product/search", data)
+    Axios.post("/product/search", { toSearch: props.name })
       .then((res) => {
         console.log(res.data);
 
@@ -33,9 +31,9 @@ export default function ProductSearch(props) {
         <div className="section">
           <div className="container">
             <div className="row">
-              <StoreSideFilter />
+              {/* <StoreSideFilter /> */}
 
-              <div id="main" className="col-md-9">
+              <div id="main" className="col-md-12">
                 <StoreTopBottomFilter />
 
                 <div id="store">

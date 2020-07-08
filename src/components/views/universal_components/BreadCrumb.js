@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function BreadCrumb(props) {
   return (
@@ -6,7 +7,7 @@ export default function BreadCrumb(props) {
       <div class="container">
         <ul class="breadcrumb">
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li class="active">{props.pageName}</li>
         </ul>

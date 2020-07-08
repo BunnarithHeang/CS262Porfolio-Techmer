@@ -40,10 +40,10 @@ export default function CategoryContainer(props) {
           </h3>
           <div className="product-name-container">
             <h4 className="product-name">
-              <Link to="/product/1">
+              <Link to={"/product/" + product.id}>
                 <label className="categoryItemTitle">
-                  {product.title.length > 70
-                    ? product.title.substr(0, 70) + "..."
+                  {product.title.length > props.key_num
+                    ? product.title.substr(0, props.key_num) + "..."
                     : product.title}
                 </label>
               </Link>
@@ -63,4 +63,8 @@ export default function CategoryContainer(props) {
 const imageStyle = {
   objectFit: "cover",
   height: "200px",
+};
+
+CategoryContainer.defaultProps = {
+  key_num: 70,
 };
