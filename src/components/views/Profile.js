@@ -7,7 +7,7 @@ const makestyle = {
   paddingTop: '50px',
 };
 
-export default class App extends Component {
+export default class Profile extends Component {
   constructor(props){
     super(props);
     this.state={
