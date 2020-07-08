@@ -40,7 +40,15 @@ export default class ProductSearch extends Component {
         })
         this.renderContainer();
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => { 
+        console.log(error.response) 
+        this.setState({
+          maxPageIndex: 1,
+          currentPage: 1,
+          showingProductsData: [],
+          searchname: "unknown"
+        })
+      });
   }
 
   renderContainer() {
@@ -56,7 +64,7 @@ export default class ProductSearch extends Component {
     return (
       <body>
         <div>
-          <BreadCrumb pageName={"/ search / " + this.state.searchname} />
+          <BreadCrumb pageName={"/ Search / " + this.state.searchname} />
 
           <div className="section">
             <div className="container">
@@ -73,7 +81,13 @@ export default class ProductSearch extends Component {
                   />
 
                   <div id="store">
-                    <div className="row">{this.state.productContainers}</div>
+                    <div className="row">
+                      { 
+                        this.state.productContainers.length > 0 
+                          ? this.state.productContainers
+                          : <h3 style={{ textAlign: 'center', fontWeight: '600' }}>Product Not Found</h3>
+                      }
+                    </div>
                   </div>
 
                   <StoreTopBottomFilter 
