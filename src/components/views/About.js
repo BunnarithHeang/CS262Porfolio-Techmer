@@ -23,7 +23,7 @@ export default class About extends Component {
     render() {
         return (
             <React.Fragment>
-                <BreadCrumb pageName={"Product Name Here"}/>
+                <BreadCrumb pageName={"About Us"}/>
                 <CssBaseline />
                     <Container maxWidth="lg">
                         <main>

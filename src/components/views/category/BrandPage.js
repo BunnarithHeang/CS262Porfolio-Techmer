@@ -43,8 +43,6 @@ class CategoryPage extends Component {
             return (
               <CategoryContainer
                 key={index}
-                isNew={index % 2 == 0} // Modify promo here
-                hasDiscount={index % 2 != 0 || index % 3 == 0}
                 product={product}
               />
             );
