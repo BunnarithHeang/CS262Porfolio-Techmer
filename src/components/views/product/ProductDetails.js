@@ -1,10 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
 import ProductPicView from "./components/ProductPicView";
 import ProductBodyDes from "./components/ProductBodyDes";
 import ProductReview from "./components/review_views/ProductReview";
-import ProductItem from "../universal_components/ProductItem";
-import img from "./../../../images/item1Pic.jpg";
 import Axios from "axios";
 import { getHeader } from "../../../AuthUser";
 import CategoryContainer from "../category/components/CategoryContainer";
@@ -25,8 +23,6 @@ export default function ProductDetails(props) {
           res.data.map((product, index) => (
             <CategoryContainer
               key={index}
-              isNew={index % 2 == 0} // Modify promo here
-              hasDiscount={index % 2 != 0 || index % 3 == 0}
               product={product}
             />
           ))
@@ -72,3 +68,94 @@ export default function ProductDetails(props) {
     </body>
   );
 }
+
+
+// import React, { Component } from "react";
+// import BreadCrumb from "./../universal_components/BreadCrumb";
+// import ProductPicView from "./components/ProductPicView";
+// import ProductBodyDes from "./components/ProductBodyDes";
+// import ProductReview from "./components/review_views/ProductReview";
+// import Axios from "axios";
+// import { getHeader } from "../../../AuthUser";
+// import CategoryContainer from "../category/components/CategoryContainer";
+
+// export default class ProductDetails extends Component {
+//   // const [product, setProduct] = React.useState(0);
+//   // const [pickForYou, setPickForYou] = React.useState(0);
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       product: 0,
+//       pickForYou: 0,
+//     };
+//     this.getProducts = this.getProducts.bind(this);
+//   }
+
+//   componentDidMount(props) {
+//     this.getProducts(props);
+//   }
+
+//   componentWillReceiveProps(props) {
+//     this.getProducts(props);
+//   }
+
+//   getProducts(props) {
+//     Axios.get("/product/" + props.product_id, getHeader())
+//       .then((res) => {
+//         this.setState({
+//           product: res.data
+//         })
+//       })
+//       .catch((error) => console.log(error.response));
+//     Axios.get("/product/pickForYou/" + props.product_id, getHeader())
+//       .then((res) => {
+//         this.setState({
+//           pickForYou: res.data.map((product, index) => (
+//             <CategoryContainer key={index} product={product} />
+//           ))
+
+//         })
+//       })
+//       .catch((error) => console.log(error.response));
+//   }
+
+//   render() {
+//     return (
+//       <body>
+//         <div>
+//           <BreadCrumb pageName={this.state.product.title} />
+
+//           <div className="section">
+//             <div className="container">
+//               <div className="row">
+//                 <div className="product product-details clearfix">
+//                   <ProductPicView images={this.state.product.gallery} />
+//                   <ProductBodyDes product={this.state.product} />
+//                   <ProductReview
+//                     allowReviewInput={true}
+//                     description={this.state.product.full_description}
+//                   />
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Product Recommdation */}
+//         <div class="section">
+//           <div class="container">
+//             <div class="row">
+//               <div class="col-md-12">
+//                 <div class="section-title">
+//                   <h2 class="title">Picked For You</h2>
+//                 </div>
+//               </div>
+//               {this.state.pickForYou}
+//             </div>
+//           </div>
+//         </div>
+//       </body>
+//     );
+//   }
+// }

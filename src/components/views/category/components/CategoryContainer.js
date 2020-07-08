@@ -1,6 +1,6 @@
 import React from "react";
 import RatedStar from "../../product/components/review_views/RatedStar";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CategoryContainer(props) {
   const product = props.product;

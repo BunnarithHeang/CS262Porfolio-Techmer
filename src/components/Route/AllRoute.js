@@ -19,6 +19,7 @@ import BrandPage from "../views/category/BrandPage";
 import CartPage from "../views/cart/CartPage";
 import Checkout from "../views/CheckOut";
 import Profile from "../views/Profile";
+import ProductSearch from "../views/products/ProductSearch";
 
 export default function AllRoute() {
   return (
@@ -35,7 +36,7 @@ export default function AllRoute() {
           toRender={CategoryPage}
         />
         <NoAuthLayoutRoute path="/brand/:brand_id?" toRender={BrandPage} />
-        <NoAuthLayoutRoute path="/products/:name?" toRender={Main} />
+        <NoAuthLayoutRoute path="/products/:name?" toRender={ProductSearch} e/>
         <NoAuthLayoutRoute path="/product/:product_id?" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/" toRender={Home} />
