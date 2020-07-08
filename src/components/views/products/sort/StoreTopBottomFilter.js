@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 export default function StoreTopFilter(props) {
   var indexes = [];
@@ -39,4 +39,10 @@ export default function StoreTopFilter(props) {
       </div>
     </div>
   );
+}
+
+StoreTopFilter.prototype = {
+  selectedIndex: PropTypes.number.isRequired,
+  maxPageIndex: PropTypes.number.isRequired,
+  onIndexClick: PropTypes.func.isRequired,
 }
