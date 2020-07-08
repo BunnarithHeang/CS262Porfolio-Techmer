@@ -33,24 +33,20 @@ export default class Header extends Component {
         {this.state.sidebarOpen 
           ? <Sidebar
             sidebar={
-              <ul style={{ marginLeft: '20px', marginRight: '20px' }}>
-                <li style={menuConStyle}>
-                  <label>Menu</label>
-                </li>
-                <li>
-                  <Link to="/products">Product</Link>
-                </li>
-                <li>
-                  <Link to="/category">Shop By Category</Link>
-                </li>
-                <li>
-                  <Link to="/brand">Shop By Brand</Link>
-                </li>
-                <li>
-                  <Link to="/logout">
+              <ul>
+                  <label style={menuConStyle}>Menu</label>
+                  <li to="/products" style={mobileLiStyle} className="mobileLiCss">
+                    Product
+                  </li>
+                  <li to="/category" style={mobileLiStyle} className="mobileLiCss">
+                    Shop By Category
+                  </li>
+                  <li to="/brand" style={mobileLiStyle} className="mobileLiCss">
+                    Shop By Brand
+                  </li>
+                  <li to="/logout" style={mobileLiStyle} className="mobileLiCss">
                     <i className="fa fa-unlock-alt"></i> Logout
-                  </Link>
-                </li>
+                  </li>
               </ul>
             }
             open={this.state.sidebarOpen}
@@ -151,10 +147,7 @@ export default class Header extends Component {
                   {/* <!-- Mobile nav toggle--> */}
                   <li className="nav-toggle">
                     <button className="nav-toggle-btn main-btn icon-btn" 
-                      onClick={() => {
-                        console.log('abc');
-                        this.onSetSidebarOpen(true);
-                      }}>
+                      onClick={() => this.onSetSidebarOpen(true) }>
                       <i className="fa fa-bars"></i>
                     </button>
                   </li>
@@ -170,7 +163,18 @@ export default class Header extends Component {
 }
 
 const menuConStyle = {
+  'paddingLeft': '100px',
+  'paddingRight': '100px',
+  'paddingTop': '10px',
+  'paddingBottom': '10px',
+  'fontSize': '18px',
+  'width': '100%',
   'backgroundColor': '#f8694a',
   'color': 'white',
-  'textAlign': 'center',
+}
+
+const mobileLiStyle = {
+  'fontSize': '18px',
+  'padding': '10px',
+  'borderBottom': '1px grey solid',
 }

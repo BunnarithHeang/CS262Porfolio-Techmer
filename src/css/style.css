@@ -1879,3 +1879,7 @@ textarea.input {
     transition: 0.5s all;
     z-index: 990;
 }
+
+.mobileLiCss:hover {
+    background-color: #f3f3f3;
+}
