@@ -19,6 +19,7 @@ import BrandPage from "../views/category/BrandPage";
 import CartPage from "../views/cart/CartPage";
 import Checkout from "../views/CheckOut";
 import Profile from "../views/Profile";
+import Invoice from "../views/invoice";
 
 export default function AllRoute() {
   return (
@@ -29,6 +30,7 @@ export default function AllRoute() {
         <NoAuthRoute path="/register" toRender={Register} />
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
+        <AuthRoute path="/invoice" toRender={Invoice} />
 
         <NoAuthLayoutRoute
           path="/category/:category_id"
@@ -38,6 +40,7 @@ export default function AllRoute() {
         <NoAuthLayoutRoute path="/products/:name" toRender={Main} />
         <NoAuthLayoutRoute path="/product/:product_id" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
+        <NoAuthLayoutRoute path="/profile" toRender={Profile} />
         <NoAuthLayoutRoute path="/" toRender={Home} />
       </Switch>
     </React.Fragment>
