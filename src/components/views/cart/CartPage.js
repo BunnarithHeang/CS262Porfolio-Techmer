@@ -23,7 +23,7 @@ export default class CartPage extends Component {
     this.renderComponenet = this.renderComponenet.bind(this);
   }
   // TODO: Add circular loading animation
-  
+
   initCons() {
     this.setState({
       totalDiscount: 0, totalPrice: 0, subTotal: 0, productObj: [],
@@ -51,7 +51,7 @@ export default class CartPage extends Component {
 
   async updateProductQty(qty, id) {
     let url = '/user-cart/' + id; 
-    if (qty == 0) {
+    if (qty === 0) {
       await Axios.delete(url, getHeader())
         .then(res => {})
         .catch((error) => { 
@@ -82,7 +82,7 @@ export default class CartPage extends Component {
         let resProductOptions = product.product.product_option;
         var productOption = {};
         for (var i = 0; i < resProductOptions.length; ++i) {
-          if (resProductOptions[i].id == product.product_option_id) {
+          if (resProductOptions[i].id === product.product_option_id) {
             tmpTotal += (100 - resProductOptions[i].discount) * resProductOptions[i].price * product.qty;
             productOption = resProductOptions[i]; break;
           }

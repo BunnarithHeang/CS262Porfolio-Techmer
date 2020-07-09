@@ -8,7 +8,7 @@ export default function ProductItem(props) {
 
   if (product.qty > 10) product.qty = 10;
   for (var i = 0; i < 11; ++i) {
-    qtyOptions.push(<option key={i} value={i}>{i==0 ? i + " (Delete)" : i}</option>);
+    qtyOptions.push(<option key={i} value={i}>{i===0 ? i + " (Delete)" : i}</option>);
   }
 
   return (

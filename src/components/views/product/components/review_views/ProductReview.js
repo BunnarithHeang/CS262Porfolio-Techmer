@@ -30,7 +30,7 @@ export default function ProductReview(props) {
     //   for (var i = 1; i < pagiIndex + 3)
     // }
     for (var i = pagination[0] - 1; i < pagination[0] + 2; ++i) {
-      if (feedbacks[i] == null) break;
+      if (feedbacks[i] === null) break;
       reviewComponents.push(<SingleReview feedback={feedbacks[i]} key={i}/>)
     }
     setShowingFeedbacks(reviewComponents)
@@ -52,17 +52,17 @@ export default function ProductReview(props) {
     <div className="col-md-12">
       <div className="product-tab">
         <ul className="tab-nav">
-          <li className={index == 0 ? "active" : ""}>
+          <li className={index === 0 ? "active" : ""}>
             <a href="javascript:;" data-toggle="tab" onClick={() => updateIndex(0)}>
               Description
             </a>
           </li>
-          <li className={index == 1 ? "active" : ""}>
+          <li className={index === 1 ? "active" : ""}>
             <a href="javascript:;" data-toggle="tab" onClick={() => updateIndex(1)}>
               Details
             </a>
           </li>
-          <li className={index == 2 ? "active" : ""}>
+          <li className={index === 2 ? "active" : ""}>
             <a href="javascript:;" data-toggle="tab" onClick={() => updateIndex(2)}>
               Reviews { !feedbacksLoaded ? "" : `(${count})` }
             </a>
@@ -70,13 +70,13 @@ export default function ProductReview(props) {
         </ul>
         <div className="tab-content">
           {
-            index == 0 
+            index === 0 
               ? (
                 <div className="tab-pane fade in active">
                   <p>{props.description}</p>
                 </div>
               ) 
-              : index == 1 
+              : index === 1 
                 ? (<p>Hello there</p>) 
                 : (
                   feedbacksLoaded

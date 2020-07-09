@@ -17,7 +17,7 @@ export default function AddressForm() {
   const [formError, setFormError] = React.useState({});
 
   React.useEffect(() => {
-    if (usePre == true) {
+    if (usePre === true) {
       let user = getUser();
       Axios.get("/shipping-address/user/" + user.user_id, getHeader())
         .then((res) => setUserAddresses(res.data))

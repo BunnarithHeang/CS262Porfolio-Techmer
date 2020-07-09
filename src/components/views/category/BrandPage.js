@@ -4,7 +4,6 @@ import { getHeader } from "./../../../AuthUser";
 import CategoryContainer from "./components/CategoryContainer";
 import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
-import CategoryTopBottomFilter from "./components/CategoryTopBottomFilter";
 
 class CategoryPage extends Component {
   constructor() {
@@ -92,7 +91,7 @@ class CategoryPage extends Component {
 
                   <div id="store">
                     <div className="row">
-                      {this.state.showingProducts.length == 0 ? (
+                      {this.state.showingProducts.length === 0 ? (
                         <h3 style={{ textAlign: "center" }}>
                           Products Unavailable
                         </h3>
