@@ -20,6 +20,7 @@ import CartPage from "../views/cart/CartPage";
 import Checkout from "../views/CheckOut";
 import Profile from "../views/Profile";
 import Invoice from "../views/invoice";
+import loading from "../views/loading";
 
 export default function AllRoute() {
   return (
@@ -30,7 +31,7 @@ export default function AllRoute() {
         <NoAuthRoute path="/register" toRender={Register} />
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
-        <AuthRoute path="/invoice" toRender={Invoice} />
+        <AuthRoute path="/loading" toRender={loading} />
 
         <NoAuthLayoutRoute
           path="/category/:category_id?"
