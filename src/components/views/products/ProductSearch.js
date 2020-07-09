@@ -11,7 +11,7 @@ export default class ProductSearch extends Component {
       showingProductsData: [],
       productContainers: [],
       currentPage: 1,
-      maxPageIndex: 10,
+      maxPageIndex: 1,
       searchname: props.params.name ?? '',
     }
     this.changePage = this.changePage.bind(this);

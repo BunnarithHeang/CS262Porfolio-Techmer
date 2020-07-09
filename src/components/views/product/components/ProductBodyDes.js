@@ -6,7 +6,9 @@ class ProductBodyDes extends Component {
   constructor() {
     super();
     this.state = {
+      ratingStars: 0,
       selectedPrice: 0,
+      selectedDiscount: 0,
       selectedIndex: 0,
       selectedProduct: {}, // Maybe when add to cart just retrieve id from here
       productOptions: [],
@@ -20,8 +22,10 @@ class ProductBodyDes extends Component {
     const resProductOps = product.product_option.map((data) => data);
 
     this.setState({
+      rated: product.rated,
       selectedIndex: 0,
       selectedPrice: resProductOps[0].price,
+      selectedDiscount: resProductOps[0].discount,
       selectedProduct: resProductOps[0],
       productOptions: resProductOps,
     });
@@ -32,6 +36,7 @@ class ProductBodyDes extends Component {
     this.setState({
       selectedIndex: index,
       selectedPrice: option.price,
+      selectedDiscount: option.discount,
       selectedProduct: option,
     });
   };
@@ -40,7 +45,6 @@ class ProductBodyDes extends Component {
     const stateObj = this.state;
     const product = this.props.product;
 
-    // Generate option tags
     // If want second option tags just create another
     const mainOptionsTags = stateObj.productOptions.map((option, index) => (
       <li
@@ -58,23 +62,26 @@ class ProductBodyDes extends Component {
         <div className="product-body">
           <div className="product-label">
             {/* CHANGE HERE ALSO */}
-            <span>New</span>
             <span className="sale">-20%</span>
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            ${stateObj.selectedPrice.toFixed(2)}{" "}
+            ${(stateObj.selectedPrice).toFixed(2)}{" "}
             <del className="product-old-price">
-              ${(stateObj.selectedPrice * 2).toFixed(2)}
+              ${(stateObj.selectedPrice + stateObj.selectedDiscount).toFixed(2)}
             </del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
-
-            <a href="#">3 Review(s) / Add Review</a>
+            
+            <a href="#">{Math.ceil(stateObj.rated)} Review(s) / Add Review</a>
           </div>
           <p>
-            <strong>Availability:</strong> In Stock
+            <strong>Availability:</strong>
+            {
+              stateObj.productOptions[stateObj.selectedIndex]?.qty > 0 
+              ? " In Stock" : " Out-of-stock" 
+            }
           </p>
           <p>
             <strong>Brand:</strong> {product.brand}
@@ -90,23 +97,6 @@ class ProductBodyDes extends Component {
               </li>
               {mainOptionsTags}
             </ul>
-            {/* <ul className="color-option">
-                <li>
-                  <span className="text-uppercase">Color:</span>
-                </li>
-                <li className="active">
-                  <a href="#" style={{ "backgroundColor": "#475984" }}></a>
-                </li>
-                <li>
-                  <a href="#" style={{ "backgroundColor": "#8A2454" }}></a>
-                </li>
-                <li>
-                  <a href="#" style={{ "backgroundColor": "#BF6989" }}></a>
-                </li>
-                <li>
-                  <a href="#" style={{ "backgroundColor": "#9A54D8" }}></a>
-                </li> 
-              </ul> */}
           </div>
 
           <div className="product-btns">

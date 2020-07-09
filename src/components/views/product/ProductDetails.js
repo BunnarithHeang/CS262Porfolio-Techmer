@@ -45,6 +45,7 @@ export default function ProductDetails(props) {
                 <ProductReview
                   allowReviewInput={true}
                   description={product.full_description}
+                  productId={product.id}
                 />
               </div>
             </div>
