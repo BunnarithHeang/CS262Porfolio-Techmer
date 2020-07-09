@@ -21,18 +21,15 @@ export default function ProductDetails(props) {
       .then((res) => {
         setPickForYou(
           res.data.map((product, index) => (
-            <CategoryContainer
-              key={index}
-              product={product}
-            />
+            <CategoryContainer key={index} product={product} />
           ))
         );
       })
       .catch((error) => console.log(error.response));
-  }, []);
+  }, [props.params.product_id]);
 
   return (
-    <body>
+    <React.Fragment>
       <div>
         <BreadCrumb pageName={product.title} />
 
@@ -54,22 +51,21 @@ export default function ProductDetails(props) {
       </div>
 
       {/* Product Recommdation */}
-      <div class="section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="section-title">
-                <h2 class="title">Picked For You</h2>
+      <div className="section">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="section-title">
+                <h2 className="title">Picked For You</h2>
               </div>
             </div>
             {pickForYou}
           </div>
         </div>
       </div>
-    </body>
+    </React.Fragment>
   );
 }
-
 
 // import React, { Component } from "react";
 // import BreadCrumb from "./../universal_components/BreadCrumb";

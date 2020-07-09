@@ -31,7 +31,7 @@ export default function ProductReview(props) {
     // }
     for (var i = pagination[0] - 1; i < pagination[0] + 2; ++i) {
       if (feedbacks[i] == null) break;
-      reviewComponents.push(<SingleReview feedback={feedbacks[i]}/>)
+      reviewComponents.push(<SingleReview feedback={feedbacks[i]} key={i}/>)
     }
     setShowingFeedbacks(reviewComponents)
   }
@@ -89,9 +89,9 @@ export default function ProductReview(props) {
                       <div className={props.allowReviewInput ? "col-md-6" : "col-md-12"}>
                         <div className="product-reviews">
                           {showingFeedbacks}
-                          <a href="javascript:;" target="_blank" rel="noopener noreferrer">
+                          {/* <a href="javascript:;" target="_blank" rel="noopener noreferrer">
                             <label>Show more reviews</label>
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                       {props.allowReviewInput ? <WriteReview productId={props.productId}/> : <div></div>}

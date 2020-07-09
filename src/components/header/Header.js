@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "react-sidebar";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { render } from "@testing-library/react";
+import { getUser } from "../../AuthUser";
 // import "../../scss/header.scss";
 
 export default class Header extends Component {
@@ -34,19 +34,22 @@ export default class Header extends Component {
           ? <Sidebar
             sidebar={
               <ul>
-                  <label style={menuConStyle}>Menu</label>
-                  <li to="/products" style={mobileLiStyle} className="mobileLiCss">
-                    Product
-                  </li>
-                  <li to="/category" style={mobileLiStyle} className="mobileLiCss">
-                    Shop By Category
-                  </li>
-                  <li to="/brand" style={mobileLiStyle} className="mobileLiCss">
-                    Shop By Brand
-                  </li>
-                  <li to="/logout" style={mobileLiStyle} className="mobileLiCss">
-                    <i className="fa fa-unlock-alt"></i> Logout
-                  </li>
+                <label style={menuConStyle}>Menu</label>
+                <li style={mobileLiStyle} className="mobileLiCss">
+                  <Link to='/products/a'>Product</Link> 
+                </li>
+                <li style={mobileLiStyle} className="mobileLiCss">
+                  <Link to="/category">Shop By Category</Link> 
+                </li>
+                <li style={mobileLiStyle} className="mobileLiCss">
+                  <Link to="/brand">Shop By Brand</Link> 
+                </li>
+                <li style={mobileLiStyle} className="mobileLiCss">
+                  <Link to="/mycart">My Cart</Link> 
+                </li>
+                <li style={mobileLiStyle} className="mobileLiCss">
+                  <Link to="/logout"><i className="fa fa-unlock-alt"></i> Logout</Link>
+                </li>
               </ul>
             }
             open={this.state.sidebarOpen}
@@ -94,9 +97,14 @@ export default class Header extends Component {
                         My Account <i className="fa fa-caret-down"></i>
                       </strong>
                     </div>
-                    <a href="#" className="text-uppercase">Login /</a>
-                    {" "}
-                    <a href="#" className="text-uppercase">Join</a>
+                    {!getUser().isAuth 
+                      ? <div>
+                        <Link to="/login" className="text-uppercase">Login /</Link>
+                        {" "}
+                        <Link to="/register" className="text-uppercase">Join</Link>
+                      </div>
+                      : <p>View Account</p>
+                    }
                     <ul className="custom-menu">
                       <li>
                         <Link to="/profile">
@@ -134,13 +142,13 @@ export default class Header extends Component {
 
                   {/* <!-- Cart --> */}
                   <li className="header-cart dropdown default-dropdown">
-                    <a className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <div className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                       <div className="header-btns-icon">
                         <i className="fa fa-shopping-cart"></i>
-                        <span className="qty">3</span>
+                        {/* <span className="qty">3</span> */}
                       </div>
                       <strong className="text-capitalize">My Cart:</strong>
-                    </a>
+                    </div>
                   </li>
                   {/* <!-- /Cart --> */}
 
