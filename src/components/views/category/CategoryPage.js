@@ -5,6 +5,9 @@ import CategoryContainer from "./components/CategoryContainer";
 import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
 import CategoryTopBottomFilter from "./components/CategoryTopBottomFilter";
+import Loading from "../loading"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import { TurnedIn } from "@material-ui/icons";
 
 class CategoryPage extends Component {
   constructor() {
@@ -15,6 +18,7 @@ class CategoryPage extends Component {
       categoryProduct: [],
       selectId: 1,
       showingProducts: [],
+      loading: true,
     };
     this.getCategoryProduct = this.getCategoryProduct.bind(this);
   }
@@ -30,12 +34,13 @@ class CategoryPage extends Component {
       .catch((error) => console.log(error.response));
     await this.getCategoryProduct(this.props.params.category_id ?? 1);
   }
-
   // Get products of new category, update the products
   getCategoryProduct = async (index) => {
+    this.setState({showingProducts: [], loading:true})
     await Axios.get("/product/byCategory/" + index, getHeader())
       .then((res) => {
         this.setState({
+          loading: false,
           categoryProduct: res.data.map((product) => product),
         }); // Somehow if include in one setstate, component dont update
         this.setState({
@@ -56,6 +61,7 @@ class CategoryPage extends Component {
           console.log(error.response.status);
         }
         this.setState({
+          loading: false,
           showingProducts: [],
         });
       });
@@ -75,7 +81,7 @@ class CategoryPage extends Component {
             }`}
             selectedIndex={this.state.selectId}
           />
-
+          
           <div className="section">
             <div className="container">
               <div className="row">
@@ -88,17 +94,18 @@ class CategoryPage extends Component {
                   }}
                   option={"category"}
                 />
-
                 <div id="main" className="col-md-9">
                   {/* <CategoryTopBottomFilter /> */}
-
                   <div id="store">
+                   
                     <div className="row">
-                      {this.state.showingProducts.length == 0 ? (
+                      {this.state.showingProducts.length == 0 
+                      
+                      ? this.state.loading === true ? (<div className="text-center"><Loading /><CircularProgress /></div>)  : (
                         <h3 style={{ textAlign: "center" }}>
                           Products Unavailable
                         </h3>
-                      ) : (
+                      ): (
                         this.state.showingProducts
                       )}
                     </div>
@@ -107,6 +114,7 @@ class CategoryPage extends Component {
                   {/* <CategoryTopBottomFilter /> */}
                 </div>
               </div>
+              }
             </div>
           </div>
         </div>

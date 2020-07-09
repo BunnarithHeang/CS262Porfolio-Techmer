@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
-
-import img from '../../images/item1Pic.jpg';
+import Axios from "axios"
+import Avatar from "@material-ui/core/Avatar"
+import {getHeader} from "../../AuthUser"
 
 const makestyle = {
   paddingTop: '50px',
@@ -11,22 +12,32 @@ export default class Profile extends Component {
   constructor(props){
     super(props);
     this.state={
-      title: 'React Simple CRUD Application',
       act: 0,
-      index: '',
       datas: [
-        {name: 'NAME' , detail: 'Jhon'},
-        {name: 'AGE' , detail: '29'},
-        {name: 'PHONE' , detail: '012222933'},
-        {name: 'EMAIL' , detail: 'User@gmail.com'},
-        {name: 'ADDRESS' , detail: 'Khan SenSok, str 259'},
-        {name: 'CITY' , detail: 'Phnom Penh'},
+        {name: 'NAME',},
+        {name: 'AGE' },
+        {name: 'PHONE' },
+        {name: 'EMAIL'},
+        {name: 'ADDRESS'},
+        {name: 'CITY'},
         ],
+      profileInfo : [],
     }
   } 
 
   componentDidMount(){
+    this.setState({profileInfo : []})
     this.refs.name.focus();
+    Axios.get("/eachUser", getHeader())
+    .then((res) => {
+      this.setState({profileInfo: res.data});
+    })
+    .catch((error) => {
+      if (error.response.status != 404) {
+        console.log(error.response.status);
+      }
+    });
+    
   }
 
   fSubmit = (e) =>{
@@ -63,19 +74,20 @@ export default class Profile extends Component {
   }  
   render() {
     let datas = this.state.datas;
+    let data = this.state.profileInfo;
     return (
       <div className="container">
           <div className="col-md-3 col-sm-6 col-xs-6">
-            <div className="banner banner-2">
-              <img src={img} className="img-responsive"/>
+            <div className="banner banner-2" >
+              <Avatar style={{height: '70px' , width: '70px'}}>H</Avatar>
             </div>
             <div>
               {datas.map((profile) => (
                 <React.Fragment key={profile.name}>
-                  <div className="col-md-6"><strong>{profile.name}:</strong></div>
-                  <div className="col-md-6">{profile.detail}</div>
+                  <div className="col-10 "><strong>{profile.name}:</strong></div>
                 </React.Fragment>
               ))}
+              <strong>{this.state.profileInfo.full_name}</strong>
             </div>
           </div>
           <div className='col-md-1'></div>
@@ -86,7 +98,7 @@ export default class Profile extends Component {
               {datas.map((data, i) =>
                 <div key={i}>
                 <input type="text" ref="name" value={data.name} disabled/>
-                <input type="text" ref="name"  value={data.detail} disabled/>
+                <input type="text" ref="name"  value={this.state.profileInfo.full_name} disabled/>
                 <button onClick={()=>this.fEdit(i)} data-toggle="modal" data-target="#form" >edit</button>
                 </div>
               )}

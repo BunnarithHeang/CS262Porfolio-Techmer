@@ -4,6 +4,8 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import Axios from "axios";
 import CategoryContainer from "../category/components/CategoryContainer";
+import CircularProgress from "@material-ui/core/CircularProgress"
+import Loading from "../loading"
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -40,6 +42,7 @@ function SamplePrevArrow(props) {
 }
 
 export default function SimpleSlider(props) {
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -51,20 +54,25 @@ export default function SimpleSlider(props) {
     nextArrow: <SampleNextArrow />,
   };
   const [products, setProducts] = React.useState([]);
-
+  const [loading, setloading] = React.useState(true)
   React.useEffect(() => {
     Axios.get("/home-page-product/" + props.title)
       .then((res) => {
+        setloading(false)
         setProducts(
           res.data.map((data, index) => (
             <CategoryContainer product={data} key={index} />
-          ))
+          )),
         );
-      })
+      },
+      )
       .catch((error) => console.log(error.response));
   }, []);
+  
   return (
+    
     <div>
+      {loading === true ? (<div className="text-center"><Loading /><CircularProgress /></div>)  :
       <Slider {...settings}>
         <div>
           {products[0]}
@@ -77,6 +85,7 @@ export default function SimpleSlider(props) {
           {products[5]}
         </div>
       </Slider>
+    }
     </div>
   );
 }
