@@ -5,7 +5,7 @@ export default function ProductItem() {
   return (
     <React.Fragment>
       <div className="col-md-12 col-sm-11 col-xs-10" style={itemContainer}>
-          <img src={ItemPic} alt="Picture Here" className="col-md-4 col-sm-4 col-xs-4"/>  
+          <img src={ItemPic} alt="Unvailable Image" className="col-md-4 col-sm-4 col-xs-4"/>  
 
           <div>
             <label className="itemFullLabel">

@@ -1,6 +1,6 @@
 import React from "react";
 import RatedStar from "../../product/components/review_views/RatedStar";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CategoryContainer(props) {
   const product = props.product;
@@ -18,7 +18,9 @@ export default function CategoryContainer(props) {
               ""
             )}
           </div>
-          <img src={product.gallery[0]} style={imageStyle} alt="Picture Here" />
+          <img src={product.gallery[0]} style={imageStyle} 
+            alt="Unavailable Image" 
+          />
         </div>
         <div className="product-body">
           <RatedStar rated={product.rated} />

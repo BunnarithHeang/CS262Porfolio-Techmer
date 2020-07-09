@@ -20,7 +20,7 @@ export default function ProductItem(props) {
           <button className="main-btn quick-view">
             <i className="fa fa-search-plus"></i> Quick view
           </button>
-          <img src={ItemPic} alt="Picture Here" />
+          <img src={ItemPic} alt="Unvailable Image" />
         </div>
         <div className="product-body">
           <h3 className="product-price">
@@ -67,7 +67,7 @@ export default function ProductItem(props) {
 //                 : ''
 //             }
 //           </div>
-//           <img src={product.gallery[0]} style={imageStyle} alt="Picture Here" />
+//           <img src={product.gallery[0]} style={imageStyle} alt="Unvailable Image" />
 //         </div>
 //         <div className="product-body">
 //           <RatedStar rated={product.rated} />

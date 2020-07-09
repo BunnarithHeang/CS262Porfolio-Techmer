@@ -3,7 +3,6 @@ import BreadCrumb from "./../universal_components/BreadCrumb";
 import ProductPicView from "./../product/components/ProductPicView";
 import ProductBodyDes from "./../product/components/ProductBodyDes";
 import ProductReview from "./../product/components/review_views/ProductReview";
-import ProductItem from "../universal_components/ProductItem";
 import img from './../../../images/item1Pic.jpg';
 
 export default class AllReviewPage extends Component {

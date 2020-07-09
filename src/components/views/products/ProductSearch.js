@@ -1,51 +1,108 @@
 import React, { Component } from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
-import ProductItem from "./../universal_components/ProductItem";
-import StoreSideFilter from "./sort/StoreSideFilter";
 import StoreTopBottomFilter from "./sort/StoreTopBottomFilter";
 import CategoryContainer from "../category/components/CategoryContainer";
 import Axios from "axios";
 
-export default function ProductSearch(props) {
-  const [products, setProducts] = React.useState([]);
+export default class ProductSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingProductsData: [],
+      productContainers: [],
+      currentPage: 1,
+      maxPageIndex: 1,
+      searchname: props.params.name ?? '',
+    }
+    this.changePage = this.changePage.bind(this);
+    this.getProducts = this.getProducts.bind(this);
+    this.renderContainer = this.renderContainer.bind(this);
+  }
 
-  React.useEffect(() => {
-    Axios.post("/product/search", { toSearch: props.name })
+  changePage(id) {
+    if (id < 1 || id > this.state.maxPageIndex) return;
+    this.setState({ currentPage: id })
+    this.getProducts(id);
+  }
+
+  componentDidMount() {
+    this.getProducts(this.state.currentPage.toString());
+  }
+
+  getProducts(index) {
+    let url = `/product/search`;
+    Axios.post(url, { toSearch: this.state.searchname, page:  index })
       .then((res) => {
-        console.log(res.data);
-
-        setProducts(
-          res.data.map((data, index) => (
-            <CategoryContainer product={data} key={index} />
-          ))
-        );
+        this.setState({
+          showingProductsData: res.data.data.map(product => product),
+          currentPage: res.data.current_page,
+          maxPageIndex: res.data.last_page,
+        })
+        this.renderContainer();
       })
-      .catch((error) => console.log(error.response));
-  }, []);
+      .catch((error) => { 
+        console.log(error.response) 
+        this.setState({
+          maxPageIndex: 1,
+          currentPage: 1,
+          showingProductsData: [],
+          searchname: "unknown"
+        })
+      });
+  }
 
-  return (
-    <body>
-      <div>
-        <BreadCrumb pageName={"/ search / " + props.name} />
+  renderContainer() {
+    this.setState({ productContainers: [] })
+    this.setState({
+      productContainers: this.state.showingProductsData.map((product, index) => (
+        <CategoryContainer product={product} key={index} />
+      ))
+    })
+  }
 
-        <div className="section">
-          <div className="container">
-            <div className="row">
-              {/* <StoreSideFilter /> */}
+  render() {
+    return (
+      <body>
+        <div>
+          <BreadCrumb pageName={"/ Search / " + this.state.searchname} />
 
-              <div id="main" className="col-md-12">
-                <StoreTopBottomFilter />
+          <div className="section">
+            <div className="container">
+              <div className="row">
+                {/* <StoreSideFilter /> */}
 
-                <div id="store">
-                  <div className="row">{products}</div>
+                <div id="main" className="col-md-12">
+                  <StoreTopBottomFilter 
+                    maxPageIndex={this.state.maxPageIndex}
+                    selectedIndex={this.state.currentPage}
+                    onIndexClick={(index) => {
+                      this.changePage(index);
+                    }}
+                  />
+
+                  <div id="store">
+                    <div className="row">
+                      { 
+                        this.state.productContainers.length > 0 
+                          ? this.state.productContainers
+                          : <h3 style={{ textAlign: 'center', fontWeight: '600' }}>Product Not Found</h3>
+                      }
+                    </div>
+                  </div>
+
+                  <StoreTopBottomFilter 
+                    maxPageIndex={this.state.maxPageIndex}
+                    selectedIndex={this.state.currentPage}
+                    onIndexClick={(index) => {
+                      this.changePage(index);
+                    }}
+                  />
                 </div>
-
-                <StoreTopBottomFilter />
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </body>
-  );
+      </body>
+    );
+  }
 }

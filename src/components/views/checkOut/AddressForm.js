@@ -1,138 +1,160 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-
-
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-  { title: 'Forrest Gump', year: 1994 },
-];
+import React from "react";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  MenuItem,
+} from "@material-ui/core";
+import Axios from "axios";
+import { getHeader, getUser } from "../../../AuthUser";
 
 export default function AddressForm() {
+  const [usePre, setUsePre] = React.useState(false);
+  const [data, setData] = React.useState({});
+  const [country, setCountry] = React.useState([]);
+  const [userAddresses, setUserAddresses] = React.useState([]);
+  const [formError, setFormError] = React.useState({});
+
+  React.useEffect(() => {
+    if (usePre == true) {
+      let user = getUser();
+      Axios.get("/shipping-address/user/" + user.user_id, getHeader())
+        .then((res) => setUserAddresses(res.data))
+        .catch((err) => console.log(err));
+    }
+  }, [usePre]);
+
+  React.useEffect(() => {
+    Axios.get("/country")
+      .then((res) => setCountry(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  function createAddress() {
+    Axios.post("/shipping-address", data, getHeader())
+      .then((res) => {
+        setUsePre(true);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        setFormError(err.response.data.errors);
+      });
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Shipping address
+        <Button onClick={() => setUsePre((pre) => !pre)}>
+          {!usePre
+            ? "Want To Use Previous Address?"
+            : "Want To Create a New Address?"}{" "}
+        </Button>
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          {/* <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-          /> */}
-          <Autocomplete
-            required
-            id="firstName"
-            name="firstname"
-            options={top100Films}
-            getOptionLabel={(option) => option.title}
-            style={{ width: 250 }}
-            renderInput={(params) => <TextField {...params} label="FirstName" />}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Autocomplete
+      {usePre ? (
+        <TextField
+          select
+          fullWidth
+          label="Shipping Address"
+          onChange={(e) =>
+            setData({ ...data, shipping_address_id: e.target.value })
+          }
+          variant="outlined"
+        >
+          {userAddresses.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.address_line1}
+            </MenuItem>
+          ))}
+        </TextField>
+      ) : (
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              error={formError?.first_name ? true : false}
+              helperText={formError?.first_name}
+              variant="outlined"
               required
-              id="firstName"
-              name="firstname"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              style={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="FirstName" />}
+              fullWidth
+              label="First Name"
+              onChange={(e) => setData({ ...data, first_name: e.target.value })}
             />
-        </Grid>
-        <Grid item xs={12}>
-          <Autocomplete
-            required
-            id="address1"
-            name="address1"
-            options={top100Films}
-            getOptionLabel={(option) => option.title}
-            fullWidth
-            renderInput={(params) => <TextField {...params} label="Address line 1" />}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Autocomplete
-            required
-            id="address2"
-            name="address2"
-            options={top100Films}
-            getOptionLabel={(option) => option.title}
-            fullWidth
-            renderInput={(params) => <TextField {...params} label="Address line 2" />}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-            <Autocomplete
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              error={formError?.last_name ? true : false}
+              helperText={formError?.last_name}
+              variant="outlined"
               required
-              id="city"
-              name="city"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              style={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="City" />}
-            />  
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Autocomplete
-                required
-                id="state"
-                name="state"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 250 }}
-                renderInput={(params) => <TextField {...params} label="State" />}
-              />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Autocomplete
-              required
-              id="zip"
-              name="zip"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              style={{ width: 250 }}
-              renderInput={(params) => <TextField {...params} label="Zip" />}
+              fullWidth
+              label="Last Name"
+              onChange={(e) => setData({ ...data, last_name: e.target.value })}
             />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              error={formError?.phone_number ? true : false}
+              helperText={formError?.phone_number}
+              variant="outlined"
+              type="number"
+              required
+              fullWidth
+              label="Phone Number"
+              onChange={(e) =>
+                setData({ ...data, phone_number: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              fullWidth
+              select
+              label="Country"
+              error={formError?.country_id ? true : false}
+              helperText={formError?.country_id}
+              onChange={(e) => setData({ ...data, country_id: e.target.value })}
+              variant="outlined"
+            >
+              {country.map((option) => (
+                <MenuItem key={option?.id} value={option?.id}>
+                  {option?.country}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              error={formError?.address_line1 ? true : false}
+              helperText={formError?.address_line1}
+              variant="outlined"
+              required
+              fullWidth
+              label="Address Line 1"
+              onChange={(e) =>
+                setData({ ...data, address_line1: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              error={formError?.address_line2 ? true : false}
+              helperText={formError?.address_line2}
+              variant="outlined"
+              required
+              fullWidth
+              label="Address Line 2"
+              onChange={(e) =>
+                setData({ ...data, address_line2: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button onClick={() => createAddress()}>Create</Button>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Autocomplete
-                required
-                id="county"
-                name="county"
-                options={top100Films}
-                getOptionLabel={(option) => option.title}
-                style={{ width: 250 }}
-                renderInput={(params) => <TextField {...params} label="Country" />}
-              />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-        </Grid>
-      </Grid>
+      )}
     </React.Fragment>
   );
 }

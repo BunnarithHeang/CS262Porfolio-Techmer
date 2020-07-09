@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../../scss/category_side_filter.scss";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function CategorySideFilter(props) {
   const categoryList = props.categoryList.map((category, index) => (
