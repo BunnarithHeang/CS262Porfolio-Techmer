@@ -113,12 +113,7 @@ export default class Header extends Component {
                       </li>
                       <li>
                         <Link to="#">
-                          <i className="fa fa-heart-o"></i> My Wishlist
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          <i className="fa fa-exchange"></i> Compare
+                          <i className="fa fa-exchange"></i> My Cart
                         </Link>
                       </li>
                       <li>
@@ -126,29 +121,45 @@ export default class Header extends Component {
                           <i className="fa fa-check"></i> Checkout
                         </Link>
                       </li>
-                      <li>
-                        <Link to="/logout">
-                          <i className="fa fa-unlock-alt"></i> Logout
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
-                          <i className="fa fa-user-plus"></i> Create An Account
-                        </Link>
-                      </li>
+                      { getUser().isAuth 
+                        ? (
+                          <li>
+                            <Link to="/logout">
+                              <i className="fa fa-unlock-alt"></i> Logout
+                            </Link>
+                          </li>
+                        ) : (
+                          <React.Fragment>
+                            <li>
+                              <Link to="/login">
+                                <i className="fa fa-user-plus"></i> Login
+                              </Link>
+                            </li>
+                            <li>
+                              <Link to="/register">
+                                <i className="fa fa-user-plus"></i> Create An Account
+                              </Link>
+                            </li>
+                          </React.Fragment>
+                        )
+                      }
                     </ul>
                   </li>
                   {/* <!-- /Account --> */}
 
                   {/* <!-- Cart --> */}
                   <li className="header-cart dropdown default-dropdown">
-                    <div className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                      <div className="header-btns-icon">
-                        <i className="fa fa-shopping-cart"></i>
-                        {/* <span className="qty">3</span> */}
+                      <div className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                      <Link to="/mycart">
+                        <div className="header-btns-icon">
+                          <i className="fa fa-shopping-cart"></i>
+                          {/* <span className="qty">3</span> */}
+                        </div>
+                      </Link>
+                      <Link to="/mycart">
+                        <strong className="text-capitalize">My Cart:</strong>
+                      </Link>
                       </div>
-                      <strong className="text-capitalize">My Cart:</strong>
-                    </div>
                   </li>
                   {/* <!-- /Cart --> */}
 

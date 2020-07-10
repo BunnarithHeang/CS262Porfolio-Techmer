@@ -114,81 +114,77 @@ export default class CartPage extends Component {
     }
 
     return (
-      <body>
-        <React.Fragment>
-          <BreadCrumb pageName={"My Cart"} />
+      <React.Fragment>
+        <BreadCrumb pageName={"My Cart"} />
 
-          {/* <!-- ****** Cart Area Start ****** --> */}
-          <div className="cart_area section_padding_100 clearfix">
-            <div className="container">
-              <div className="row">
-                <div className="col-12">
-                  <div className="cart-table clearfix">
-                    <table className="table table-responsive">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Price</th>
-                          <th>QTY</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {products}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="col-md-12">
-                    <div className="col-md-6 col-xs-6" style={noPaddings}>
-                      <a href="javascript:;">
-                        <Link to="/">Continue Shopping</Link>
-                      </a>
-                    </div>
-                    <div className="col-md-6 col-xs-6 text-right" style={noPaddings}>
-                      <a href="javascript:;" onClick={this.clearCart}>clear cart</a><br/>
-                      <a href="javascript:;" onClick={this.renderComponenet}>Update cart</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ marginTop: '30px' }}>
-                <div className="col-xs-12 col-md-6 col-lg-6" style={noPaddings}>
-                  <div className="coupon-code-area mt-70">
-                    <form onSubmit={(e) => e.preventDefault()}>
-                      <input type="search" name="search" placeholder="#569ab15"/>
-                      <button>Apply</button>
-                    </form>
-                  </div>
+        {/* <!-- ****** Cart Area Start ****** --> */}
+        <div className="cart_area section_padding_100 clearfix">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="cart-table clearfix">
+                  <table className="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products}
+                    </tbody>
+                  </table>
                 </div>
 
-                <div className="col-xs-12 col-md-6 col-lg-6 text-right" style={noPaddings}>
-                  <div className="cart-total-area mt-70">
-                    <ul className="cart-total-chart">
-                      <li>
-                        <span style={header}>Subtotal:</span> <span style={liText}>${this.state.subTotal.toFixed(2)}</span>
-                      </li>
-                      <li>
-                        <span style={header}>Discount:</span> <span style={liText}>$0</span>
-                      </li>
-                      <li>
-                        <span>
-                          <strong style={header}>Total: </strong>
-                        </span>{" "}{" "}
-                        <span>
-                          <strong style={liText}>${this.state.subTotal.toFixed(2)}</strong>
-                        </span>
-                      </li>
-                    </ul>
-                    <a href="javascript:;" className="proceedToCheckoutBtn">Proceed to checkout</a>
+                <div className="col-md-12">
+                  <div className="col-md-6 col-xs-6" style={noPaddings}>
+                    <Link to="/">Continue Shopping</Link>
+                  </div>
+                  <div className="col-md-6 col-xs-6 text-right" style={noPaddings}>
+                    <a href="javascript:;" onClick={this.clearCart}>clear cart</a><br/>
+                    <a href="javascript:;" onClick={this.renderComponenet}>Update cart</a>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div style={{ marginTop: '30px' }}>
+              <div className="col-xs-12 col-md-6 col-lg-6" style={noPaddings}>
+                {/* <div className="coupon-code-area mt-70">
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <input type="search" name="search" placeholder="#569ab15"/>
+                    <button>Apply</button>
+                  </form>
+                </div> */}
+              </div>
+
+              <div className="col-xs-12 col-md-6 col-lg-6 text-right" style={noPaddings}>
+                <div className="cart-total-area mt-70">
+                  <ul className="cart-total-chart">
+                    <li>
+                      <span style={header}>Subtotal:</span> <span style={liText}>${this.state.subTotal.toFixed(2)}</span>
+                    </li>
+                    <li>
+                      <span style={header}>Discount:</span> <span style={liText}>$0</span>
+                    </li>
+                    <li>
+                      <span>
+                        <strong style={header}>Total: </strong>
+                      </span>{" "}{" "}
+                      <span>
+                        <strong style={liText}>${this.state.subTotal.toFixed(2)}</strong>
+                      </span>
+                    </li>
+                  </ul>
+                  <Link to='/checkout' className="proceedToCheckoutBtn">Proceed to checkout</Link>
+                </div>
+              </div>
+            </div>
           </div>
-        </React.Fragment>
-      </body>
+        </div>
+      </React.Fragment>
     );
   }
 }

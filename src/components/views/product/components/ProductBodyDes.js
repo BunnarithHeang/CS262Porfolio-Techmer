@@ -62,13 +62,17 @@ class ProductBodyDes extends Component {
         <div className="product-body">
           <div className="product-label">
             {/* CHANGE HERE ALSO */}
-            <span className="sale">-20%</span>
+            <span className="sale">-{stateObj.selectedProduct.discount}%</span>
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
             ${(stateObj.selectedPrice).toFixed(2)}{" "}
             <del className="product-old-price">
-              ${(stateObj.selectedPrice + stateObj.selectedDiscount).toFixed(2)}
+              ${(
+                (stateObj.selectedPrice *
+                  (100 - stateObj.selectedDiscount)) /
+                100
+              ).toFixed(2)}
             </del>
           </h3>
           <div>

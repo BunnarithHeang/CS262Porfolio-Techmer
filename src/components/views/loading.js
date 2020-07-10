@@ -1,12 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 export default class Loading extends React.Component {
     constructor(props) {
       super(props);
-
-      this.state = {
-        text: 'Loading'
-      };
+      this.state = { text: 'Loading' };
     }
     componentDidMount() {
       const stopper = this.state.text + '...';

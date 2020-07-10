@@ -67,16 +67,7 @@ export default class Footer extends Component {
                   <h3 className="footer-header">Customer Service</h3>
                   <ul className="list-links">
                     <li>
-                      <a href="#">About Us</a>
-                    </li>
-                    <li>
-                      <a href="#">Shiping & Return</a>
-                    </li>
-                    <li>
-                      <a href="#">Shiping Guide</a>
-                    </li>
-                    <li>
-                      <a href="#">FAQ</a>
+                      <Link to='/aboutus'>About Us</Link>
                     </li>
                   </ul>
                 </div>
@@ -89,16 +80,16 @@ export default class Footer extends Component {
                   <h3 className="footer-header">My Account</h3>
                   <ul className="list-links">
                     <li>
-                      <a href="javascript:;"><Link>My Account</Link></a>
+                      <Link>My Account</Link>
                     </li>
                     <li>
-                      <a href="javascript:;"><Link to='/mycart'>My Cart</Link></a>
+                      <Link to='/mycart'>My Cart</Link>
                     </li>
                     <li>
-                      <a href="javascript:;"><Link to='/category/'>Shop by Category</Link></a>
+                      <Link to='/category/'>Shop by Category</Link>
                     </li>
                     <li>
-                      <a href="javascript:;"><Link to="/brand">Shop by Brand</Link></a>
+                      <Link to="/brand">Shop by Brand</Link>
                     </li>
                   </ul>
                 </div>
