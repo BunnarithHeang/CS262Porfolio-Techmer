@@ -34,7 +34,6 @@ export default function AllRoute() {
         <AuthRoute path="/checkout" toRender={Checkout} />
         <AuthLayoutRoute path="/mycart" toRender={CartPage} />
         <AuthRoute path="/invoice" toRender={Invoice} />
-        <AuthRoute path="/loading" toRender={loading} />
 
         <NoAuthLayoutRoute
           path="/category/:category_id?"
