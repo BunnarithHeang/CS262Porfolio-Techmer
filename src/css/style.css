@@ -873,7 +873,7 @@ textarea.input {
   font-weight: 700;
   color: #fff;
   background-color: #30323a;
-  z-index: 1;
+  z-index: 22;
 }
 
 .product .product-label > span.sale {

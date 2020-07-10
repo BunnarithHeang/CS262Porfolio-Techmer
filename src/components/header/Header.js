@@ -57,7 +57,7 @@ export default function Header() {
           }
           open={open}
           onSetOpen={setOpen}
-          styles={{ sidebar: { background: "white" } }}
+          styles={{ sidebar: { background: "white", zIndex: 200 } }}
         ></Sidebar>
       ) : (
         ""
@@ -130,7 +130,7 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link to="#">
+                      <Link to="/mycart">
                         <i className="fa fa-exchange"></i> My Cart
                       </Link>
                     </li>

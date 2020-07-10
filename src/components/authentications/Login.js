@@ -94,6 +94,9 @@ export default function SignIn() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+        <Typography component="h1" variant="h2">
+          Techfinder
+        </Typography>
         <Typography component="h1" variant="h3">
           Login
         </Typography>
