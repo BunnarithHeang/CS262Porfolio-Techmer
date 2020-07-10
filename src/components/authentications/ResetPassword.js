@@ -266,7 +266,7 @@ export default function ResetPassword(props) {
           </Box>
         </Container>
       ) : (
-        <h1>Invali Link</h1>
+        <h1>Invalid Link</h1>
       )}
     </React.Fragment>
   );
