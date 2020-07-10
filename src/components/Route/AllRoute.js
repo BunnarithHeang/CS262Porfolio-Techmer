@@ -22,6 +22,8 @@ import Profile from "../views/Profile";
 import ProductSearch from "../views/products/ProductSearch";
 import Invoice from "../views/invoice";
 import loading from "../views/loading";
+import ResetPassword from "../authentications/ResetPassword";
+import ForgotPassword from "../authentications/ForgotPassword";
 
 export default function AllRoute() {
   return (
@@ -38,8 +40,10 @@ export default function AllRoute() {
           path="/category/:category_id?"
           toRender={CategoryPage}
         />
+        <NoAuthRoute path="/forgot-password" toRender={ForgotPassword} />
+        <NoAuthRoute path="/reset-password/:token?" toRender={ResetPassword} />
         <NoAuthLayoutRoute path="/brand/:brand_id?" toRender={BrandPage} />
-        <NoAuthLayoutRoute path="/products/:name?" toRender={ProductSearch} e/>
+        <NoAuthLayoutRoute path="/products/:name?" toRender={ProductSearch} e />
         <NoAuthLayoutRoute path="/product/:product_id?" toRender={Product} />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/profile" toRender={Profile} />
