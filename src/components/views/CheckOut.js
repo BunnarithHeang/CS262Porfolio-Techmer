@@ -69,7 +69,7 @@ const steps = ["Shipping address", "Payment details", "Review your order"];
 function getStepContent(
   step, usePre, setUsePre, addressId, 
   setAddressId, cardDetails, setCardDetails,
-  products, setProducts
+  products, setProducts, coupon, setCoupon
 ) {
   switch (step) {
     case 0:
@@ -88,6 +88,8 @@ function getStepContent(
         cardDetails={cardDetails}
         products={products}
         setProducts={setProducts}
+        coupon={coupon}
+        setCoupon={setCoupon}
       />;
     default:
       throw new Error("Unknown step");
@@ -106,20 +108,17 @@ export default function Checkout() {
   const [products, setProducts] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
   const [cardDetails, setCardDetails] = React.useState({});
+  const [coupon, setCoupon] = React.useState('');
   
   const submitCheckout = () => {
     if (!(Object.values(addressId).length === 0 || Object.values(cardDetails).length === 0)) {
-      var data = {
-        user_id: getUser().user_id,
-        stripe_token: cardDetails.id,
-        coupon: '',
-        shipping_address_id: addressId.shipping_address_id
-      };
+      var uri = `/transaction?user_id=${getUser().user_id}&stripe_token=${cardDetails.id}&coupon=${coupon.length === 0 ? null : coupon.coupon}&shipping_address_id=${addressId.shipping_address_id}&`;
+
       products.map((product, index) => {
-        data[`cart_id[${index}]`] = product.id;
+        uri += `cart_id[${index}]=${product.id}&`;
       });
-      console.log(products);
-      Axios.post('/transaction', data, getHeader()) 
+      console.log(uri);
+      Axios.post(uri, getHeader()) 
         .then(res => {
           console.log(res.data);
         })
@@ -133,9 +132,7 @@ export default function Checkout() {
     }
     setActiveStep(activeStep + 1);
   };
-  
-  console.log(products);
-  
+
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
@@ -186,6 +183,8 @@ export default function Checkout() {
                   setCardDetails,
                   products,
                   setProducts,
+                  coupon,
+                  setCoupon,
                 )}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (

@@ -10,7 +10,7 @@ export default function ProductContainer(props) {
       <div className="product product-single">
         <div className="product-thumb">
           <div className="product-label">
-            {props.product.product_option[0].discount != 0 ? (
+            {props.product.product_option[0].discount !== 0 ? (
               <span className="sale">
                 {props.product.product_option[0].discount}%
               </span>
@@ -33,7 +33,7 @@ export default function ProductContainer(props) {
             ).toFixed(2)}
             <br />
             <del className="product-old-price">
-              {props.product.product_option[0].discount != 0 ? (
+              {props.product.product_option[0].discount !== 0 ? (
                 <span>${product.product_option[0].price.toFixed(2)}</span>
               ) : (
                 <span>&nbsp;</span>
