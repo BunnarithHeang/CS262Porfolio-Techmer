@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import RatedStar from "./RatedStar";
 
 export default function SingleReview(props) {

@@ -17,7 +17,7 @@ export default function ProductReview(props) {
 
   const updateIndex = (index) => {
     setIndex(index);
-    if (!feedbacksLoaded && index == 2)
+    if (!feedbacksLoaded && index === 2)
       getProductFeedbacks();
   };
 

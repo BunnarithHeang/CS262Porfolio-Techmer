@@ -54,36 +54,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function ForgotPassword() {
   const classes = useStyles();
-  const history = useHistory();
 
-  const [data, setData] = React.useState({
-    username: "",
-    password: "",
-  });
+  const [data, setData] = React.useState({});
+  const [error, setError] = React.useState({});
 
   const [alert, setAlert] = React.useState({
     message: "",
     show: false,
   });
 
-  function login() {
-    Axios.post("/login", data)
+  function send() {
+    Axios.post("/send-reset-email", data)
       .then((res) => {
-        let user_data = {
-          token: res.data.accessToken,
-          user_id: res.data.token.user_id,
-        };
-        Cookies.set("user_data", user_data, { expires: 1 });
-        window.location.reload(false);
-        history.push("/");
+        setAlert({ ...alert, show: true });
       })
       .catch((error) => {
-        setAlert({ ...alert, show: false });
-        setTimeout(function () {
-          setAlert({ show: true, message: error.response.data.message });
-        }, 250);
+        console.log(error.response.data.errors);
+        setError(error.response.data.errors);
       });
   }
 
@@ -95,63 +84,36 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h3">
-          Login
+          Forgot Password
         </Typography>
         <form className={classes.form} noValidate>
           <Collapse in={alert.show}>
-            <Alert severity="error">
-              This is an error alert — check it out!
+            <Alert severity="success">
+              Please Check Your Email to Reset Your Password
             </Alert>
           </Collapse>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={(e) => setData({ ...data, username: e.target.value })}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Grid container>
+            <Grid item xs={12} sm={12}>
+              <TextField
+                error={error.email ? true : false}
+                helperText={error.email}
+                variant="outlined"
+                required
+                fullWidth
+                label="Please Enter Your E-mail Address"
+                onChange={(e) => setData({ ...data, email: e.target.value })}
+              />
+            </Grid>
+          </Grid>
           <Button
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => login()}
+            onClick={() => send()}
           >
-            Sign In
+            Send
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="/forgot-password" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <Box mt={8}>
