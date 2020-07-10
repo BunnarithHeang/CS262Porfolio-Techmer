@@ -6,19 +6,19 @@ export default function SingleReview(props) {
     <div className="single-review">
       <div className="review-heading">
         <div>
-          <a href="#">
-            <i className="fa fa-user-o"></i>{props.feedback.user ?? ''}
-          </a>
+          {/* <a href="#">
+            <i className="fa fa-user-o"></i>{props.feedback.user_id ?? ''}
+          </a> */}
         </div>
         <div>
           <a href="javascript:;">
-            <i className="fa fa-clock-o"></i>{props.feedback.time ?? ''}
+            <i className="fa fa-check"></i>{props.feedback?.time ?? ''}
           </a>
         </div>
-        <RatedStar rated={props.feedback.rated}/>
+        <RatedStar rated={props.feedback?.rated}/>
       </div>
       <div className="review-body">
-        <p>{props.feedback.feedback}</p>
+        <p>{props.feedback?.feedback}</p>
       </div>
     </div>
   );
