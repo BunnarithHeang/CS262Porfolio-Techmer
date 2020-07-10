@@ -26,7 +26,7 @@ export default class Navbar extends Component {
               </span>
               <ul className="menu-list">
                 <li>
-                  <Link to="/products?toSearch=case">Product</Link>
+                  <Link to="/products/a">Product</Link>
                 </li>
                 <li>
                   <Link to="/category">Shop By Category</Link>
