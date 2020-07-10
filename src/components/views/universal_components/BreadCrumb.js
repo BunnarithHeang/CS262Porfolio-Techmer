@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 export default function BreadCrumb(props) {
   return (
     <div id="breadcrumb">
-      <div class="container">
-        <ul class="breadcrumb">
+      <div className="container">
+        <ul className="breadcrumb">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Home /</Link>
           </li>
-          <li class="active">{props.pageName}</li>
+          <li className="active">{props.pageName}</li>
         </ul>
       </div>
     </div>

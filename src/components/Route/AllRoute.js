@@ -34,6 +34,8 @@ export default function AllRoute() {
         <NoAuthRoute path="/register" toRender={Register} />
         <AuthRoute path="/logout" toRender={Logout} />
         <AuthRoute path="/checkout" toRender={Checkout} />
+        <AuthLayoutRoute path="/mycart" toRender={CartPage} />
+        <AuthRoute path="/invoice" toRender={Invoice} />
         <AuthRoute path="/loading" toRender={loading} />
 
         <NoAuthLayoutRoute
@@ -43,8 +45,13 @@ export default function AllRoute() {
         <NoAuthRoute path="/forgot-password" toRender={ForgotPassword} />
         <NoAuthRoute path="/reset-password/:token?" toRender={ResetPassword} />
         <NoAuthLayoutRoute path="/brand/:brand_id?" toRender={BrandPage} />
-        <NoAuthLayoutRoute path="/products/:name?" toRender={ProductSearch} e />
         <NoAuthLayoutRoute path="/product/:product_id?" toRender={Product} />
+        <NoAuthLayoutRoute path="/products/:name?" toRender={ProductSearch} />
+        <NoAuthLayoutRoute
+          path="/product/:product_id"
+          exact={true}
+          toRender={Product}
+        />
         <NoAuthLayoutRoute path="/aboutus" toRender={About} />
         <NoAuthLayoutRoute path="/profile" toRender={Profile} />
         <NoAuthLayoutRoute path="/" toRender={Home} />

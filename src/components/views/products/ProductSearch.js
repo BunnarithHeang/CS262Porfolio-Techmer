@@ -30,7 +30,7 @@ export default class ProductSearch extends Component {
   }
 
   getProducts(index) {
-    let url = `/product/search`;
+    let url = '/product/search';
     Axios.post(url, { toSearch: this.state.searchname, page:  index })
       .then((res) => {
         this.setState({
@@ -73,6 +73,7 @@ export default class ProductSearch extends Component {
 
                 <div id="main" className="col-md-12">
                   <StoreTopBottomFilter 
+                    key={1}
                     maxPageIndex={this.state.maxPageIndex}
                     selectedIndex={this.state.currentPage}
                     onIndexClick={(index) => {
@@ -91,6 +92,7 @@ export default class ProductSearch extends Component {
                   </div>
 
                   <StoreTopBottomFilter 
+                    key={2}
                     maxPageIndex={this.state.maxPageIndex}
                     selectedIndex={this.state.currentPage}
                     onIndexClick={(index) => {

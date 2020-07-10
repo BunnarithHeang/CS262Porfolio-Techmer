@@ -7,7 +7,7 @@ export default function ProductPicView(props) {
   if (props.images != null) {
     for (var i = 0; i < props.images.length; ++i) {
       images.push(
-        <div data-src={props.images[i]} alt="Product Image Unavailable" />
+        <div data-src={props.images[i]} alt="Product Image Unavailable" key={i}/>
       );
     }
   }

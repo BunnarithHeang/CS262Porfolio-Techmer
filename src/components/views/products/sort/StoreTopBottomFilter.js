@@ -7,7 +7,7 @@ export default function StoreTopFilter(props) {
   for (var i = 1; i <= props.maxPageIndex; ++i) {
     let tmp = i;
      indexes.push(
-      <li className={i == props.selectedIndex ? "active" : ""}
+      <li className={i === props.selectedIndex ? "active" : ""}
         style={{ fontSize: '15px' }}
         onClick={() => props.onIndexClick(tmp)}
       >

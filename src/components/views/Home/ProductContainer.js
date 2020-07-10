@@ -1,16 +1,16 @@
 import React from "react";
-import RatedStar from "../../product/components/review_views/RatedStar";
+import RatedStar from "../product/components/review_views/RatedStar";
 import { Link } from "react-router-dom";
 
-export default function CategoryContainer(props) {
+export default function ProductContainer(props) {
   const product = props.product;
 
   return (
-    <div className="col-md-4 col-sm-6 col-xs-6">
+    <div className="col-md-12 col-sm-12 col-xs-12">
       <div className="product product-single">
         <div className="product-thumb">
           <div className="product-label">
-            {props.product.product_option[0].discount !== 0 ? (
+            {props.product.product_option[0].discount != 0 ? (
               <span className="sale">
                 {props.product.product_option[0].discount}%
               </span>
@@ -33,7 +33,7 @@ export default function CategoryContainer(props) {
             ).toFixed(2)}
             <br />
             <del className="product-old-price">
-              {props.product.product_option[0].discount !== 0 ? (
+              {props.product.product_option[0].discount != 0 ? (
                 <span>${product.product_option[0].price.toFixed(2)}</span>
               ) : (
                 <span>&nbsp;</span>
@@ -48,7 +48,7 @@ export default function CategoryContainer(props) {
                     ? product.title.substr(0, props.key_num) + "..."
                     : product.title}
                 </label>
-              </Link>s
+              </Link>
             </h4>
           </div>
           <div className="product-btns">
@@ -67,6 +67,6 @@ const imageStyle = {
   height: "200px",
 };
 
-CategoryContainer.defaultProps = {
+ProductContainer.defaultProps = {
   key_num: 70,
 };

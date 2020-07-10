@@ -9,15 +9,17 @@ import {
 import Axios from "axios";
 import { getHeader, getUser } from "../../../AuthUser";
 
-export default function AddressForm() {
-  const [usePre, setUsePre] = React.useState(false);
-  const [data, setData] = React.useState({});
+export default function AddressForm(props) {
+  let usePre = props.usePre;
+  const setUsePre = props.setUsePre;
+  let addressId = props.addressId;
+  let setAddressId = props.setAddressId;
   const [country, setCountry] = React.useState([]);
   const [userAddresses, setUserAddresses] = React.useState([]);
   const [formError, setFormError] = React.useState({});
 
   React.useEffect(() => {
-    if (usePre == true) {
+    if (usePre === true) {
       let user = getUser();
       Axios.get("/shipping-address/user/" + user.user_id, getHeader())
         .then((res) => setUserAddresses(res.data))
@@ -32,13 +34,12 @@ export default function AddressForm() {
   }, []);
 
   function createAddress() {
-    Axios.post("/shipping-address", data, getHeader())
+    Axios.post("/shipping-address", addressId, getHeader())
       .then((res) => {
         setUsePre(true);
       })
       .catch((err) => {
         console.log(err);
-
         setFormError(err.response.data.errors);
       });
   }
@@ -58,9 +59,9 @@ export default function AddressForm() {
           select
           fullWidth
           label="Shipping Address"
-          onChange={(e) =>
-            setData({ ...data, shipping_address_id: e.target.value })
-          }
+          onChange={(e) => {
+            setAddressId({ ...addressId, shipping_address_id: e.target.value })
+          }}
           variant="outlined"
         >
           {userAddresses.map((option) => (
@@ -79,7 +80,7 @@ export default function AddressForm() {
               required
               fullWidth
               label="First Name"
-              onChange={(e) => setData({ ...data, first_name: e.target.value })}
+              onChange={(e) => setAddressId({ ...addressId, first_name: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -90,7 +91,7 @@ export default function AddressForm() {
               required
               fullWidth
               label="Last Name"
-              onChange={(e) => setData({ ...data, last_name: e.target.value })}
+              onChange={(e) => setAddressId({ ...addressId, last_name: e.target.value })}
             />
           </Grid>
           <Grid item xs={12} sm={12}>
@@ -103,7 +104,7 @@ export default function AddressForm() {
               fullWidth
               label="Phone Number"
               onChange={(e) =>
-                setData({ ...data, phone_number: e.target.value })
+                setAddressId({ ...addressId, phone_number: e.target.value })
               }
             />
           </Grid>
@@ -114,7 +115,7 @@ export default function AddressForm() {
               label="Country"
               error={formError?.country_id ? true : false}
               helperText={formError?.country_id}
-              onChange={(e) => setData({ ...data, country_id: e.target.value })}
+              onChange={(e) => setAddressId({ ...addressId, country_id: e.target.value })}
               variant="outlined"
             >
               {country.map((option) => (
@@ -133,7 +134,7 @@ export default function AddressForm() {
               fullWidth
               label="Address Line 1"
               onChange={(e) =>
-                setData({ ...data, address_line1: e.target.value })
+                setAddressId({ ...addressId, address_line1: e.target.value })
               }
             />
           </Grid>
@@ -146,7 +147,7 @@ export default function AddressForm() {
               fullWidth
               label="Address Line 2"
               onChange={(e) =>
-                setData({ ...data, address_line2: e.target.value })
+                setAddressId({ ...addressId, address_line2: e.target.value })
               }
             />
           </Grid>

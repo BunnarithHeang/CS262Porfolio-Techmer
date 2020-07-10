@@ -1,59 +1,81 @@
 import React from "react";
-import ItemPic from "./../../../images/item1Pic.jpg";
+import PropTypes from 'prop-types';
+import { Redirect, Link } from "react-router-dom";
 
-export default function ProductItem() {
+export default function ProductItem(props) {
+  const product = props.product;
+  let qtyOptions = [];
+
+  if (product.qty > 10) product.qty = 10;
+  for (var i = 0; i < 11; ++i) {
+    qtyOptions.push(<option key={i} value={i}>{i===0 ? i + " (Delete)" : i}</option>);
+  }
+
   return (
     <React.Fragment>
-      <div className="col-md-12 col-sm-11 col-xs-10" style={itemContainer}>
-          <img src={ItemPic} alt="Unvailable Image" className="col-md-4 col-sm-4 col-xs-4"/>  
-
+      <tr>
+        <td style={{ height: '125px' }} className="cart_product_img d-flex align-items-center">
           <div>
-            <label className="itemFullLabel">
-              <a href="#" style={itemLabelStyle}>Product Name Goes Here</a>
-            </label>
-            <div>
-              <label style={itemPriceStyle}>
-                $32.50 <del className="product-old-price" style={itemPrevPrice}>$45.00</del>
-              </label>
-              <div className="qty-input">
-                <span className="text-uppercase">QTY: </span>
-                <input type="number" defaultValue="1" min="1"/>
-              </div>
+            <div style={{ width: '20%', height: '100%', float: 'left' }}>
+              <Link to={"/product/" + product.id}>
+                <img src={product.galleryUrl} alt="Product Image Unavailable" style={{ width: '100%', height: '125px', objectFit: 'cover' }}/>
+              </Link>
+            </div>
+            
+            <div style={{ width: '100%' }}>
+              <Link to={"/product/" + product.id} style={itemLabelStyle}>
+                {product.title.length > 70 ? product.title.substr(0, 70) + " ..." : product.title}
+              </Link><br/>
+              <label style={itemBrandStyle}>{"Brand: " + product.brand.substr(0, 10)}</label><br/>
+              <label style={itemBrandStyle}>{"Des: " + product.short_description.substr(0, 50) + " ..."}</label><br/>
+              <a href="javascript:;" style={deleteBtn} onClick={() => props.onQtyChange(0, product.id)}>Delete</a>
             </div>
           </div>
-      </div>
+        </td>
+        <td className="price">${product.productOption.price.toFixed(2)}</td>
+        <td className="qty">
+          <div className="quantity">
+            <div className="input-group-prepend">
+              <label className="input-group-text" htmlFor="inputGroupSelect01">Qty:</label>
+            </div>
+            <select value={product.qty} className="custom-select" 
+              onChange={(e) => props.onQtyChange(e.target.value, product.id)}
+            >
+              {qtyOptions}
+            </select>
+          </div>
+        </td>
+        <td className="total_price">${(product.qty * product.productOption.price).toFixed(2)}</td>
+      </tr>
     </React.Fragment>
   );
 }
 
+ProductItem.propTypes = {
+  product: PropTypes.object.isRequired,
+  onQtyChange: PropTypes.func.isRequired,
+};
+
+
+const itemBrandStyle = {
+  fontWeight: 'normal',
+  fontSize: '12px',
+  color: 'grey',
+  marginLeft: '15px',
+  marginBottom: '0',
+}
+
 const itemLabelStyle = {
-  fontSize: '21px',
+  fontSize: '15px',
   fontWeight: 'normal',
   color: '#0066c0',
-
+  marginLeft: '15px',
 }
 
-const itemPriceStyle = {
-  fontSize: '21px',
-  color: 'black',
-  fontWeight: '600',
-  width: '50%',
-}
-
-const itemPrevPrice = {
-  color: 'grey',
-  fontSize: '16px',
-  fontWeight: 'normal',
-}
-
-const itemRating = {
-  marginRight: '30px',
-  color: '#ffa700',
-  float: 'right',
-}
-
-const itemContainer = {
-  borderBottom: '1px solid #DADADA',
-  marginTop: '10px',
-  marginBottom: '10px',
+const deleteBtn = {
+  color: '#F8694A',
+  marginLeft: '15px', 
+  marginTop: '5px', 
+  fontSize: '14px',
+  marginBottom: '0',
 }

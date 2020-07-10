@@ -12,7 +12,7 @@ export default function RatedStar(props) {
     show.push(() => {
       if (rated - Math.ceil(rated) > 0.5) {
         return <i key={keyId++} className="fa fa-star"></i>;
-      } else if (rated - Math.ceil(rated) == 0) {
+      } else if (rated - Math.ceil(rated) === 0) {
         return <i key={keyId++} className="fa fa-star-o"></i>;
       } else if (rated - Math.ceil(rated) > 0) {
         return <i key={keyId++} className="fa fa-star-half-o"></i>;

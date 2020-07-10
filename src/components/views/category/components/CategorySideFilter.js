@@ -8,7 +8,7 @@ export default function CategorySideFilter(props) {
       <div onClick={() => props.linkOnClick(category.id)}>
         <Link
           to={"/" + props.option + "/" + category.id}
-          style={props.selectedIndex == index ? selectedLabel : {}}
+          style={props.selectedIndex === index ? selectedLabel : {}}
         >
           {category[props.option]}
         </Link>

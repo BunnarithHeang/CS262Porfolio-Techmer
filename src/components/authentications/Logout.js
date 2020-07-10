@@ -5,5 +5,5 @@ import Cookies from "js-cookie";
 export default function Logout() {
   Cookies.remove("user_data");
 
-  return <Redirect to="/login" />;
+  return <Redirect to="/" />;
 }

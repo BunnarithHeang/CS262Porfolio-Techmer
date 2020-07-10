@@ -7,8 +7,6 @@ import Container from '@material-ui/core/Container'
 import Section3 from "./aboutUs/Section3"
 import Section2 from "./aboutUs/Section2"
 import Section1 from "./aboutUs/Section1"
-import Grid from '@material-ui/core/Grid'
-
  
 const mainFeaturedPost = {
     title: 'TechFinder',

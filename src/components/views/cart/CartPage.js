@@ -2,155 +2,201 @@ import React, { Component } from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
 import CartItem from "./CartItem";
 import ItemPic from "./../../../images/item1Pic.jpg";
+import { Link } from "react-router-dom";
+import Axios from "axios";
+import { getHeader, getUser } from "../../../AuthUser";
+import Loading from "../loading"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 export default class CartPage extends Component {
-  render() {
-    var products = [];
-    for (var i = 0; i < 9; ++i) {
-      products.push(<CartItem />);
+  constructor() {
+    super();
+    this.state = {
+      totalDiscount: 0,
+      subTotal: 0,
+      totalPrice: 0, 
+      showingProductsData: [], 
+      productObj: [],
+      loading: true,
     }
+    this.initCons = this.initCons.bind(this);
+    this.clearCart = this.clearCart.bind(this);
+    this.getUserCart = this.getUserCart.bind(this);
+    this.updateProductQty = this.updateProductQty.bind(this);
+    this.renderComponenet = this.renderComponenet.bind(this);
+  }
+  // TODO: Add circular loading animation
+
+  initCons() {
+    this.setState({
+      totalDiscount: 0, totalPrice: 0, subTotal: 0, productObj: [],
+    })
+  }
+
+  async componentDidMount() {
+    await this.getUserCart();
+  }
+
+  async getUserCart() {
+    let url = '/user-cart/user';
+    await Axios.get(url, getHeader())
+      .then((res) => {
+        this.setState({
+          loading: false,
+          productObj: res.data.map(product => product),
+        })
+      })
+      .catch((error) => { 
+        console.log(error.response)
+        this.initCons();
+      });
+      this.renderComponenet();
+  }
+
+  async updateProductQty(qty, id) {
+    let url = '/user-cart/' + id; 
+    if (qty === 0) {
+      await Axios.delete(url, getHeader())
+        .then(res => {})
+        .catch((error) => { 
+          console.log(error.response)
+        });
+    } else {
+      await Axios.put(url, { qty: qty }, getHeader())
+        .then(res => {})
+        .catch((error) => { 
+          console.log(error.response)
+        });
+      }
+    await this.getUserCart();
+  }
+
+  async clearCart() {
+    let url = 'user-cart/clearCart';
+    await Axios.get(url, getHeader())
+      .then(res => { console.log(res.data) })
+      .catch(error => { console.log(error.response); })
+    this.getUserCart();
+  }
+
+  renderComponenet() {
+    var tmpTotal = 0;
+    this.setState({
+      showingProductsData: this.state.productObj.map((product) => {
+        let resProductOptions = product.product.product_option;
+        var productOption = {};
+        for (var i = 0; i < resProductOptions.length; ++i) {
+          if (resProductOptions[i].id === product.product_option_id) {
+            tmpTotal += (100 - resProductOptions[i].discount) * resProductOptions[i].price * product.qty;
+            productOption = resProductOptions[i]; break;
+          }
+        }
+        return {
+          'id': product.id,
+          'product_option_id': product.product_option_id,
+          'title': product.product.title,  
+          'brand': product.product.brand, 
+          'qty': product.qty,
+          'short_description': product.product.short_description,
+          'galleryUrl': product.product.gallery[0],
+          'productOption': productOption,
+        }
+      }),
+      subTotal: tmpTotal,
+    })
+  }
+  
+  render() {
+    let stateObj = this.state;
+    var products = [];
+    for (var i = 0; i < stateObj.showingProductsData.length; ++i) {
+      products.push(<CartItem 
+        key={stateObj.showingProductsData[i].id}
+        product={stateObj.showingProductsData[i]}
+        onQtyChange={(qty, id) => this.updateProductQty(qty, id)}
+      />);
+    }
+
     return (
-      <body>
-        <React.Fragment>
-          <BreadCrumb pageName={"My Cart"} />
+      <React.Fragment>
+        <BreadCrumb pageName={"My Cart"} />
 
-          {/* <!-- ****** Cart Area Start ****** --> */}
-          <div className="cart_area section_padding_100 clearfix">
-            <div className="container">
-              <div className="row">
-                <div className="col-12">
-                  <div className="cart-table clearfix">
-                    <table className="table table-responsive">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Price</th>
-                          <th>Quantity</th>
-                          <th>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="cart_product_img d-flex align-items-center">
-                            <a href="#"><img src={ItemPic} alt="Product" style={{ width: "30%" }}/></a>
-                            <label>Yellow Cocktail Dress</label>
-                          </td>
-                          <td className="price">
-                            <span>$49.88</span>
-                          </td>
-                          <td className="qty">
-                            {/* Just generate with different ids */}
-                            <div className="quantity">
-                              <span className="qty-minus" onClick={function() {var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) && effect.value > 1 ) effect.value--;return false; } }>
-                                <i className="fa fa-minus" aria-hidden="true"></i>
-                              </span>
-                              <input type="number" className="qty-text" id="qty" step="1" min="1" max="20" name="quantity" defaultValue="1"/>
-                              <span className="qty-plus" onClick={function() {var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; }}>
-                                <i className="fa fa-plus" aria-hidden="true"></i>
-                              </span>
-                            </div>
-                          </td>
-                          <td className="total_price">
-                            <span>$49.88</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="cart-footer d-flex mt-30">
-                    <div className="back-to-shop w-50">
-                      <a href="shop-grid-left-sidebar.html">
-                        Continue shooping
-                      </a>
-                    </div>
-                    <div className="update-checkout w-50 text-right">
-                      <a href="#">clear cart</a>
-                      <a href="#">Update cart</a>
-                    </div>
-                  </div>
+        {/* <!-- ****** Cart Area Start ****** --> */}
+        <div className="cart_area section_padding_100 clearfix">
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <div className="cart-table clearfix">
+                  <table className="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>QTY</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {products}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
 
-              <div className="row">
-                <div className="col-12 col-md-6 col-lg-4">
-                  <div className="coupon-code-area mt-70">
-                    <div className="cart-page-heading">
-                      <h5>Cupon code</h5>
-                      <p>Enter your cupone code</p>
-                    </div>
-                    <form action="#">
-                      <input
-                        type="search"
-                        name="search"
-                        placeholder="#569ab15"
-                      />
-                      <button type="submit">Apply</button>
-                    </form>
+                <div className="col-md-12">
+                  <div className="col-md-6 col-xs-6" style={noPaddings}>
+                    <Link to="/">Continue Shopping</Link>
                   </div>
-                </div>
-                <div className="col-12 col-md-6 col-lg-4">
-                  <div className="shipping-method-area mt-70">
-                    <div className="cart-page-heading">
-                      <h5>Shipping method</h5>
-                      <p>Select the one you want</p>
-                    </div>
-
-                    <div className="custom-control custom-radio mb-30">
-                      <input type="radio" id="customRadio1" name="customRadio" className="custom-control-input"/>
-                      <label className="custom-control-label d-flex align-items-center justify-content-between" for="customRadio1">
-                        <span>Next day delivery</span>
-                        <span>$4.99</span>
-                      </label>
-                    </div>
-
-                    <div className="custom-control custom-radio mb-30">
-                      <input type="radio" id="customRadio2" name="customRadio" className="custom-control-input"/>
-                      <label className="custom-control-label d-flex align-items-center justify-content-between" for="customRadio2">
-                        <span>Standard delivery</span>
-                        <span>$1.99</span>
-                      </label>
-                    </div>
-
-                    <div className="custom-control custom-radio">
-                      <input type="radio" id="customRadio3" name="customRadio" className="custom-control-input"/>
-                      <label className="custom-control-label d-flex align-items-center justify-content-between" for="customRadio3">
-                        <span>Personal Pickup</span>
-                        <span>Free</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 col-lg-4">
-                  <div className="cart-total-area mt-70">
-                    <div className="cart-page-heading">
-                      <h5>Cart total</h5>
-                      <p>Final info</p>
-                    </div>
-                    <ul className="cart-total-chart">
-                      <li>
-                        <span>Subtotal</span> <span>$59.90</span>
-                      </li>
-                      <li>
-                        <span>Shipping</span> <span>Free</span>
-                      </li>
-                      <li>
-                        <span>
-                          <strong>Total</strong>
-                        </span>{" "}
-                        <span>
-                          <strong>$59.90</strong>
-                        </span>
-                      </li>
-                    </ul>
-                    <a href="checkout.html" className="btn karl-checkout-btn">Proceed to checkout</a>
+                  <div className="col-md-6 col-xs-6 text-right" style={noPaddings}>
+                    <a href="javascript:;" onClick={this.clearCart}>clear cart</a><br/>
+                    <a href="javascript:;" onClick={this.renderComponenet}>Update cart</a>
                   </div>
                 </div>
               </div>
             </div>
+
+              <div style={{ marginTop: '30px' }}>
+                <div className="col-xs-12 col-md-6 col-lg-6" style={noPaddings}></div>
+                {this.state.loading === true ?<div className="col-md-3 text-center"><Loading /><CircularProgress /></div> : 
+                
+                <div className="col-xs-12 col-md-6 col-lg-6 text-right" style={noPaddings}>
+                  <div className="cart-total-area mt-70">
+                    <ul className="cart-total-chart">
+                      <li>
+                        <span style={header}>Subtotal:</span> <span style={liText}>${this.state.subTotal.toFixed(2)}</span>
+                      </li>
+                      <li>
+                        <span style={header}>Discount:</span> <span style={liText}>$0</span>
+                      </li>
+                      <li>
+                        <span>
+                          <strong style={header}>Total: </strong>
+                        </span>{" "}{" "}
+                        <span>
+                          <strong style={liText}>${this.state.subTotal.toFixed(2)}</strong>
+                        </span>
+                      </li>
+                    </ul>
+                    <a href="javascript:;" className="proceedToCheckoutBtn">Proceed to checkout</a>
+                  </div>
+                </div>
+  }
+              </div>
+            </div>
           </div>
-        </React.Fragment>
-      </body>
+
+      </React.Fragment>
     );
   }
+}
+const noPaddings = {
+  'paddingLeft': '0',
+  'paddingRight': '0',
+}
+
+const header = {
+  'fontSize': '15px'
+}
+
+const liText = {
+  'fontSize': '16px'
 }

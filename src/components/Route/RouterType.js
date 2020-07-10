@@ -5,7 +5,6 @@ import { getUser } from "../../AuthUser";
 
 export const AuthLayoutRoute = ({ toRender: ToRender, ...rest }) => {
   const user = getUser();
-
   return (
     <Route
       {...rest}
@@ -29,7 +28,8 @@ export const NoAuthLayoutRoute = ({ toRender: ToRender, ...rest }) => {
 
   return (
     <Route
-      {...rest}
+    {...rest}
+    exact={true}
       render={(props) => (
         <React.Fragment>
           <Layout>

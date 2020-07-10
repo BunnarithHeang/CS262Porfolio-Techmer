@@ -4,12 +4,11 @@ import { getHeader } from "./../../../AuthUser";
 import CategoryContainer from "./components/CategoryContainer";
 import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
-import CategoryTopBottomFilter from "./components/CategoryTopBottomFilter";
 import Loading from "../loading"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import { TurnedIn } from "@material-ui/icons";
 
-class CategoryPage extends Component {
+
+export default class CategoryPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -48,8 +47,6 @@ class CategoryPage extends Component {
             return (
               <CategoryContainer
                 key={index}
-                isNew={index % 2 == 0} // Modify promo here
-                hasDiscount={index % 2 != 0 || index % 3 == 0}
                 product={product}
               />
             );
@@ -95,26 +92,43 @@ class CategoryPage extends Component {
                   option={"category"}
                 />
                 <div id="main" className="col-md-9">
-                  {/* <CategoryTopBottomFilter /> */}
+                  {/* <StoreTopFilter 
+                    key={1}
+                    maxPageIndex={10}
+                    selectedIndex={1}
+                    onIndexClick={(index) => {
+                      this.changePage(index);
+                    }}
+                  /> */}
                   <div id="store">
                    
                     <div className="row">
-                      {this.state.showingProducts.length == 0 
-                      
-                      ? this.state.loading === true ? (<div className="text-center"><Loading /><CircularProgress /></div>)  : (
-                        <h3 style={{ textAlign: "center" }}>
-                          Products Unavailable
-                        </h3>
-                      ): (
-                        this.state.showingProducts
-                      )}
+                      {
+                      this.state.showingProducts.length === 0 
+                        ? this.state.loading === true 
+                          ? (<div className="text-center"><Loading /><CircularProgress /></div>)  
+                          : (
+                              <h3 style={{ textAlign: "center" }}>
+                                Products Unavailable
+                              </h3>
+                            )
+                        : (
+                          this.state.showingProducts
+                          )
+                      }
                     </div>
                   </div>
 
-                  {/* <CategoryTopBottomFilter /> */}
+                  {/* <StoreTopFilter 
+                    key={1}
+                    maxPageIndex={10}
+                    selectedIndex={1}
+                    onIndexClick={(index) => {
+                      this.changePage(index);
+                    }}
+                  /> */}
                 </div>
               </div>
-              }
             </div>
           </div>
         </div>
@@ -123,4 +137,3 @@ class CategoryPage extends Component {
   }
 }
 
-export default CategoryPage;
