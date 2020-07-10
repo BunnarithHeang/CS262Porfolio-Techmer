@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import NewCollection from "./Home/NewCollection";
-import img1 from "../../images/img-products/1.jpg";
 import img2 from "../../images/img-products/img-arduino.jpg";
 import EventTitle from "./Home/EventTitle";
 import HotDeal from "./Home/HotDeal";
@@ -11,15 +9,7 @@ export default class Home extends Component {
     return (
       <React.Fragment>
         <main className="homepage">
-          <div className="section">
-            <div className="container">
-              <div className="row">
-                <NewCollection imgsrc={img1} />
-                <NewCollection imgsrc={img1} />
-                <NewCollection imgsrc={img1} />
-              </div>
-            </div>
-          </div>
+
           <div className="section">
             <div className="container">
               <div className="row">
@@ -28,7 +18,7 @@ export default class Home extends Component {
                 </div>
                 <div className="col-md-12 hero">
                   <HotDeal imgsrc={img2} />
-                  <div className="col-md-9 col-sm-6 col-xs-6">
+                  <div className="col-md-9 col-sm-12 col-xs-12">
                     <Sliders title="productHotDeal" />
                   </div>
                 </div>
@@ -39,7 +29,7 @@ export default class Home extends Component {
                 </div>
                 <div className="col-md-12 hero">
                   <HotDeal imgsrc={img2} />
-                  <div className="col-md-9 col-sm-6 col-xs-6">
+                  <div className="col-md-9 col-sm-12 col-xs-12">
                     <Sliders title="productPopular" />
                   </div>
                 </div>
@@ -52,7 +42,7 @@ export default class Home extends Component {
                 </div>
                 <div className="col-md-12 hero">
                   <HotDeal imgsrc={img2} />
-                  <div className="col-md-9 col-sm-6 col-xs-6">
+                  <div className="col-md-9 col-sm-12 col-xs-12">
                     <Sliders title="productBestRating" />
                   </div>
                 </div>

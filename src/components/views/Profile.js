@@ -13,24 +13,26 @@ export default class Profile extends Component {
     super(props);
     this.state={
       act: 0,
-      datas: [
-        {name: 'NAME',},
-        {name: 'AGE' },
-        {name: 'PHONE' },
-        {name: 'EMAIL'},
-        {name: 'ADDRESS'},
-        {name: 'CITY'},
-        ],
       profileInfo : [],
+      datas: [],
     }
   } 
 
   componentDidMount(){
-    this.setState({profileInfo : []})
-    this.refs.name.focus();
+    // this.refs.name.focus();
+    this.setState({profileInfo : []});
+    this.setState({datas : []});
     Axios.get("/eachUser", getHeader())
     .then((res) => {
       this.setState({profileInfo: res.data});
+      this.setState({datas: [
+        {name: 'Id', detail: this.state.profileInfo.id},
+        {name: 'Full Name', detail: this.state.profileInfo.full_name},
+        {name: 'First Name', detail: this.state.profileInfo.first_name},
+        {name: 'Last Name', detail: this.state.profileInfo.last_name},
+        {name: 'Email', detail: this.state.profileInfo.email},
+        {name: 'Phone Number', detail: this.state.profileInfo.phone_number},
+      ]})
     })
     .catch((error) => {
       if (error.response.status != 404) {
@@ -74,31 +76,46 @@ export default class Profile extends Component {
   }  
   render() {
     let datas = this.state.datas;
-    let data = this.state.profileInfo;
     return (
       <div className="container">
           <div className="col-md-3 col-sm-6 col-xs-6">
             <div className="banner banner-2" >
               <Avatar style={{height: '70px' , width: '70px'}}>H</Avatar>
             </div>
-            <div>
-              {datas.map((profile) => (
-                <React.Fragment key={profile.name}>
-                  <div className="col-10 "><strong>{profile.name}:</strong></div>
-                </React.Fragment>
-              ))}
-              <strong>{this.state.profileInfo.full_name}</strong>
+            <div className="row">
+              <div className="col-md-7">
+                <h4>Name :</h4>
+              </div>
+              <div className="col-md-5">
+              <h6>{this.state.profileInfo.full_name}</h6>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-7">
+                <h4>Email :</h4>
+              </div>
+              <div className="col-md-5">
+              <h6>{this.state.profileInfo.email}</h6>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-7">
+                <h4>Phone Number :</h4>
+              </div>
+              <div className="col-md-5">
+              <h6>{this.state.profileInfo.phone_number}</h6>
+              </div>
             </div>
           </div>
           <div className='col-md-1'></div>
-          <div className="col-md-5 col-sm-6 col-6">
+          <div className="col-md-6 col-sm-9 col-9">
             <h2 style={{textAlign: 'center'}}>About me</h2>
             <div style={makestyle}>
             <pre>
               {datas.map((data, i) =>
-                <div key={i}>
-                <input type="text" ref="name" value={data.name} disabled/>
-                <input type="text" ref="name"  value={this.state.profileInfo.full_name} disabled/>
+                <div key={i} >
+                <input className="col-md-5" type="text" ref="name" value={data.name} disabled/>
+                <input className="col-md-6" type="text" ref="name"  value={data.detail} disabled/>
                 <button onClick={()=>this.fEdit(i)} data-toggle="modal" data-target="#form" >edit</button>
                 </div>
               )}

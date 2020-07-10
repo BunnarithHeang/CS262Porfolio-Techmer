@@ -5,6 +5,8 @@ import ItemPic from "./../../../images/item1Pic.jpg";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { getHeader, getUser } from "../../../AuthUser";
+import Loading from "../loading"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 export default class CartPage extends Component {
   constructor() {
@@ -15,6 +17,7 @@ export default class CartPage extends Component {
       totalPrice: 0, 
       showingProductsData: [], 
       productObj: [],
+      loading: true,
     }
     this.initCons = this.initCons.bind(this);
     this.clearCart = this.clearCart.bind(this);
@@ -39,6 +42,7 @@ export default class CartPage extends Component {
     await Axios.get(url, getHeader())
       .then((res) => {
         this.setState({
+          loading: false,
           productObj: res.data.map(product => product),
         })
       })
@@ -150,40 +154,36 @@ export default class CartPage extends Component {
               </div>
             </div>
 
-            <div style={{ marginTop: '30px' }}>
-              <div className="col-xs-12 col-md-6 col-lg-6" style={noPaddings}>
-                {/* <div className="coupon-code-area mt-70">
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <input type="search" name="search" placeholder="#569ab15"/>
-                    <button>Apply</button>
-                  </form>
-                </div> */}
-              </div>
-
-              <div className="col-xs-12 col-md-6 col-lg-6 text-right" style={noPaddings}>
-                <div className="cart-total-area mt-70">
-                  <ul className="cart-total-chart">
-                    <li>
-                      <span style={header}>Subtotal:</span> <span style={liText}>${this.state.subTotal.toFixed(2)}</span>
-                    </li>
-                    <li>
-                      <span style={header}>Discount:</span> <span style={liText}>$0</span>
-                    </li>
-                    <li>
-                      <span>
-                        <strong style={header}>Total: </strong>
-                      </span>{" "}{" "}
-                      <span>
-                        <strong style={liText}>${this.state.subTotal.toFixed(2)}</strong>
-                      </span>
-                    </li>
-                  </ul>
-                  <Link to='/checkout' className="proceedToCheckoutBtn">Proceed to checkout</Link>
+              <div style={{ marginTop: '30px' }}>
+                <div className="col-xs-12 col-md-6 col-lg-6" style={noPaddings}></div>
+                {this.state.loading === true ?<div className="col-md-3 text-center"><Loading /><CircularProgress /></div> : 
+                
+                <div className="col-xs-12 col-md-6 col-lg-6 text-right" style={noPaddings}>
+                  <div className="cart-total-area mt-70">
+                    <ul className="cart-total-chart">
+                      <li>
+                        <span style={header}>Subtotal:</span> <span style={liText}>${this.state.subTotal.toFixed(2)}</span>
+                      </li>
+                      <li>
+                        <span style={header}>Discount:</span> <span style={liText}>$0</span>
+                      </li>
+                      <li>
+                        <span>
+                          <strong style={header}>Total: </strong>
+                        </span>{" "}{" "}
+                        <span>
+                          <strong style={liText}>${this.state.subTotal.toFixed(2)}</strong>
+                        </span>
+                      </li>
+                    </ul>
+                    <a href="javascript:;" className="proceedToCheckoutBtn">Proceed to checkout</a>
+                  </div>
                 </div>
+  }
               </div>
             </div>
           </div>
-        </div>
+
       </React.Fragment>
     );
   }
