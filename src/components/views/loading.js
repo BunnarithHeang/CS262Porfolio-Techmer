@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 export default class Loading extends React.Component {
     constructor(props) {

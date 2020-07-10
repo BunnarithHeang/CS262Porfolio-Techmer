@@ -1,11 +1,10 @@
-import SingleProduct from "./SingleProduct";
-import img1 from "../../../images/img-products/1.jpg";
 import React, { Component } from "react";
 import Slider from "react-slick";
 import Axios from "axios";
-import CategoryContainer from "../category/components/CategoryContainer";
+import ProductContainer from "./ProductContainer";
 import CircularProgress from "@material-ui/core/CircularProgress"
 import Loading from "../loading"
+import { Link } from "@material-ui/core";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -47,7 +46,7 @@ export default function SimpleSlider(props) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     prevArrow: <SamplePrevArrow />,
@@ -61,7 +60,7 @@ export default function SimpleSlider(props) {
         setloading(false)
         setProducts(
           res.data.map((data, index) => (
-            <CategoryContainer product={data} key={index} />
+            <ProductContainer product={data} key={index} />
           )),
         );
       },
@@ -74,16 +73,12 @@ export default function SimpleSlider(props) {
     <div>
       {loading === true ? (<div className="text-center"><Loading /><CircularProgress /></div>)  :
       <Slider {...settings}>
-        <div>
           {products[0]}
           {products[1]}
           {products[2]}
-        </div>
-        <div>
           {products[3]}
           {products[4]}
           {products[5]}
-        </div>
       </Slider>
     }
     </div>

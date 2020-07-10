@@ -4,13 +4,11 @@ import { getHeader } from "./../../../AuthUser";
 import CategoryContainer from "./components/CategoryContainer";
 import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
-import CategoryTopBottomFilter from "./components/CategoryTopBottomFilter";
 import Loading from "../loading"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import { TurnedIn } from "@material-ui/icons";
-import StoreTopFilter from "../products/sort/StoreTopBottomFilter";
 
-class CategoryPage extends Component {
+
+export default class CategoryPage extends Component {
   constructor() {
     super();
     this.state = {
@@ -139,4 +137,3 @@ class CategoryPage extends Component {
   }
 }
 
-export default CategoryPage;

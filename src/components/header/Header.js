@@ -144,10 +144,11 @@ export default class Header extends Component {
                   <li className="header-cart dropdown default-dropdown">
                     <div className="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                       <div className="header-btns-icon">
+                        
                         <i className="fa fa-shopping-cart"></i>
                         {/* <span className="qty">3</span> */}
                       </div>
-                      <strong className="text-capitalize">My Cart:</strong>
+                      <strong className="text-capitalize"><Link to="/">My Cart: </Link></strong>
                     </div>
                   </li>
                   {/* <!-- /Cart --> */}
