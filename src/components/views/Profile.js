@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import { getHeader } from "../../AuthUser";
-import { useHistory } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
+import { Collapse } from "@material-ui/core";
 
 const makestyle = {
   paddingTop: "50px",
@@ -15,6 +16,11 @@ export default class Profile extends Component {
       act: 0,
       profileInfo: [],
       datas: [],
+      alert: {
+        show: false,
+        message: "",
+        type: "",
+      },
     };
   }
 
@@ -78,16 +84,51 @@ export default class Profile extends Component {
       act: 0,
     });
 
-    console.log({ [datas[index].field]: detail });
     Axios.put("/eachUser", { [datas[index].field]: detail }, getHeader())
       .then((res) => {
-        console.log(res.data);
-        window.location.reload(false);
+        this.setState({
+          alert: {
+            show: false,
+            type: "success",
+            message: "Update Successful",
+          },
+        });
+        setTimeout(() => {
+          this.setState({
+            alert: {
+              show: true,
+              type: "success",
+              message: "Update Successful",
+            },
+          });
+        }, 250);
+        // window.location.reload(false);
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => {
+        if (err.response) {
+          this.setState({
+            alert: {
+              show: false,
+              type: "Error",
+              message: "Cannot Update, please try again later",
+            },
+            act: 0,
+          });
+          setTimeout(() => {
+            this.setState({
+              alert: {
+                show: true,
+                type: "Error",
+                message: "Cannot Update, please try again later",
+              },
+              act: 0,
+            });
+          }, 250);
+        }
+      });
 
-    this.refs.myForm.reset();
-    this.refs.detail.focus();
+    // this.refs.myForm.reset();
+    // this.refs.detail.focus();
   };
 
   fEdit = (i) => {
@@ -106,9 +147,16 @@ export default class Profile extends Component {
     let datas = this.state.datas;
     return (
       <div className="container">
+        <Collapse in={this.state.alert.show}>
+          <Alert severity={this.state.alert.type}>
+            {this.state.alert.message}
+          </Alert>
+        </Collapse>
         <div className="col-md-3 col-sm-6 col-xs-6">
           <div className="banner banner-2">
-            <Avatar style={{ height: "70px", width: "70px" }}>H</Avatar>
+            <Avatar style={{ height: "70px", width: "70px" }}>
+              {this.state.profileInfo.first_name?.[0]}
+            </Avatar>
           </div>
           <div className="row">
             <div className="col-md-7">
@@ -128,10 +176,10 @@ export default class Profile extends Component {
           </div>
           <div className="row">
             <div className="col-md-7">
-              <h4>Phone Number :</h4>
+              <h4>Username :</h4>
             </div>
             <div className="col-md-5">
-              <h6>{this.state.profileInfo.phone_number}</h6>
+              <h6>{this.state.profileInfo.username}</h6>
             </div>
           </div>
         </div>

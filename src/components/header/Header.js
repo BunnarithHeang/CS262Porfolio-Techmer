@@ -121,7 +121,9 @@ export default function Header() {
                       </Link>
                     </div>
                   ) : (
-                    <p>View Account</p>
+                    <Link to="/profile" className="text-uppercase">
+                      Account
+                    </Link>
                   )}
                   <ul className="custom-menu">
                     <li>
@@ -132,11 +134,6 @@ export default function Header() {
                     <li>
                       <Link to="/mycart">
                         <i className="fa fa-exchange"></i> My Cart
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/checkout">
-                        <i className="fa fa-check"></i> Checkout
                       </Link>
                     </li>
                     {getUser().isAuth ? (
