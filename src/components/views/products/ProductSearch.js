@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
 import StoreTopBottomFilter from "./sort/StoreTopBottomFilter";
 import CategoryContainer from "../category/components/CategoryContainer";
+import { Grid } from "@material-ui/core";
 import Axios from "axios";
 
 export default class ProductSearch extends Component {
@@ -12,8 +13,8 @@ export default class ProductSearch extends Component {
       productContainers: [],
       currentPage: 1,
       maxPageIndex: 1,
-      searchname: props.params.name ?? '',
-    }
+      searchname: props.params.name ?? "",
+    };
     this.changePage = this.changePage.bind(this);
     this.getProducts = this.getProducts.bind(this);
     this.renderContainer = this.renderContainer.bind(this);
@@ -21,7 +22,7 @@ export default class ProductSearch extends Component {
 
   changePage(id) {
     if (id < 1 || id > this.state.maxPageIndex) return;
-    this.setState({ currentPage: id })
+    this.setState({ currentPage: id });
     this.getProducts(id);
   }
 
@@ -30,34 +31,34 @@ export default class ProductSearch extends Component {
   }
 
   getProducts(index) {
-    let url = '/product/search';
-    Axios.post(url, { toSearch: this.state.searchname, page:  index })
+    let url = "/product/search";
+    Axios.post(url, { toSearch: this.state.searchname, page: index })
       .then((res) => {
         this.setState({
-          showingProductsData: res.data.data.map(product => product),
+          showingProductsData: res.data.data.map((product) => product),
           currentPage: res.data.current_page,
           maxPageIndex: res.data.last_page,
-        })
+        });
         this.renderContainer();
       })
-      .catch((error) => { 
-        console.log(error.response) 
+      .catch((error) => {
+        console.log(error.response);
         this.setState({
           maxPageIndex: 1,
           currentPage: 1,
           showingProductsData: [],
-          searchname: "unknown"
-        })
+          searchname: "unknown",
+        });
       });
   }
 
   renderContainer() {
-    this.setState({ productContainers: [] })
+    this.setState({ productContainers: [] });
     this.setState({
-      productContainers: this.state.showingProductsData.map((product, index) => (
-        <CategoryContainer product={product} key={index} />
-      ))
-    })
+      productContainers: this.state.showingProductsData.map(
+        (product, index) => <CategoryContainer product={product} key={index} />
+      ),
+    });
   }
 
   render() {
@@ -72,7 +73,7 @@ export default class ProductSearch extends Component {
                 {/* <StoreSideFilter /> */}
 
                 <div id="main" className="col-md-12">
-                  <StoreTopBottomFilter 
+                  <StoreTopBottomFilter
                     key={1}
                     maxPageIndex={this.state.maxPageIndex}
                     selectedIndex={this.state.currentPage}
@@ -83,15 +84,19 @@ export default class ProductSearch extends Component {
 
                   <div id="store">
                     <div className="row">
-                      { 
-                        this.state.productContainers.length > 0 
-                          ? this.state.productContainers
-                          : <h3 style={{ textAlign: 'center', fontWeight: '600' }}>Product Not Found</h3>
-                      }
+                      {this.state.productContainers.length > 0 ? (
+                        <Grid container spacing={2}>
+                          {this.state.productContainers}
+                        </Grid>
+                      ) : (
+                        <h3 style={{ textAlign: "center", fontWeight: "600" }}>
+                          Product Not Found
+                        </h3>
+                      )}
                     </div>
                   </div>
 
-                  <StoreTopBottomFilter 
+                  <StoreTopBottomFilter
                     key={2}
                     maxPageIndex={this.state.maxPageIndex}
                     selectedIndex={this.state.currentPage}
