@@ -4,6 +4,8 @@ import { getHeader } from "./../../../AuthUser";
 import CategoryContainer from "./components/CategoryContainer";
 import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
+import Loading from "../loading"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 class CategoryPage extends Component {
   constructor() {
@@ -14,6 +16,7 @@ class CategoryPage extends Component {
       categoryProduct: [],
       selectId: 1,
       showingProducts: [],
+      loading: true,
     };
     this.getCategoryProduct = this.getCategoryProduct.bind(this);
   }
@@ -23,6 +26,7 @@ class CategoryPage extends Component {
     await Axios.get("/product-brand", getHeader())
       .then((res) => {
         this.setState({
+          loading: false,
           categoryList: res.data.map((category) => category),
         });
       })
@@ -32,6 +36,7 @@ class CategoryPage extends Component {
 
   // Get products of new category, update the products
   getCategoryProduct = async (index) => {
+    this.setState({showingProducts: [],loading: true})
     await Axios.get("/product/byBrand/" + index, getHeader())
       .then((res) => {
         this.setState({
@@ -54,6 +59,7 @@ class CategoryPage extends Component {
         }
         this.setState({
           showingProducts: [],
+          loading: false
         });
       });
     this.setState({ selectId: index });
@@ -76,7 +82,7 @@ class CategoryPage extends Component {
           <div className="section">
             <div className="container">
               <div className="row">
-                <CategorySideFilter
+              <CategorySideFilter
                   selectedIndex={this.state.selectId - 1}
                   categoryList={this.state.categoryList}
                   linkOnClick={(id) => {
@@ -91,13 +97,17 @@ class CategoryPage extends Component {
 
                   <div id="store">
                     <div className="row">
-                      {this.state.showingProducts.length === 0 ? (
+                      {
+                      this.state.showingProducts.length === 0 ? this.state.loading === true 
+                      ? (<div className="text-center"><Loading /><CircularProgress /></div>) 
+                      : (
                         <h3 style={{ textAlign: "center" }}>
                           Products Unavailable
                         </h3>
                       ) : (
                         this.state.showingProducts
-                      )}
+                      )
+                    }
                     </div>
                   </div>
 

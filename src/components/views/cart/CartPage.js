@@ -221,9 +221,7 @@ export default class CartPage extends Component {
                         </span>
                       </li>
                     </ul>
-                    <a href="javascript:;" className="proceedToCheckoutBtn">
-                      Proceed to checkout
-                    </a>
+                    <Link to="/checkout" className="proceedToCheckoutBtn">Proceed to checkout</Link>
                   </div>
                 </div>
               )}

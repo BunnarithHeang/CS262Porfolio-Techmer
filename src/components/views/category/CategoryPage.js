@@ -6,6 +6,7 @@ import BreadCrumb from "../universal_components/BreadCrumb";
 import CategorySideFilter from "./components/CategorySideFilter";
 import Loading from "../loading"
 import CircularProgress from "@material-ui/core/CircularProgress"
+import { Fab } from "@material-ui/core";
 
 
 export default class CategoryPage extends Component {
