@@ -31,7 +31,7 @@ class ProductBodyDes extends Component {
   // Initializes the state with given props
   componentWillReceiveProps(props) {
     const product = props.product;
-    const resProductOps = product.product_option.map((data) => data);
+    const resProductOps = product.product_option;
 
     this.setState({
       rated: product.rated,
@@ -84,13 +84,13 @@ class ProductBodyDes extends Component {
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            ${stateObj.selectedPrice.toFixed(2)}{" "}
+            $
+            {(
+              (stateObj.selectedPrice * (100 - stateObj.selectedDiscount)) /
+              100
+            ).toFixed(2)}{" "}
             <del className="product-old-price">
-              $
-              {(
-                (stateObj.selectedPrice * (100 - stateObj.selectedDiscount)) /
-                100
-              ).toFixed(2)}
+              ${stateObj.selectedPrice.toFixed(2)}{" "}
             </del>
           </h3>
           <div>

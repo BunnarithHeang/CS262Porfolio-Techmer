@@ -15,12 +15,13 @@ import PaymentForm from "./checkOut/PaymentForm";
 import Review from "./checkOut/Review";
 import Axios from "axios";
 import { getUser, getHeader } from "../../AuthUser";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-        
+
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -67,30 +68,46 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
 function getStepContent(
-  step, usePre, setUsePre, addressId, 
-  setAddressId, cardDetails, setCardDetails,
-  products, setProducts, coupon, setCoupon
+  step,
+  usePre,
+  setUsePre,
+  addressId,
+  setAddressId,
+  cardDetails,
+  setCardDetails,
+  products,
+  setProducts,
+  coupon,
+  setCoupon
 ) {
   switch (step) {
     case 0:
-      return <AddressForm 
-        usePre={usePre} setUsePre={setUsePre}
-        addressId={addressId} setAddressId={setAddressId}
-      />;
+      return (
+        <AddressForm
+          usePre={usePre}
+          setUsePre={setUsePre}
+          addressId={addressId}
+          setAddressId={setAddressId}
+        />
+      );
     case 1:
-      return <PaymentForm 
-        cardDetails={cardDetails}
-        setCardDetails={setCardDetails}
-      />;
+      return (
+        <PaymentForm
+          cardDetails={cardDetails}
+          setCardDetails={setCardDetails}
+        />
+      );
     case 2:
-      return <Review 
-        addressId={addressId}
-        cardDetails={cardDetails}
-        products={products}
-        setProducts={setProducts}
-        coupon={coupon}
-        setCoupon={setCoupon}
-      />;
+      return (
+        <Review
+          addressId={addressId}
+          cardDetails={cardDetails}
+          products={products}
+          setProducts={setProducts}
+          coupon={coupon}
+          setCoupon={setCoupon}
+        />
+      );
     default:
       throw new Error("Unknown step");
   }
@@ -103,32 +120,52 @@ function canGoNext(stepIndex, data) {
 
 export default function Checkout() {
   const classes = useStyles();
+  const history = useHistory();
   const [usePre, setUsePre] = React.useState(false);
   const [addressId, setAddressId] = React.useState({});
   const [products, setProducts] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(0);
   const [cardDetails, setCardDetails] = React.useState({});
-  const [coupon, setCoupon] = React.useState('');
-  
-  const submitCheckout = () => {
-    if (!(Object.values(addressId).length === 0 || Object.values(cardDetails).length === 0)) {
-      var uri = `/transaction?user_id=${getUser().user_id}&stripe_token=${cardDetails.id}&coupon=${coupon.length === 0 ? null : coupon.coupon}&shipping_address_id=${addressId.shipping_address_id}&`;
+  const [coupon, setCoupon] = React.useState("");
 
-      products.map((product, index) => {
-        uri += `cart_id[${index}]=${product.id}&`;
-      });
-      console.log(uri);
-      Axios.post(uri, getHeader()) 
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(e => console.log(e.response))
-    }
+  function continueShop() {
+    history.push("/");
   }
 
-  const handleNext = () => {
-    if (activeStep === 2) {
-      submitCheckout();
+  const submitCheckout = async () => {
+    if (
+      !(
+        Object.values(addressId).length === 0 ||
+        Object.values(cardDetails).length === 0
+      )
+    ) {
+      var uri = `/transaction?user_id=${getUser().user_id}&stripe_token=${
+        cardDetails.id
+      }&coupon=${
+        coupon.length === 0 ? null : coupon.coupon
+      }&shipping_address_id=${addressId.shipping_address_id}&`;
+
+      let arr = [];
+      products.map((product, index) => {
+        arr.push(product.id);
+      });
+      let data = {
+        stripe_token: cardDetails.id,
+        coupon: coupon.coupon,
+        shipping_address_id: addressId.shipping_address_id,
+        cart_id: arr,
+      };
+      await Axios.post("/transaction", data, getHeader())
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err.response));
+    }
+  };
+
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      await submitCheckout();
     }
     setActiveStep(activeStep + 1);
   };
@@ -170,21 +207,27 @@ export default function Checkout() {
                   confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
+                <Button onClick={() => continueShop()}>
+                  Continue Shopping
+                </Button>
+                <Button onClick={() => history.push("/mycart")}>
+                  Go to My Cart
+                </Button>
               </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(
-                  activeStep, 
-                  usePre, 
-                  setUsePre, 
-                  addressId, 
+                  activeStep,
+                  usePre,
+                  setUsePre,
+                  addressId,
                   setAddressId,
                   cardDetails,
                   setCardDetails,
                   products,
                   setProducts,
                   coupon,
-                  setCoupon,
+                  setCoupon
                 )}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
@@ -192,25 +235,24 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  {
-                    usePre
-                    ? (<Button
+                  {usePre ? (
+                    <Button
                       variant="contained"
                       color="primary"
                       onClick={handleNext}
                       disabled={
                         !canGoNext(
-                          activeStep, activeStep === 0 ? addressId : cardDetails
+                          activeStep,
+                          activeStep === 0 ? addressId : cardDetails
                         )
                       }
                       className={classes.button}
                     >
-                      {
-                        (activeStep === steps.length - 1 ? "Place order" : "Next")
-                      }
+                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
                     </Button>
-                    ) : ("")
-                  }
+                  ) : (
+                    ""
+                  )}
                 </div>
               </React.Fragment>
             )}

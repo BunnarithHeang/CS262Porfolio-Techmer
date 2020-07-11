@@ -168,15 +168,17 @@ export default function Header() {
                     data-toggle="dropdown"
                     aria-expanded="true"
                   >
-                    <Link to="/mycart">
-                      <div className="header-btns-icon">
+                    <div className="header-btns-icon">
+                      <Link to="/mycart">
                         <i className="fa fa-shopping-cart"></i>
                         {/* <span className="qty">3</span> */}
-                      </div>
-                    </Link>
-                    <Link to="/mycart">
-                      <strong className="text-capitalize">My Cart:</strong>
-                    </Link>
+                      </Link>
+                    </div>
+                    <div className="pull-left">
+                      <Link to="/mycart">
+                        <strong className="text-capitalize">My Cart:</strong>
+                      </Link>
+                    </div>
                   </div>
                 </li>
                 {/* <!-- /Cart --> */}

@@ -3,207 +3,117 @@ import BreadCrumb from "./../universal_components/BreadCrumb";
 import ProductPicView from "./components/ProductPicView";
 import ProductBodyDes from "./components/ProductBodyDes";
 import ProductReview from "./components/review_views/ProductReview";
+import StoreTopBottomFilter from "./sort/StoreTopBottomFilter";
+import CategoryContainer from "../category/components/CategoryContainer";
+import { Grid } from "@material-ui/core";
 import Axios from "axios";
 import { getHeader } from "../../../AuthUser";
 import CategoryContainer from "../Home/ProductContainer";
 import Slider from "react-slick";
 
+export default class ProductSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingProductsData: [],
+      productContainers: [],
+      currentPage: 1,
+      maxPageIndex: 1,
+      searchname: props.params.name ?? "",
+    };
+    this.changePage = this.changePage.bind(this);
+    this.getProducts = this.getProducts.bind(this);
+    this.renderContainer = this.renderContainer.bind(this);
+  }
 
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        backgroundColor: "black",
-        borderRadius: "5px",
-        paddingTop: "2px",
-      }}
-      onClick={onClick}
-    />
-  );
-}
+  changePage(id) {
+    if (id < 1 || id > this.state.maxPageIndex) return;
+    this.setState({ currentPage: id });
+    this.getProducts(id);
+  }
 
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        backgroundColor: "black",
-        borderRadius: "5px",
-        paddingTop: "2px",
-      }}
-      onClick={onClick}
-    />
-  );
-}
+  componentDidMount() {
+    this.getProducts(this.state.currentPage.toString());
+  }
 
-export default function ProductDetails(props) {
-  const [product, setProduct] = React.useState(0);
-  const [pickForYou, setPickForYou] = React.useState(0);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    prevArrow: <SamplePrevArrow />,
-    nextArrow: <SampleNextArrow />,
-  };
-
-  React.useEffect(() => {
-    Axios.get("/product/" + props.params.product_id, getHeader())
+  getProducts(index) {
+    let url = "/product/search";
+    Axios.post(url, { toSearch: this.state.searchname, page: index })
       .then((res) => {
-        setProduct(res.data);
+        this.setState({
+          showingProductsData: res.data.data.map((product) => product),
+          currentPage: res.data.current_page,
+          maxPageIndex: res.data.last_page,
+        });
+        this.renderContainer();
       })
-      .catch((error) => console.log(error.response));
-    Axios.get("/product/pickForYou/" + props.params.product_id, getHeader())
-      .then((res) => {
-        setPickForYou(
-          res.data.map((product, index) => (
-            <CategoryContainer key={index} product={product} />
-          ))
-        );
-      })
-      .catch((error) => console.log(error.response));
-  }, [props.params.product_id]);
-  
-  return (
-    <React.Fragment>
+      .catch((error) => {
+        console.log(error.response);
+        this.setState({
+          maxPageIndex: 1,
+          currentPage: 1,
+          showingProductsData: [],
+          searchname: "unknown",
+        });
+      });
+  }
+
+  renderContainer() {
+    this.setState({ productContainers: [] });
+    this.setState({
+      productContainers: this.state.showingProductsData.map(
+        (product, index) => <CategoryContainer product={product} key={index} />
+      ),
+    });
+  }
+
+  render() {
+    return (
       <div>
-        <BreadCrumb pageName={product.title} />
+        <BreadCrumb pageName={"/ Search / " + this.state.searchname} />
 
         <div className="section">
           <div className="container">
             <div className="row">
-              <div className="product product-details clearfix">
-                <ProductPicView images={product.gallery} />
-                <ProductBodyDes product={product} />
-                <ProductReview
-                  allowReviewInput={true}
-                  description={product.full_description}
-                  productId={product.id}
+              {/* <StoreSideFilter /> */}
+
+              <div id="main" className="col-md-12">
+                <StoreTopBottomFilter
+                  key={1}
+                  maxPageIndex={this.state.maxPageIndex}
+                  selectedIndex={this.state.currentPage}
+                  onIndexClick={(index) => {
+                    this.changePage(index);
+                  }}
+                />
+
+                <div id="store">
+                  <div className="row">
+                    {this.state.productContainers.length > 0 ? (
+                      <Grid container spacing={2}>
+                        {this.state.productContainers}
+                      </Grid>
+                    ) : (
+                      <h3 style={{ textAlign: "center", fontWeight: "600" }}>
+                        Product Not Found
+                      </h3>
+                    )}
+                  </div>
+                </div>
+
+                <StoreTopBottomFilter
+                  key={2}
+                  maxPageIndex={this.state.maxPageIndex}
+                  selectedIndex={this.state.currentPage}
+                  onIndexClick={(index) => {
+                    this.changePage(index);
+                  }}
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Product Recommdation */}
-      <div className="section">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="section-title">
-                <h2 className="title">Picked For You</h2>
-              </div>
-            </div>
-            <div className="col-md-12">
-            <Slider {...settings}>
-              {pickForYou}
-              {pickForYou}
-              </Slider>
-            </div>
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
-  );
+    );
+  }
 }
-
-// import React, { Component } from "react";
-// import BreadCrumb from "./../universal_components/BreadCrumb";
-// import ProductPicView from "./components/ProductPicView";
-// import ProductBodyDes from "./components/ProductBodyDes";
-// import ProductReview from "./components/review_views/ProductReview";
-// import Axios from "axios";
-// import { getHeader } from "../../../AuthUser";
-// import CategoryContainer from "../category/components/CategoryContainer";
-
-// export default class ProductDetails extends Component {
-//   // const [product, setProduct] = React.useState(0);
-//   // const [pickForYou, setPickForYou] = React.useState(0);
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       product: 0,
-//       pickForYou: 0,
-//     };
-//     this.getProducts = this.getProducts.bind(this);
-//   }
-
-//   componentDidMount(props) {
-//     this.getProducts(props);
-//   }
-
-//   componentWillReceiveProps(props) {
-//     this.getProducts(props);
-//   }
-
-//   getProducts(props) {
-//     Axios.get("/product/" + props.product_id, getHeader())
-//       .then((res) => {
-//         this.setState({
-//           product: res.data
-//         })
-//       })
-//       .catch((error) => console.log(error.response));
-//     Axios.get("/product/pickForYou/" + props.product_id, getHeader())
-//       .then((res) => {
-//         this.setState({
-//           pickForYou: res.data.map((product, index) => (
-//             <CategoryContainer key={index} product={product} />
-//           ))
-
-//         })
-//       })
-//       .catch((error) => console.log(error.response));
-//   }
-
-//   render() {
-//     return (
-//       <body>
-//         <div>
-//           <BreadCrumb pageName={this.state.product.title} />
-
-//           <div className="section">
-//             <div className="container">
-//               <div className="row">
-//                 <div className="product product-details clearfix">
-//                   <ProductPicView images={this.state.product.gallery} />
-//                   <ProductBodyDes product={this.state.product} />
-//                   <ProductReview
-//                     allowReviewInput={true}
-//                     description={this.state.product.full_description}
-//                   />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Product Recommdation */}
-//         <div class="section">
-//           <div class="container">
-//             <div class="row">
-//               <div class="col-md-12">
-//                 <div class="section-title">
-//                   <h2 class="title">Picked For You</h2>
-//                 </div>
-//               </div>
-//               {this.state.pickForYou}
-//             </div>
-//           </div>
-//         </div>
-//       </body>
-//     );
-//   }
-// }

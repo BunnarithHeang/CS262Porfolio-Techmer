@@ -105,11 +105,11 @@ export default function SignUp() {
     all_data.password_confirmation = password.password_confirmation.value;
     if (all_data.date_of_birth != null) {
       all_data.date_of_birth =
-        data.date_of_birth.getFullYear() +
+        data.date_of_birth?.getFullYear() +
         "-" +
-        (data.date_of_birth.getMonth() + 1) +
+        (data.date_of_birth?.getMonth() + 1) +
         "-" +
-        data.date_of_birth.getDate();
+        data.date_of_birth?.getDate();
     }
 
     setData(all_data);
