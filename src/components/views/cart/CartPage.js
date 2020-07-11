@@ -12,8 +12,8 @@ export default class CartPage extends Component {
   constructor() {
     super();
     this.state = {
-      totalDiscount: 0,
-      subTotal: 0,
+      beforeTotal: 0,
+      afterTotal: 0,
       totalPrice: 0,
       showingProductsData: [],
       productObj: [],
@@ -25,13 +25,12 @@ export default class CartPage extends Component {
     this.updateProductQty = this.updateProductQty.bind(this);
     this.renderComponenet = this.renderComponenet.bind(this);
   }
-  // TODO: Add circular loading animation
 
   initCons() {
     this.setState({
-      totalDiscount: 0,
       totalPrice: 0,
-      subTotal: 0,
+      beforeTotal: 0,
+      afterTotal: 0,
       productObj: [],
     });
   }
@@ -44,6 +43,7 @@ export default class CartPage extends Component {
     let url = "/user-cart/user";
     await Axios.get(url, getHeader())
       .then((res) => {
+        console.log(res.data);
         this.setState({
           loading: false,
           productObj: res.data.map((product) => product),
@@ -70,7 +70,7 @@ export default class CartPage extends Component {
         });
     } else {
       await Axios.put(url, { qty: qty }, getHeader())
-        .then((res) => {})
+        .then((res) => {console.log(res.data);})
         .catch((error) => {
           console.log(error.response);
         });
@@ -91,23 +91,24 @@ export default class CartPage extends Component {
   }
 
   renderComponenet() {
-    var tmpTotal = 0;
+    var beforeTotal = 0;
+    var afterTotal = 0;
     this.setState({
       showingProductsData: this.state.productObj.map((product) => {
         let resProductOptions = product.product.product_option;
         var productOption = {};
         for (var i = 0; i < resProductOptions.length; ++i) {
           if (resProductOptions[i].id === product.product_option_id) {
-            tmpTotal +=
-              (100 - resProductOptions[i].discount) *
-              resProductOptions[i].price *
-              product.qty;
+            let itemPrice = resProductOptions[i].price * product.qty;
+            beforeTotal += itemPrice;
+            afterTotal += (100 - resProductOptions[i].discount)/100 * itemPrice;
             productOption = resProductOptions[i];
             break;
           }
         }
         return {
           id: product.id,
+          product_id: product.product.id,
           product_option_id: product.product_option_id,
           title: product.product.title,
           brand: product.product.brand,
@@ -117,7 +118,8 @@ export default class CartPage extends Component {
           productOption: productOption,
         };
       }),
-      subTotal: tmpTotal,
+      beforeTotal: beforeTotal,
+      afterTotal: afterTotal,
     });
   }
 
@@ -200,22 +202,28 @@ export default class CartPage extends Component {
                 >
                   <div className="cart-total-area mt-70">
                     <ul className="cart-total-chart">
-                      {/* <li>
+                      <li>
                         <span style={header}>Subtotal:</span>{" "}
                         <span style={liText}>
-                          ${this.state.subTotal.toFixed(2)}
+                          ${this.state.beforeTotal.toFixed(2)}
                         </span>
-                      </li> */}
-                      {/* <li>
+                      </li>
+                      <li>
+                        <span style={header}>Discounted:</span>{" "}
+                        <span style={liText}>
+                          ${(this.state.beforeTotal - this.state.afterTotal).toFixed(2)}
+                        </span>
+                      </li>
+                      <li>
                         <span>
                           <strong style={header}>Total: </strong>
                         </span>{" "}
                         <span>
                           <strong style={liText}>
-                            ${this.state.subTotal.toFixed(2)}
+                            ${this.state.afterTotal.toFixed(2)}
                           </strong>
                         </span>
-                      </li> */}
+                      </li>
                     </ul>
                     <Link to="/checkout" className="proceedToCheckoutBtn">
                       Proceed to checkout

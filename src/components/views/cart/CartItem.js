@@ -15,6 +15,8 @@ export default function ProductItem(props) {
     );
   }
 
+  console.log(product.productOption.option);
+  let onePrice = ((100 - product.productOption.discount)/100 * product.productOption.price);
   return (
     <React.Fragment>
       <tr>
@@ -34,11 +36,15 @@ export default function ProductItem(props) {
             </div>
 
             <div style={{ width: "100%" }}>
-              <Link to={"/product/" + product.id} style={itemLabelStyle}>
+              <Link to={"/product/" + product.product_id} style={itemLabelStyle}>
                 {product.title.length > 70
                   ? product.title.substr(0, 70) + " ..."
                   : product.title}
               </Link>
+              <br />
+              <label style={itemBrandStyle}>
+                {"Option: " + product.productOption.option}
+              </label>
               <br />
               <label style={itemBrandStyle}>
                 {"Brand: " + product.brand.substr(0, 10)}
@@ -58,7 +64,7 @@ export default function ProductItem(props) {
             </div>
           </div>
         </td>
-        <td className="price">${product.productOption.price.toFixed(2)}</td>
+        <td className="price">${onePrice.toFixed(2)}</td>
         <td className="qty">
           <div className="quantity">
             <div className="input-group-prepend">
@@ -76,7 +82,7 @@ export default function ProductItem(props) {
           </div>
         </td>
         <td className="total_price">
-          ${(product.qty * product.productOption.price).toFixed(2)}
+          ${(product.qty * onePrice).toFixed(2)}
         </td>
       </tr>
     </React.Fragment>

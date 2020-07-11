@@ -1,14 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
-import ProductPicView from "./components/ProductPicView";
-import ProductBodyDes from "./components/ProductBodyDes";
-import ProductReview from "./components/review_views/ProductReview";
 import StoreTopBottomFilter from "./sort/StoreTopBottomFilter";
 import CategoryContainer from "../category/components/CategoryContainer";
 import { Grid } from "@material-ui/core";
 import Axios from "axios";
-import { getHeader } from "../../../AuthUser";
-import Slider from "react-slick";
 
 export default class ProductSearch extends Component {
   constructor(props) {

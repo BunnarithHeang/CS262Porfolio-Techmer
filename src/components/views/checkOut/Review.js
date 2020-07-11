@@ -11,13 +11,6 @@ import { LinearProgress, TextField } from '@material-ui/core';
 import checkImg from '../../../images/check.png';
 import reportImg from '../../../images/report.png';
 
-// const payments = [
-//   { name: 'Card type', detail: 'Visa' },
-//   { name: 'Card holder', detail: 'Mr John Smith' },
-//   { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-//   { name: 'Expiry date', detail: '04/2024' },
-// ];
-
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
@@ -89,17 +82,17 @@ export default function Review(props) {
   React.useEffect(() => {
     Axios.get('/user-cart/user', getHeader())
       .then((res) => {
-        let data = res.data;
-        data = parseData(data);
+        let data = parseData(res.data);
         var tmpTotal = 0;
         let tmp = data.map(product => {
-        let itemPrice = product.qty * product.productOption.price * product.qty;
+        let itemPrice = product.productOption.price * product.qty;
         tmpTotal += itemPrice;
         return {
-          'id': product.id,
-          'name': product.title,
-          'qty': "Qty: " + product.qty,
-          'price': "$ " + (itemPrice).toFixed(2),
+          id: product.id,
+          name: product.title,
+          qty: "Qty: " + product.qty,
+          beforePrice: "Each: $" + product.productOption.price,
+          price: "$ " + (itemPrice).toFixed(2),
         }}
         );
         setTotal(tmpTotal);
@@ -122,6 +115,7 @@ export default function Review(props) {
 
   return (
     <React.Fragment>
+
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
@@ -131,7 +125,7 @@ export default function Review(props) {
           ? (products.map((product, index) => {
             return (
               <ListItem className={classes.listItem} key={index}>
-                <ListItemText primary={product.name} secondary={product.qty} />
+                <ListItemText primary={product.name} secondary={`${product.qty}, ${product.beforePrice}`} />
                 <Typography variant="body2">{product.price}</Typography>
               </ListItem>
             )})) : (
@@ -178,7 +172,7 @@ export default function Review(props) {
                 : ""
             } 
             {" "}{" "}
-            %{couponApplied ? coupon.discount : 0}
+            {couponApplied ? coupon.discount : 0}%
           </Typography>
         </ListItem>
         <ListItem className={classes.listItem}>
@@ -186,7 +180,7 @@ export default function Review(props) {
           <Typography variant="subtitle1" className={classes.total}>
             ${
               (couponApplied 
-                ? (coupon.discount / 100) * totalPrice : totalPrice
+                ? (100 - coupon.discount)/100 * totalPrice : totalPrice
               ).toFixed(2)
             }
           </Typography>
