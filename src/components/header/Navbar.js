@@ -34,99 +34,6 @@ export default class Navbar extends Component {
                 <li>
                   <Link to="/brand">Shop By Brand</Link>
                 </li>
-                <li className="dropdown mega-dropdown">
-                  <a
-                    className="dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-expanded="true"
-                  >
-                    Women <i className="fa fa-caret-down"></i>
-                  </a>
-                  <div className="custom-menu">
-                    <div className="row">
-                      <div className="col-md-4">
-                        <ul className="list-links">
-                          <li>
-                            <h3 className="list-links-title">Categories</h3>
-                          </li>
-                          <li>
-                            <a href="#">Women’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Men’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Phones & Accessories</a>
-                          </li>
-                          <li>
-                            <a href="#">Jewelry & Watches</a>
-                          </li>
-                          <li>
-                            <a href="#">Bags & Shoes</a>
-                          </li>
-                        </ul>
-                        <hr className="hidden-md hidden-lg" />
-                      </div>
-                      <div className="col-md-4">
-                        <ul className="list-links">
-                          <li>
-                            <h3 className="list-links-title">Categories</h3>
-                          </li>
-                          <li>
-                            <a href="#">Women’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Men’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Phones & Accessories</a>
-                          </li>
-                          <li>
-                            <a href="#">Jewelry & Watches</a>
-                          </li>
-                          <li>
-                            <a href="#">Bags & Shoes</a>
-                          </li>
-                        </ul>
-                        <hr className="hidden-md hidden-lg" />
-                      </div>
-                      <div className="col-md-4">
-                        <ul className="list-links">
-                          <li>
-                            <h3 className="list-links-title">Categories</h3>
-                          </li>
-                          <li>
-                            <a href="#">Women’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Men’s Clothing</a>
-                          </li>
-                          <li>
-                            <a href="#">Phones & Accessories</a>
-                          </li>
-                          <li>
-                            <a href="#">Jewelry & Watches</a>
-                          </li>
-                          <li>
-                            <a href="#">Bags & Shoes</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div className="row hidden-sm hidden-xs">
-                      <div className="col-md-12">
-                        <hr />
-                        <a className="banner banner-1" href="#">
-                          {/* <img src="./img/banner05.jpg" alt="" /> */}
-                          <div className="banner-caption text-center">
-                            <h2 className="white-color">NEW COLLECTION</h2>
-                            <h3 className="white-color font-weak">HOT DEAL</h3>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </li>
                 <li className="dropdown default-dropdown">
                   <a
                     className="dropdown-toggle"
@@ -137,16 +44,13 @@ export default class Navbar extends Component {
                   </a>
                   <ul className="custom-menu">
                     <li>
-                      <a href="index.html">Home</a>
+                      <Link to="/">Home</Link>
                     </li>
                     <li>
-                      <a href="products.html">Products</a>
+                      <Link to="/products/a">Products</Link>
                     </li>
                     <li>
-                      <a href="product-page.html">Product Details</a>
-                    </li>
-                    <li>
-                      <a href="checkout.html">Checkout</a>
+                      <Link to="/mycart">My Cart</Link>
                     </li>
                   </ul>
                 </li>
