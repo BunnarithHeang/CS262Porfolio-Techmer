@@ -1,9 +1,24 @@
 import React from "react";
 import RatedStar from "../product/components/review_views/RatedStar";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Axios from "axios";
+import { getHeader } from "../../../AuthUser";
 
 export default function ProductContainer(props) {
   const product = props.product;
+  const history = useHistory();
+
+  function addToCart() {
+    Axios.post(
+      "/user-cart",
+      { product_option_id: props.product?.product_option?.[0]?.id, qty: 1 },
+      getHeader()
+    )
+      .then(() => {
+        history.push("/mycart");
+      })
+      .catch(() => {});
+  }
 
   return (
     <div className="col-md-12 col-sm-12 col-xs-12">
@@ -18,8 +33,10 @@ export default function ProductContainer(props) {
               ""
             )}
           </div>
-          <img src={product.gallery[0]} style={imageStyle} 
-            alt="Unavailable Image" 
+          <img
+            src={product.gallery[0]}
+            style={imageStyle}
+            alt="Unavailable Image"
           />
         </div>
         <div className="product-body">
@@ -52,7 +69,10 @@ export default function ProductContainer(props) {
             </h4>
           </div>
           <div className="product-btns">
-            <button className="primary-btn add-to-cart">
+            <button
+              className="primary-btn add-to-cart"
+              onClick={() => addToCart()}
+            >
               <i className="fa fa-shopping-cart"></i> Add to Cart
             </button>
           </div>
