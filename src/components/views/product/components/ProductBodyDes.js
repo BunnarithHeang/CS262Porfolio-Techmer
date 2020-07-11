@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import RatedStar from "./review_views/RatedStar";
 import "../../../../scss/product_des.scss";
+import { Alert } from "@material-ui/lab";
+import { Collapse } from "@material-ui/core";
+import Axios from "axios";
+import { getHeader } from "../../../../AuthUser";
+import { useHistory, withRouter } from "react-router-dom";
 
 class ProductBodyDes extends Component {
   constructor() {
@@ -10,9 +15,16 @@ class ProductBodyDes extends Component {
       selectedPrice: 0,
       selectedDiscount: 0,
       selectedIndex: 0,
+      selectedId: 1,
       selectedProduct: {}, // Maybe when add to cart just retrieve id from here
       productOptions: [],
+      alert: {
+        show: false,
+        message: "",
+        type: "success",
+      },
     };
+    this.qty = 1;
     this.changePrice = this.changePrice.bind(this);
   }
 
@@ -38,6 +50,7 @@ class ProductBodyDes extends Component {
       selectedPrice: option.price,
       selectedDiscount: option.discount,
       selectedProduct: option,
+      selectedId: option.id,
     });
   };
 
@@ -60,32 +73,36 @@ class ProductBodyDes extends Component {
     return (
       <div className="col-md-6">
         <div className="product-body">
+          <Collapse in={this.state.alert.show}>
+            <Alert severity={this.state.alert.type}>
+              {this.state.alert.message}
+            </Alert>
+          </Collapse>
           <div className="product-label">
             {/* CHANGE HERE ALSO */}
             <span className="sale">-{stateObj.selectedProduct.discount}%</span>
           </div>
           <h2 className="product-name">{product.title}</h2>
           <h3 className="product-price">
-            ${(stateObj.selectedPrice).toFixed(2)}{" "}
+            ${stateObj.selectedPrice.toFixed(2)}{" "}
             <del className="product-old-price">
-              ${(
-                (stateObj.selectedPrice *
-                  (100 - stateObj.selectedDiscount)) /
+              $
+              {(
+                (stateObj.selectedPrice * (100 - stateObj.selectedDiscount)) /
                 100
               ).toFixed(2)}
             </del>
           </h3>
           <div>
             <RatedStar rated={product.rated} />
-            
+
             <a href="#">{Math.ceil(stateObj.rated)} Review(s) / Add Review</a>
           </div>
           <p>
             <strong>Availability:</strong>
-            {
-              stateObj.productOptions[stateObj.selectedIndex]?.qty > 0 
-              ? " In Stock" : " Out-of-stock" 
-            }
+            {stateObj.productOptions[stateObj.selectedIndex]?.qty > 0
+              ? " In Stock"
+              : " Out-of-stock"}
           </p>
           <p>
             <strong>Brand:</strong> {product.brand}
@@ -106,9 +123,38 @@ class ProductBodyDes extends Component {
           <div className="product-btns">
             <div className="qty-input">
               <span className="text-uppercase">QTY: </span>
-              <input type="number" className="input" defaultValue="1" min="1" />
+              <input
+                type="number"
+                className="input"
+                defaultValue="1"
+                min="1"
+                onChange={(e) => (this.qty = e.target.value)}
+              />
             </div>
-            <button className="primary-btn add-to-cart">
+            <button
+              className="primary-btn add-to-cart"
+              onClick={() =>
+                Axios.post(
+                  "/user-cart",
+                  { product_option_id: this.state.selectedId, qty: this.qty },
+                  getHeader()
+                )
+                  .then(() => {
+                    let { history } = this.props;
+                    history.push("/mycart");
+                  })
+                  .catch(() => {
+                    this.setState({
+                      alert: {
+                        show: true,
+                        message:
+                          "Unsuccessful Add to Cart, Please try again later.",
+                        type: "error",
+                      },
+                    });
+                  })
+              }
+            >
               <i className="fa fa-shopping-cart"></i> Add to Cart
             </button>
             <div className="pull-right">
@@ -130,4 +176,4 @@ class ProductBodyDes extends Component {
   }
 }
 
-export default ProductBodyDes;
+export default withRouter(ProductBodyDes);

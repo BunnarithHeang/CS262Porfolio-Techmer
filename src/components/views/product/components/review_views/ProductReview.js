@@ -31,6 +31,7 @@ export default function ProductReview(props) {
     // }
     for (var i = pagination[0] - 1; i < pagination[0] + 2; ++i) {
       if (feedbacks[i] === null) break;
+      console.log(feedbacks[i]);
       reviewComponents.push(<SingleReview feedback={feedbacks[i]} key={i}/>)
     }
     setShowingFeedbacks(reviewComponents)

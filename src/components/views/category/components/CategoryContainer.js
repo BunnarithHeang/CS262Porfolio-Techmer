@@ -18,8 +18,10 @@ export default function CategoryContainer(props) {
               ""
             )}
           </div>
-          <img src={product.gallery[0]} style={imageStyle} 
-            alt="Unavailable Image" 
+          <img
+            src={product.gallery[0]}
+            style={imageStyle}
+            alt="Unavailable Image"
           />
         </div>
         <div className="product-body">

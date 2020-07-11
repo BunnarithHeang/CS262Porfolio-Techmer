@@ -7,7 +7,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios';
 import { getHeader } from '../../../AuthUser';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, TextField } from '@material-ui/core';
+import checkImg from '../../../images/check.png';
+import reportImg from '../../../images/report.png';
 
 // const payments = [
 //   { name: 'Card type', detail: 'Visa' },
@@ -51,6 +53,22 @@ function parseData(resData) {
   return data;
 }
 
+function verifyCoupon(coupon, setCoupon, setCouponApplied) {
+  Axios.get('/coupon/check/' + coupon, getHeader())
+    .then(res => {
+      if (res.status === 200) {
+        setCoupon(res.data);
+        setCouponApplied(true);
+        return true;
+      }
+    })
+    .catch((error) => { 
+      console.log(error.response) 
+      setCouponApplied(false);
+      return false;
+    });
+}
+
 
 export default function Review(props) {
   const classes = useStyles();
@@ -58,10 +76,14 @@ export default function Review(props) {
   let cardDetails = props.cardDetails;
   let products = props.products;
   let setProducts = props.setProducts;
+  let coupon = props.coupon; 
+  let setCoupon = props.setCoupon;
+
   const [address, setAddress] = React.useState({});
-  // const [products, setProducts] = React.useState([]);
   const [showLoading, setLoading] = React.useState(true);
   const [totalPrice, setTotal] = React.useState(0);
+  const [couponApplied, setCouponApplied] = React.useState(false); //check coupon applied
+
   var payments = [];
 
   React.useEffect(() => {
@@ -97,7 +119,7 @@ export default function Review(props) {
   payments.push({name: 'Card holder', detail: cardDetails.card.name});
   payments.push({name: 'Card number', detail: `xxxx-xxxx-xxxx-${cardDetails.card.last4}`});
   payments.push({name: 'Expiry date', detail: `${cardDetails.card.exp_month}/${cardDetails.card.exp_year}`});
-  
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -107,20 +129,66 @@ export default function Review(props) {
         {
           !showLoading 
           ? (products.map((product, index) => {
-            return (<ListItem className={classes.listItem} key={index}>
-              <ListItemText primary={product.name} secondary={product.qty} />
-              <Typography variant="body2">{product.price}</Typography>
-            </ListItem>)
-          })) : (
+            return (
+              <ListItem className={classes.listItem} key={index}>
+                <ListItemText primary={product.name} secondary={product.qty} />
+                <Typography variant="body2">{product.price}</Typography>
+              </ListItem>
+            )})) : (
             <LinearProgress 
               status={'loading'}
             />
           )
         }
         <ListItem className={classes.listItem}>
+          <ListItemText primary="Coupon" />
+          <TextField 
+            value={typeof coupon === 'object' ? coupon.coupon : coupon} 
+            onChange={(e) => {
+              if (e.target.value == '') {
+               setCoupon('');
+               setCouponApplied(false)
+              }
+              setCoupon(e.target.value)
+            }} 
+            label="Apply Coupon Here"
+          />
+          <button onClick={() => {
+            verifyCoupon(coupon, setCoupon, setCouponApplied) 
+          }}>
+            Apply
+          </button>
+        </ListItem>
+
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Sub-Total" />
+          <Typography variant="body2" className={classes.total}>
+            ${totalPrice.toFixed(2)}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Coupon Applied:" />
+          <Typography variant="body1" className={classes.total}>
+            { typeof coupon === 'string' 
+              ? coupon.length === 0 
+                ? ""
+                : <img src={reportImg} width="15px" height="15px"/>
+              : couponApplied 
+                ? <img src={checkImg} width="15px" height="15px"/> 
+                : ""
+            } 
+            {" "}{" "}
+            %{couponApplied ? coupon.discount : 0}
+          </Typography>
+        </ListItem>
+        <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            ${totalPrice.toFixed(2)}
+            ${
+              (couponApplied 
+                ? (coupon.discount / 100) * totalPrice : totalPrice
+              ).toFixed(2)
+            }
           </Typography>
         </ListItem>
       </List>

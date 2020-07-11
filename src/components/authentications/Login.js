@@ -94,14 +94,15 @@ export default function SignIn() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+        <Typography component="h1" variant="h2">
+          Techfinder
+        </Typography>
         <Typography component="h1" variant="h3">
           Login
         </Typography>
         <form className={classes.form} noValidate>
           <Collapse in={alert.show}>
-            <Alert severity="error">
-              This is an error alert — check it out!
-            </Alert>
+            <Alert severity="error">Credential Failed</Alert>
           </Collapse>
           <TextField
             variant="outlined"
@@ -127,10 +128,6 @@ export default function SignIn() {
             autoComplete="current-password"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             fullWidth
             variant="contained"
@@ -142,7 +139,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/forgot-password" variant="body2">
+              <Link to="/forgot-password" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
