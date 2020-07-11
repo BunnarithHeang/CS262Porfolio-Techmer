@@ -5,7 +5,6 @@ import CategoryContainer from "../category/components/CategoryContainer";
 import { Grid } from "@material-ui/core";
 import Axios from "axios";
 import { getHeader } from "../../../AuthUser";
-import CategoryContainer from "../Home/ProductContainer";
 import Slider from "react-slick";
 
 export default class ProductSearch extends Component {
