@@ -1,5 +1,8 @@
 import React from "react";
 import BreadCrumb from "./../universal_components/BreadCrumb";
+import ProductPicView from "./components/ProductPicView";
+import ProductBodyDes from "./components/ProductBodyDes";
+import ProductReview from "./components/review_views/ProductReview";
 import StoreTopBottomFilter from "./sort/StoreTopBottomFilter";
 import CategoryContainer from "../category/components/CategoryContainer";
 import { Grid } from "@material-ui/core";
@@ -65,53 +68,51 @@ export default class ProductSearch extends Component {
 
   render() {
     return (
-      <body>
-        <div>
-          <BreadCrumb pageName={"/ Search / " + this.state.searchname} />
+      <div>
+        <BreadCrumb pageName={"/ Search / " + this.state.searchname} />
 
-          <div className="section">
-            <div className="container">
-              <div className="row">
-                {/* <StoreSideFilter /> */}
+        <div className="section">
+          <div className="container">
+            <div className="row">
+              {/* <StoreSideFilter /> */}
 
-                <div id="main" className="col-md-12">
-                  <StoreTopBottomFilter
-                    key={1}
-                    maxPageIndex={this.state.maxPageIndex}
-                    selectedIndex={this.state.currentPage}
-                    onIndexClick={(index) => {
-                      this.changePage(index);
-                    }}
-                  />
+              <div id="main" className="col-md-12">
+                <StoreTopBottomFilter
+                  key={1}
+                  maxPageIndex={this.state.maxPageIndex}
+                  selectedIndex={this.state.currentPage}
+                  onIndexClick={(index) => {
+                    this.changePage(index);
+                  }}
+                />
 
-                  <div id="store">
-                    <div className="row">
-                      {this.state.productContainers.length > 0 ? (
-                        <Grid container spacing={2}>
-                          {this.state.productContainers}
-                        </Grid>
-                      ) : (
-                        <h3 style={{ textAlign: "center", fontWeight: "600" }}>
-                          Product Not Found
-                        </h3>
-                      )}
-                    </div>
+                <div id="store">
+                  <div className="row">
+                    {this.state.productContainers.length > 0 ? (
+                      <Grid container spacing={2}>
+                        {this.state.productContainers}
+                      </Grid>
+                    ) : (
+                      <h3 style={{ textAlign: "center", fontWeight: "600" }}>
+                        Product Not Found
+                      </h3>
+                    )}
                   </div>
-
-                  <StoreTopBottomFilter
-                    key={2}
-                    maxPageIndex={this.state.maxPageIndex}
-                    selectedIndex={this.state.currentPage}
-                    onIndexClick={(index) => {
-                      this.changePage(index);
-                    }}
-                  />
                 </div>
+
+                <StoreTopBottomFilter
+                  key={2}
+                  maxPageIndex={this.state.maxPageIndex}
+                  selectedIndex={this.state.currentPage}
+                  onIndexClick={(index) => {
+                    this.changePage(index);
+                  }}
+                />
               </div>
             </div>
           </div>
         </div>
-      </body>
+      </div>
     );
   }
 }

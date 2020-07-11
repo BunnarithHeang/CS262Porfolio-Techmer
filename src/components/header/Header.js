@@ -162,7 +162,7 @@ export default function Header() {
                 {/* <!-- /Account --> */}
 
                 {/* <!-- Cart --> */}
-                <li className="header-cart dropdown default-dropdown">
+                {/* <li className="header-cart dropdown default-dropdown">
                   <div
                     className="dropdown-toggle"
                     data-toggle="dropdown"
@@ -171,7 +171,6 @@ export default function Header() {
                     <div className="header-btns-icon">
                       <Link to="/mycart">
                         <i className="fa fa-shopping-cart"></i>
-                        {/* <span className="qty">3</span> */}
                       </Link>
                     </div>
                     <div className="pull-left">
@@ -180,7 +179,7 @@ export default function Header() {
                       </Link>
                     </div>
                   </div>
-                </li>
+                </li> */}
                 {/* <!-- /Cart --> */}
 
                 {/* <!-- Mobile nav toggle--> */}
