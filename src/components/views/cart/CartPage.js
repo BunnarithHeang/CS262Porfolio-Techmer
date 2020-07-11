@@ -200,17 +200,13 @@ export default class CartPage extends Component {
                 >
                   <div className="cart-total-area mt-70">
                     <ul className="cart-total-chart">
-                      <li>
+                      {/* <li>
                         <span style={header}>Subtotal:</span>{" "}
                         <span style={liText}>
                           ${this.state.subTotal.toFixed(2)}
                         </span>
-                      </li>
-                      <li>
-                        <span style={header}>Discount:</span>{" "}
-                        <span style={liText}>$0</span>
-                      </li>
-                      <li>
+                      </li> */}
+                      {/* <li>
                         <span>
                           <strong style={header}>Total: </strong>
                         </span>{" "}
@@ -219,9 +215,11 @@ export default class CartPage extends Component {
                             ${this.state.subTotal.toFixed(2)}
                           </strong>
                         </span>
-                      </li>
+                      </li> */}
                     </ul>
-                    <Link to="/checkout" className="proceedToCheckoutBtn">Proceed to checkout</Link>
+                    <Link to="/checkout" className="proceedToCheckoutBtn">
+                      Proceed to checkout
+                    </Link>
                   </div>
                 </div>
               )}
