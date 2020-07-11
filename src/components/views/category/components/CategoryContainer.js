@@ -48,7 +48,7 @@ export default function CategoryContainer(props) {
                     ? product.title.substr(0, props.key_num) + "..."
                     : product.title}
                 </label>
-              </Link>s
+              </Link>
             </h4>
           </div>
           <div className="product-btns">

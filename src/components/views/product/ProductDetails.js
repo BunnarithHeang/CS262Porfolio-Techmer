@@ -5,11 +5,57 @@ import ProductBodyDes from "./components/ProductBodyDes";
 import ProductReview from "./components/review_views/ProductReview";
 import Axios from "axios";
 import { getHeader } from "../../../AuthUser";
-import CategoryContainer from "../category/components/CategoryContainer";
+import CategoryContainer from "../Home/ProductContainer";
+import Slider from "react-slick";
+
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        backgroundColor: "black",
+        borderRadius: "5px",
+        paddingTop: "2px",
+      }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        backgroundColor: "black",
+        borderRadius: "5px",
+        paddingTop: "2px",
+      }}
+      onClick={onClick}
+    />
+  );
+}
 
 export default function ProductDetails(props) {
   const [product, setProduct] = React.useState(0);
   const [pickForYou, setPickForYou] = React.useState(0);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    prevArrow: <SamplePrevArrow />,
+    nextArrow: <SampleNextArrow />,
+  };
 
   React.useEffect(() => {
     Axios.get("/product/" + props.params.product_id, getHeader())
@@ -27,7 +73,7 @@ export default function ProductDetails(props) {
       })
       .catch((error) => console.log(error.response));
   }, [props.params.product_id]);
-
+  
   return (
     <React.Fragment>
       <div>
@@ -59,7 +105,12 @@ export default function ProductDetails(props) {
                 <h2 className="title">Picked For You</h2>
               </div>
             </div>
-            {pickForYou}
+            <div className="col-md-12">
+            <Slider {...settings}>
+              {pickForYou}
+              {pickForYou}
+              </Slider>
+            </div>
           </div>
         </div>
       </div>

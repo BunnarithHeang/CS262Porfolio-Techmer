@@ -21,7 +21,6 @@ import Checkout from "../views/CheckOut";
 import Profile from "../views/Profile";
 import ProductSearch from "../views/products/ProductSearch";
 import Invoice from "../views/invoice";
-import loading from "../views/loading";
 import ResetPassword from "../authentications/ResetPassword";
 import ForgotPassword from "../authentications/ForgotPassword";
 

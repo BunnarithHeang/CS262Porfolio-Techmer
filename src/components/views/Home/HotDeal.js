@@ -7,7 +7,7 @@ export default function HotDeal(props) {
                     <img src={props.imgsrc} className="img-responsive"/>
                 <div>
                     <h2 className="text-dark">NEW COLLECTION</h2>
-                    <Link to ="/products" className="btn btn-danger">Go shop</Link>
+                    <Link to ="/product" className="btn btn-danger">Go shop</Link>
                 </div>
             </div>
         </div>
