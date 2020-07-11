@@ -34,6 +34,7 @@ export default class Navbar extends Component {
                 <li>
                   <Link to="/brand">Shop By Brand</Link>
                 </li>
+
                 <li className="dropdown default-dropdown">
                   <a
                     className="dropdown-toggle"
@@ -45,6 +46,9 @@ export default class Navbar extends Component {
                   <ul className="custom-menu">
                     <li>
                       <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                      <a href="/aboutus">About Us</a>
                     </li>
                     <li>
                       <Link to="/products/a">Products</Link>
